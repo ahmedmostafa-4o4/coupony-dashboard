@@ -24,7 +24,7 @@ function resolveBaseUrl() {
   return (
     process.env.NEXT_PUBLIC_API_BASE_URL ??
     process.env.API_BASE_URL ??
-    ""
+    "https://api.coupony.shop/api/v1"
   ).replace(/\/$/, "");
 }
 
@@ -32,7 +32,7 @@ function resolveUrl(path: string, query?: Record<string, QueryValue>) {
   const baseUrl = resolveBaseUrl();
   const url = new URL(
     path.startsWith("http") ? path : `${baseUrl}${path}`,
-    baseUrl ? undefined : "http://localhost"
+    baseUrl ? undefined : "http://localhost",
   );
 
   if (query) {
@@ -86,14 +86,16 @@ async function request<T>(path: string, options: ApiRequestOptions = {}) {
     }
 
     const errorPayload = (await parseApiResponse<ApiErrorPayload | string>(
-      response
+      response,
     ).catch(() => null)) as ApiErrorPayload | string | null;
 
     throw new ApiError({
       message:
         typeof errorPayload === "string"
           ? errorPayload
-          : errorPayload?.message ?? response.statusText ?? "API request failed",
+          : (errorPayload?.message ??
+            response.statusText ??
+            "API request failed"),
       status: response.status,
       details:
         typeof errorPayload === "string" ? undefined : errorPayload?.details,
@@ -113,7 +115,7 @@ export const apiClient = {
   post<T, TBody = unknown>(
     path: string,
     body?: TBody,
-    options?: ApiRequestOptions
+    options?: ApiRequestOptions,
   ) {
     return request<T>(path, {
       ...options,
@@ -124,7 +126,7 @@ export const apiClient = {
   patch<T, TBody = unknown>(
     path: string,
     body?: TBody,
-    options?: ApiRequestOptions
+    options?: ApiRequestOptions,
   ) {
     return request<T>(path, {
       ...options,
@@ -135,7 +137,7 @@ export const apiClient = {
   put<T, TBody = unknown>(
     path: string,
     body?: TBody,
-    options?: ApiRequestOptions
+    options?: ApiRequestOptions,
   ) {
     return request<T>(path, {
       ...options,
