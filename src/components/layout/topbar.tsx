@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { siteConfig } from "@/config/site";
 import { AdminNavigation } from "@/components/navigation/admin-nav";
+import { LogoutButton } from "@/components/layout/logout-button";
 import { createAdminHref } from "@/features/admin/shared";
 
 export function Topbar({ lang }: { lang: string }) {
@@ -31,6 +32,7 @@ export function Topbar({ lang }: { lang: string }) {
         >
           Dashboard
         </Link>
+        <LogoutButton className="rounded-full" />
       </div>
     </header>
   );

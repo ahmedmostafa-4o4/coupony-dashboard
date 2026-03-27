@@ -191,6 +191,45 @@ export function StoreDetailsPage({
         submitLabel="Update store"
         title="Update store"
       />
+      <AdminSection description="Linked seller account returned by the API." title="Owner">
+        <AdminRecordGrid value={detailState.item.owner ?? { message: "No owner payload returned." }} />
+      </AdminSection>
+      <AdminSection description="Store categories attached to this merchant." title="Categories">
+        <AdminRecordGrid
+          value={
+            detailState.item.categories?.length
+              ? detailState.item.categories
+              : [{ message: "No categories attached." }]
+          }
+        />
+      </AdminSection>
+      <AdminSection description="Known store addresses and branch locations." title="Addresses">
+        <AdminRecordGrid
+          value={
+            detailState.item.addresses?.length
+              ? detailState.item.addresses
+              : [{ message: "No addresses returned." }]
+          }
+        />
+      </AdminSection>
+      <AdminSection description="Verification documents and moderation statuses." title="Verifications">
+        <AdminRecordGrid
+          value={
+            detailState.item.verifications?.length
+              ? detailState.item.verifications
+              : [{ message: "No verifications returned." }]
+          }
+        />
+      </AdminSection>
+      <AdminSection description="Store opening hours returned by the API." title="Hours">
+        <AdminRecordGrid
+          value={
+            detailState.item.hours?.length
+              ? detailState.item.hours
+              : [{ message: "No hours returned." }]
+          }
+        />
+      </AdminSection>
       <AdminSection description="Structured fields returned for this record." title="Store details">
         <AdminRecordGrid value={detailState.item} />
       </AdminSection>

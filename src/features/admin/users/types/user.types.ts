@@ -8,18 +8,25 @@ import type {
   AdminUserActionReasonDto,
   AdminUsersQueryDto,
   RoleDto,
-  UserDto,
   UserProfileDto,
+  UserRecordDto,
+  UserStatisticsDto,
+  UserStoreSummaryDto,
   UserRoleAssignmentDto,
 } from "./users.dto";
 
 export type UserProfile = Camelized<UserProfileDto>;
 export type UserRoleAssignment = Camelized<UserRoleAssignmentDto>;
 export type UserRole = Camelized<RoleDto>;
-export type User = Camelized<UserDto> & {
+export type UserStoreSummary = Camelized<UserStoreSummaryDto>;
+export type UserStatistics = Camelized<UserStatisticsDto>;
+export type User = Camelized<UserRecordDto> & {
+  fullName?: string;
   name?: string;
   profile?: UserProfile | null;
-  roles?: Array<UserRole | UserRoleAssignment>;
+  roleNames?: string[];
+  roles?: Array<string | UserRole | UserRoleAssignment>;
+  stores?: UserStoreSummary[];
 };
 
 export type UsersListFilters = Camelized<AdminUsersQueryDto> & {
@@ -28,6 +35,7 @@ export type UsersListFilters = Camelized<AdminUsersQueryDto> & {
 
 export type UsersListResult = AdminListResult<User>;
 export type UserDetailsResult = AdminItemResult<User>;
+export type UserStatisticsResult = AdminItemResult<UserStatistics>;
 export type CreateUserRequest = AdminCreateUserDto;
 export type UpdateUserRequest = AdminUpdateUserDto;
 export type AssignUserRoleRequest = AdminAssignUserRoleDto;

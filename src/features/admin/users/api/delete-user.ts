@@ -8,8 +8,9 @@ export async function deleteUser(
   userId: string,
   payload: UserActionReasonRequest = {}
 ) {
-  return apiClient.post<AdminDeleteUserResponseDto, UserActionReasonRequest>(
-    apiEndpoints.admin.users.delete(userId),
-    payload
+  void payload;
+
+  return apiClient.delete<AdminDeleteUserResponseDto>(
+    apiEndpoints.admin.users.delete(userId)
   );
 }

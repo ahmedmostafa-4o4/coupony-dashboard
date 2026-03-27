@@ -1,9 +1,11 @@
 import type { ApiErrorPayload } from "@/types";
+import { getAccessToken, logoutAndRedirect } from "@/lib/auth/session";
 
 type QueryValue = string | number | boolean | null | undefined;
 
 export interface ApiRequestOptions extends RequestInit {
   query?: Record<string, QueryValue>;
+  auth?: "include" | "omit";
 }
 
 export class ApiError extends Error {
@@ -63,10 +65,12 @@ async function parseApiResponse<T>(response: Response) {
 }
 
 async function request<T>(path: string, options: ApiRequestOptions = {}) {
-  const { query, headers, body, ...rest } = options;
+  const { auth = "include", query, headers, body, ...rest } = options;
+  const accessToken = auth === "include" ? getAccessToken() : null;
   const resolvedHeaders = {
     Accept: "application/json, text/plain;q=0.9, */*;q=0.8",
     ...(body ? { "Content-Type": "application/json" } : {}),
+    ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
     ...headers,
   };
 
@@ -77,6 +81,10 @@ async function request<T>(path: string, options: ApiRequestOptions = {}) {
   });
 
   if (!response.ok) {
+    if (response.status === 401 && auth === "include") {
+      logoutAndRedirect();
+    }
+
     const errorPayload = (await parseApiResponse<ApiErrorPayload | string>(
       response
     ).catch(() => null)) as ApiErrorPayload | string | null;

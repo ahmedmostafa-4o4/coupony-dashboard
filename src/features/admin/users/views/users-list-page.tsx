@@ -7,6 +7,7 @@ import { UsersFilters } from "../components/users-filters";
 import { UserForm } from "../components/user-form";
 import { UsersTable } from "../components/users-table";
 import { useUserActions } from "../hooks/use-user-actions";
+import { useUserStatistics } from "../hooks/use-user-statistics";
 import { useUsersList } from "../hooks/use-users-list";
 import type { UsersListFilters } from "../types/user.types";
 
@@ -18,7 +19,10 @@ export function UsersListPage({ lang }: { lang: string }) {
   
   
   const listState = useUsersList(filters);
-  const actions = useUserActions(async () => { await listState.reload(); });
+  const statisticsState = useUserStatistics();
+  const actions = useUserActions(async () => {
+    await Promise.all([listState.reload(), statisticsState.reload()]);
+  });
 
   return (
     <div className="space-y-6">
@@ -41,11 +45,31 @@ export function UsersListPage({ lang }: { lang: string }) {
         eyebrow="Admin"
         title="Users"
       />
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         <AdminStatCard
-          hint="Users currently loaded from the API response."
-          label="Rows"
-          value={listState.total}
+          hint="Total user accounts returned by the statistics endpoint."
+          label="Total"
+          value={statisticsState.item?.total ?? listState.total}
+        />
+        <AdminStatCard
+          hint="Currently active users."
+          label="Active"
+          value={statisticsState.item?.active ?? "-"}
+        />
+        <AdminStatCard
+          hint="Customer accounts."
+          label="Customers"
+          value={statisticsState.item?.customers ?? "-"}
+        />
+        <AdminStatCard
+          hint="Seller accounts."
+          label="Sellers"
+          value={statisticsState.item?.sellers ?? "-"}
+        />
+        <AdminStatCard
+          hint="Pending seller approvals."
+          label="Pending Sellers"
+          value={statisticsState.item?.pendingSellers ?? "-"}
         />
       </div>
       <UsersFilters
@@ -56,6 +80,11 @@ export function UsersListPage({ lang }: { lang: string }) {
       {listState.error ? (
         <AdminSection title="Request error">
           <p className="text-sm text-rose-600">{listState.error}</p>
+        </AdminSection>
+      ) : null}
+      {statisticsState.error ? (
+        <AdminSection title="Statistics error">
+          <p className="text-sm text-rose-600">{statisticsState.error}</p>
         </AdminSection>
       ) : null}
       {activeComposer === "createAction" ? (

@@ -1,15 +1,14 @@
-import { apiClient } from "@/lib/api/client";
-import { apiEndpoints } from "@/lib/api/endpoints";
-
-import type { AdminSuspendUserResponseDto } from "../types/users.dto";
 import type { UserActionReasonRequest } from "../types/user.types";
+import { updateUserStatus } from "./update-user-status";
+import type { AdminUpdateUserStatusResponseDto } from "../types/users.dto";
 
 export async function suspendUser(
   userId: string,
   payload: UserActionReasonRequest = {}
 ) {
-  return apiClient.post<AdminSuspendUserResponseDto, UserActionReasonRequest>(
-    apiEndpoints.admin.users.suspend(userId),
-    payload
-  );
+  void payload;
+
+  return updateUserStatus(userId, {
+    status: "suspended",
+  }) as Promise<AdminUpdateUserStatusResponseDto>;
 }

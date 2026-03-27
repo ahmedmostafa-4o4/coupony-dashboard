@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { LogoutButton } from "@/components/layout/logout-button";
 import { siteConfig } from "@/config/site";
 import { AdminNavigation } from "@/components/navigation/admin-nav";
 
@@ -23,6 +24,9 @@ export function Sidebar({ lang }: { lang: string }) {
         </div>
       </div>
       <AdminNavigation lang={lang} />
+      <div className="mt-auto border-t border-slate-200 pt-4">
+        <LogoutButton className="w-full justify-center" />
+      </div>
     </aside>
   );
 }

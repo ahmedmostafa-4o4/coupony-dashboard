@@ -19,12 +19,32 @@ const columns: AdminColumn<Store>[] = [
   {
     id: "ownerName",
     header: "Owner",
-    accessorKey: "ownerName",
+    cell: (item) => (
+      <div className="min-w-0">
+        <p className="truncate font-medium text-slate-900">
+          {item.ownerName ?? "Unknown owner"}
+        </p>
+        <p className="truncate text-xs text-slate-500">
+          {item.owner?.email ?? item.email ?? "No email"}
+        </p>
+      </div>
+    ),
+  },
+  {
+    id: "categories",
+    header: "Categories",
+    cell: (item) =>
+      item.categoryNames?.length ? item.categoryNames.join(", ") : "Unassigned",
   },
   {
     id: "status",
     header: "Status",
     cell: (item) => <StoreStatusBadge value={item.status} />,
+  },
+  {
+    id: "rating",
+    header: "Rating",
+    cell: (item) => item.ratingLabel ?? "No ratings",
   },
   {
     id: "createdAt",

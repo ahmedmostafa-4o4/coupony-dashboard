@@ -2,46 +2,44 @@
 
 import Image from "next/image";
 import { FormEvent, useState } from "react";
-// import { loginAdmin } from "@/lib/auth-api";
+
+import { getLocalizedAdminHref, persistAuthSession } from "@/lib/auth/session";
+import { loginAdmin } from "@/lib/api/auth";
+import { ApiError } from "@/lib/api/client";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     setErrorMessage("");
     setIsSubmitting(true);
+
+    try {
+      const response = await loginAdmin({
+        email: email.trim(),
+        password,
+        role: "admin",
+      });
+
+      persistAuthSession(response.data, rememberMe);
+      window.location.assign(getLocalizedAdminHref());
+      return;
+    } catch (error) {
+      setErrorMessage(
+        error instanceof ApiError || error instanceof Error
+          ? error.message
+          : "Unable to sign in right now."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
-  //     try {
-  //       const result = await loginAdmin({
-  //         email,
-  //         password,
-  //         role: "admin",
-  //       });
-
-  //       if (typeof window !== "undefined") {
-  //         localStorage.setItem("access_token", result.data.access_token);
-  //         localStorage.setItem("refresh_token", result.data.refresh_token);
-  //         localStorage.setItem("user", JSON.stringify(result.data.user));
-  //         localStorage.setItem("role", result.data.role);
-  //         localStorage.setItem("remember_me", String(rememberMe));
-  //       }
-
-  //       router.push("/admin");
-  //     } catch (error) {
-  //       const message =
-  //         error instanceof Error ? error.message : "Something went wrong";
-  //       setErrorMessage(message);
-  //     } finally {
-  //       setIsSubmitting(false);
-  //     }
-  //   }
 
   return (
     <main className="min-h-screen bg-[#f7f7f7]">
@@ -56,7 +54,7 @@ export default function LoginPage() {
                   <div className="text-lg font-semibold text-zinc-800">
                     Performance
                   </div>
-                  <div className="text-zinc-400">•••</div>
+                  <div className="text-zinc-400">...</div>
                 </div>
                 <div className="grid grid-cols-4 gap-3">
                   {[
@@ -95,7 +93,8 @@ export default function LoginPage() {
                   +6.22% this week
                 </div>
               </div>
-              <div className="absolute translate-x-[-50%] translate-y-[-50%] top-1/2 left-1/2 bg-white/40 rounded-[36px] p-5 shadow-2xl backdrop-blur">
+
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[36px] bg-white/40 p-5 shadow-2xl backdrop-blur">
                 <Image
                   src="/images/logo.png"
                   alt="Coupony Logo"
@@ -108,7 +107,7 @@ export default function LoginPage() {
               <div className="absolute bottom-20 right-8 rounded-[28px] bg-white p-6 shadow-2xl">
                 <Image
                   src="/images/auth-visual.svg"
-                  alt="Placeholder dashboard visual"
+                  alt="Admin dashboard placeholder visual"
                   width={180}
                   height={180}
                   priority
@@ -150,7 +149,7 @@ export default function LoginPage() {
                   placeholder="Enter your email"
                   autoComplete="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(event) => setEmail(event.target.value)}
                   className="h-14 w-full rounded-full border border-zinc-200 bg-zinc-50 px-5 text-sm outline-none transition focus:border-orange-400 focus:bg-white"
                   required
                 />
@@ -170,13 +169,14 @@ export default function LoginPage() {
                     placeholder="Enter your password"
                     autoComplete="current-password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(event) => setPassword(event.target.value)}
                     className="h-14 w-full rounded-full border border-zinc-200 bg-zinc-50 px-5 pr-14 text-sm outline-none transition focus:border-orange-400 focus:bg-white"
                     required
                   />
                   <button
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                     type="button"
-                    onClick={() => setShowPassword((prev) => !prev)}
+                    onClick={() => setShowPassword((previous) => !previous)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-zinc-500"
                   >
                     {showPassword ? "Hide" : "Show"}
@@ -188,7 +188,7 @@ export default function LoginPage() {
                 <input
                   type="checkbox"
                   checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
+                  onChange={(event) => setRememberMe(event.target.checked)}
                   className="h-4 w-4 rounded border-zinc-300 accent-orange-500"
                 />
                 Remember me

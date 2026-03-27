@@ -14,20 +14,36 @@ export interface AdminItemResult<TItem> {
   raw: unknown;
 }
 
+type AdminListEnvelope<TDto> = ApiSuccessResponse<PaginatedResultDto<TDto> | TDto[]> & {
+  meta?: Record<string, unknown>;
+  pagination?: Record<string, unknown>;
+};
+
 export function mapPaginatedResponse<TDto, TItem = Camelized<TDto>>(
-  response: ApiSuccessResponse<PaginatedResultDto<TDto>>,
+  response: AdminListEnvelope<TDto>,
   mapItem?: (item: Camelized<TDto>) => TItem
 ): AdminListResult<TItem> {
-  const data = camelizeKeys(response.data) as unknown as Camelized<
-    PaginatedResultDto<TDto>
-  >;
-  const items = data.items.map((item) => (mapItem ? mapItem(item) : (item as TItem)));
+  const rawResponse = camelizeKeys(response) as {
+    data: Camelized<PaginatedResultDto<TDto>> | Camelized<TDto>[];
+    meta?: Record<string, unknown>;
+    pagination?: Record<string, unknown>;
+  };
+  const data = rawResponse.data;
+  const rawItems = Array.isArray(data) ? data : (data.items ?? []);
+  const meta = Array.isArray(data)
+    ? (rawResponse.meta ?? rawResponse.pagination ?? {})
+    : ((data.pagination as Record<string, unknown> | undefined) ??
+      rawResponse.meta ??
+      rawResponse.pagination ??
+      {});
+  const items = rawItems.map((item) => (mapItem ? mapItem(item) : (item as TItem)));
+  const total = typeof meta.total === "number" ? meta.total : items.length;
 
   return {
     items,
-    meta: data.pagination as Record<string, unknown>,
+    meta,
     raw: response,
-    total: data.pagination.total,
+    total,
   };
 }
 

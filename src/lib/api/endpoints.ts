@@ -3,14 +3,19 @@ function segment(value: string) {
 }
 
 export const apiEndpoints = {
+  auth: {
+    login: "/auth/login",
+  },
   admin: {
     dashboard: "/admin/dashboard",
     users: {
       list: "/admin/users",
+      statistics: "/admin/users/statistics",
       detail: (userId: string) => `/admin/users/${segment(userId)}`,
+      status: (userId: string) => `/admin/users/${segment(userId)}/status`,
       activate: (userId: string) => `/admin/users/${segment(userId)}/activate`,
       suspend: (userId: string) => `/admin/users/${segment(userId)}/suspend`,
-      delete: (userId: string) => `/admin/users/${segment(userId)}/delete`,
+      delete: (userId: string) => `/admin/users/${segment(userId)}`,
       roles: (userId: string) => `/admin/users/${segment(userId)}/roles`,
       roleAssignment: (userId: string, assignmentId: string) =>
         `/admin/users/${segment(userId)}/roles/${segment(assignmentId)}`,
@@ -33,9 +38,9 @@ export const apiEndpoints = {
         `/admin/categories/${segment(categoryId)}`,
     },
     storeCategories: {
-      list: "/admin/store-categories",
+      list: "/admin/store-category",
       detail: (storeCategoryId: string) =>
-        `/admin/store-categories/${segment(storeCategoryId)}`,
+        `/admin/store-category/${segment(storeCategoryId)}`,
     },
     stores: {
       list: "/admin/stores",
@@ -84,10 +89,12 @@ export const apiEndpoints = {
       invoices: {
         list: "/admin/invoices",
         detail: (invoiceId: string) => `/admin/invoices/${segment(invoiceId)}`,
-        issue: (invoiceId: string) => `/admin/invoices/${segment(invoiceId)}/issue`,
+        issue: (invoiceId: string) =>
+          `/admin/invoices/${segment(invoiceId)}/issue`,
         markPaid: (invoiceId: string) =>
           `/admin/invoices/${segment(invoiceId)}/mark-paid`,
-        void: (invoiceId: string) => `/admin/invoices/${segment(invoiceId)}/void`,
+        void: (invoiceId: string) =>
+          `/admin/invoices/${segment(invoiceId)}/void`,
       },
       commissions: {
         list: "/admin/commissions",
@@ -107,7 +114,8 @@ export const apiEndpoints = {
       },
       subscriptionPlans: {
         list: "/admin/subscription-plans",
-        detail: (planId: string) => `/admin/subscription-plans/${segment(planId)}`,
+        detail: (planId: string) =>
+          `/admin/subscription-plans/${segment(planId)}`,
       },
       payments: {
         list: "/admin/payments",
