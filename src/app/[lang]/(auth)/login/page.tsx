@@ -34,7 +34,7 @@ export default function LoginPage() {
       setErrorMessage(
         error instanceof ApiError || error instanceof Error
           ? error.message
-          : "Unable to sign in right now."
+          : "Unable to sign in right now.",
       );
     } finally {
       setIsSubmitting(false);
@@ -113,10 +113,6 @@ export default function LoginPage() {
                   priority
                 />
               </div>
-
-              <div className="absolute left-6 top-6 text-3xl font-bold text-white">
-                Coupony Admin
-              </div>
             </div>
           </div>
         </section>
@@ -174,7 +170,9 @@ export default function LoginPage() {
                     required
                   />
                   <button
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
                     type="button"
                     onClick={() => setShowPassword((previous) => !previous)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-zinc-500"
