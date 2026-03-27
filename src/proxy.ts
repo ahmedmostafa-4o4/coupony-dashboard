@@ -9,6 +9,12 @@ function getLocalizedHref(request: NextRequest, lang: string, path: string) {
 
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+    const normalizedPath = pathname === "/admin" ? "" : pathname.replace(/^\/admin/, "");
+    return NextResponse.redirect(new URL(`/en/admin${normalizedPath}`, request.url));
+  }
+
   const segments = pathname.split("/").filter(Boolean);
   const [lang = "en", section] = segments;
   const hasAccessToken = Boolean(
@@ -27,5 +33,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/:lang/admin/:path*", "/:lang/login"],
+  matcher: ["/admin/:path*", "/:lang/admin/:path*", "/:lang/login"],
 };
