@@ -13,7 +13,7 @@ export type ISODate = string;
 export type ISODateTime = string;
 export type CurrencyCode = string;
 export type JsonObject = Record<string, unknown>;
-export type SortOrder = 'asc' | 'desc';
+export type SortOrder = "asc" | "desc";
 
 export interface ApiSuccessResponse<T> {
   success: true;
@@ -53,21 +53,53 @@ export interface EntityRefDto {
    Shared entity DTOs
    ========================================================= */
 
-export type UserStatus = 'active' | 'suspended' | 'deleted' | 'pending' | string;
-export type StoreStatus = 'pending' | 'active' | 'rejected' | 'suspended' | 'closed' | string;
-export type VerificationStatus = 'pending' | 'approved' | 'rejected' | string;
-export type OfferStatus = 'draft' | 'pending' | 'approved' | 'rejected' | 'published' | 'archived' | string;
-export type CouponStatus = 'active' | 'inactive' | 'expired' | string;
-export type BillingCycle = 'monthly' | 'quarterly' | 'yearly' | string;
-export type BillingModel = 'commission' | 'subscription' | 'hybrid' | string;
-export type CollectionMethod = 'manual_invoice' | 'card' | 'cash' | string;
-export type InvoiceStatus = 'draft' | 'issued' | 'paid' | 'void' | string;
-export type CommissionStatus = 'pending' | 'invoiced' | 'paid' | 'waived' | string;
-export type CustomerTicketStatus = 'pending' | 'in_progress' | 'resolved' | string;
-export type SellerLeadStatus = 'pending' | 'contacted' | 'converted' | string;
-export type BroadcastChannel = 'push' | 'email' | 'sms' | 'in_app' | string;
-export type RecommendationTargetType = 'store' | 'offer' | 'coupon' | 'category' | string;
-export type RecommendationGeneratedBy = 'manual' | 'system' | 'model' | string;
+export type UserStatus =
+  | "active"
+  | "suspended"
+  | "deleted"
+  | "pending"
+  | string;
+export type StoreStatus =
+  | "pending"
+  | "active"
+  | "rejected"
+  | "suspended"
+  | "closed"
+  | string;
+export type VerificationStatus = "pending" | "approved" | "rejected" | string;
+export type OfferStatus =
+  | "draft"
+  | "pending"
+  | "approved"
+  | "rejected"
+  | "published"
+  | "archived"
+  | string;
+export type CouponStatus = "active" | "inactive" | "expired" | string;
+export type BillingCycle = "monthly" | "quarterly" | "yearly" | string;
+export type BillingModel = "commission" | "subscription" | "hybrid" | string;
+export type CollectionMethod = "manual_invoice" | "card" | "cash" | string;
+export type InvoiceStatus = "draft" | "issued" | "paid" | "void" | string;
+export type CommissionStatus =
+  | "pending"
+  | "invoiced"
+  | "paid"
+  | "waived"
+  | string;
+export type CustomerTicketStatus =
+  | "pending"
+  | "in_progress"
+  | "resolved"
+  | string;
+export type SellerLeadStatus = "pending" | "contacted" | "converted" | string;
+export type BroadcastChannel = "push" | "email" | "sms" | "in_app" | string;
+export type RecommendationTargetType =
+  | "store"
+  | "offer"
+  | "coupon"
+  | "category"
+  | string;
+export type RecommendationGeneratedBy = "manual" | "system" | "model" | string;
 
 export interface UserDto {
   id: UUID;
@@ -352,7 +384,7 @@ export interface AuditLogDto {
 
 export interface ChatMessageDto {
   id: UUID;
-  role?: 'user' | 'assistant' | 'system' | string;
+  role?: "user" | "assistant" | "system" | string;
   content?: string;
   source?: string | null;
   created_at?: ISODateTime;
@@ -468,15 +500,34 @@ export interface AdminAssignUserRoleDto {
   branch_id?: UUID;
 }
 
-export type AdminUsersListResponseDto = ApiSuccessResponse<PaginatedResultDto<UserDto>>;
-export type AdminCreateUserResponseDto = ApiSuccessResponse<{ user: UserDto; profile?: UserProfileDto; roles?: RoleDto[] }>;
-export type AdminUserDetailsResponseDto = ApiSuccessResponse<{ user: UserDto; profile?: UserProfileDto; roles: RoleDto[] | UserRoleAssignmentDto[] }>;
-export type AdminUpdateUserResponseDto = ApiSuccessResponse<{ user: UserDto; profile?: UserProfileDto }>;
-export type AdminActivateUserResponseDto = ApiSuccessResponse<{ user: UserDto }>;
+export type AdminUsersListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<UserDto>
+>;
+export type AdminCreateUserResponseDto = ApiSuccessResponse<{
+  user: UserDto;
+  profile?: UserProfileDto;
+  roles?: RoleDto[];
+}>;
+export type AdminUserDetailsResponseDto = ApiSuccessResponse<{
+  user: UserDto;
+  profile?: UserProfileDto;
+  roles: RoleDto[] | UserRoleAssignmentDto[];
+}>;
+export type AdminUpdateUserResponseDto = ApiSuccessResponse<{
+  user: UserDto;
+  profile?: UserProfileDto;
+}>;
+export type AdminActivateUserResponseDto = ApiSuccessResponse<{
+  user: UserDto;
+}>;
 export type AdminSuspendUserResponseDto = ApiSuccessResponse<{ user: UserDto }>;
 export type AdminDeleteUserResponseDto = ApiSuccessResponse<{ user: UserDto }>;
-export type AdminAssignUserRoleResponseDto = ApiSuccessResponse<{ assignment: UserRoleAssignmentDto }>;
-export type AdminRemoveUserRoleResponseDto = ApiSuccessResponse<{ deleted: true }>;
+export type AdminAssignUserRoleResponseDto = ApiSuccessResponse<{
+  assignment: UserRoleAssignmentDto;
+}>;
+export type AdminRemoveUserRoleResponseDto = ApiSuccessResponse<{
+  deleted: true;
+}>;
 
 /* =========================================================
    Roles & permissions
@@ -500,12 +551,19 @@ export interface AdminRolePermissionsUpdateDto {
 
 export type AdminPermissionsQueryDto = BaseListQueryDto;
 
-export type AdminRolesListResponseDto = ApiSuccessResponse<PaginatedResultDto<RoleDto>>;
+export type AdminRolesListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<RoleDto>
+>;
 export type AdminCreateRoleResponseDto = ApiSuccessResponse<{ role: RoleDto }>;
 export type AdminUpdateRoleResponseDto = ApiSuccessResponse<{ role: RoleDto }>;
 export type AdminDeleteRoleResponseDto = ApiSuccessResponse<{ deleted: true }>;
-export type AdminPermissionsListResponseDto = ApiSuccessResponse<PaginatedResultDto<PermissionDto>>;
-export type AdminUpdateRolePermissionsResponseDto = ApiSuccessResponse<{ role: RoleDto; permissions: PermissionDto[] }>;
+export type AdminPermissionsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<PermissionDto>
+>;
+export type AdminUpdateRolePermissionsResponseDto = ApiSuccessResponse<{
+  role: RoleDto;
+  permissions: PermissionDto[];
+}>;
 
 /* =========================================================
    Categories
@@ -534,10 +592,18 @@ export interface AdminUpdateCategoryDto {
   is_active?: boolean;
 }
 
-export type AdminCategoriesListResponseDto = ApiSuccessResponse<PaginatedResultDto<CategoryDto>>;
-export type AdminCreateCategoryResponseDto = ApiSuccessResponse<{ category: CategoryDto }>;
-export type AdminUpdateCategoryResponseDto = ApiSuccessResponse<{ category: CategoryDto }>;
-export type AdminDeleteCategoryResponseDto = ApiSuccessResponse<{ deleted: true }>;
+export type AdminCategoriesListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<CategoryDto>
+>;
+export type AdminCreateCategoryResponseDto = ApiSuccessResponse<{
+  category: CategoryDto;
+}>;
+export type AdminUpdateCategoryResponseDto = ApiSuccessResponse<{
+  category: CategoryDto;
+}>;
+export type AdminDeleteCategoryResponseDto = ApiSuccessResponse<{
+  deleted: true;
+}>;
 
 /* =========================================================
    Store categories
@@ -561,10 +627,18 @@ export interface AdminUpdateStoreCategoryDto {
   is_active?: boolean;
 }
 
-export type AdminStoreCategoriesListResponseDto = ApiSuccessResponse<PaginatedResultDto<StoreCategoryDto>>;
-export type AdminCreateStoreCategoryResponseDto = ApiSuccessResponse<{ store_category: StoreCategoryDto }>;
-export type AdminUpdateStoreCategoryResponseDto = ApiSuccessResponse<{ store_category: StoreCategoryDto }>;
-export type AdminDeleteStoreCategoryResponseDto = ApiSuccessResponse<{ deleted: true }>;
+export type AdminStoreCategoriesListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<StoreCategoryDto>
+>;
+export type AdminCreateStoreCategoryResponseDto = ApiSuccessResponse<{
+  store_category: StoreCategoryDto;
+}>;
+export type AdminUpdateStoreCategoryResponseDto = ApiSuccessResponse<{
+  store_category: StoreCategoryDto;
+}>;
+export type AdminDeleteStoreCategoryResponseDto = ApiSuccessResponse<{
+  deleted: true;
+}>;
 
 /* =========================================================
    Stores
@@ -598,7 +672,7 @@ export interface AdminApproveStoreDto {
 }
 
 export interface AdminRejectStoreDto {
-  rejection_reason: string;
+  reason: string;
   admin_notes?: string;
 }
 
@@ -610,7 +684,9 @@ export interface AdminCloseStoreDto {
   reason?: string;
 }
 
-export type AdminStoresListResponseDto = ApiSuccessResponse<PaginatedResultDto<StoreDto>>;
+export type AdminStoresListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<StoreDto>
+>;
 export type AdminStoreDetailsResponseDto = ApiSuccessResponse<{
   store: StoreDto;
   owner?: UserDto;
@@ -619,11 +695,21 @@ export type AdminStoreDetailsResponseDto = ApiSuccessResponse<{
   verifications?: StoreVerificationDto[];
   followers_count?: number;
 }>;
-export type AdminUpdateStoreResponseDto = ApiSuccessResponse<{ store: StoreDto }>;
-export type AdminApproveStoreResponseDto = ApiSuccessResponse<{ store: StoreDto }>;
-export type AdminRejectStoreResponseDto = ApiSuccessResponse<{ store: StoreDto }>;
-export type AdminSuspendStoreResponseDto = ApiSuccessResponse<{ store: StoreDto }>;
-export type AdminCloseStoreResponseDto = ApiSuccessResponse<{ store: StoreDto }>;
+export type AdminUpdateStoreResponseDto = ApiSuccessResponse<{
+  store: StoreDto;
+}>;
+export type AdminApproveStoreResponseDto = ApiSuccessResponse<{
+  store: StoreDto;
+}>;
+export type AdminRejectStoreResponseDto = ApiSuccessResponse<{
+  store: StoreDto;
+}>;
+export type AdminSuspendStoreResponseDto = ApiSuccessResponse<{
+  store: StoreDto;
+}>;
+export type AdminCloseStoreResponseDto = ApiSuccessResponse<{
+  store: StoreDto;
+}>;
 
 /* =========================================================
    Store verifications
@@ -641,19 +727,26 @@ export interface AdminRejectStoreVerificationDto {
   rejection_reason: string;
 }
 
-export type AdminStoreVerificationsListResponseDto = ApiSuccessResponse<PaginatedResultDto<StoreVerificationDto>>;
+export type AdminStoreVerificationsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<StoreVerificationDto>
+>;
 export type AdminStoreVerificationDetailsResponseDto = ApiSuccessResponse<{
   store_verification: StoreVerificationDto;
   store: StoreDto;
 }>;
-export type AdminApproveStoreVerificationResponseDto = ApiSuccessResponse<{ store_verification: StoreVerificationDto }>;
-export type AdminRejectStoreVerificationResponseDto = ApiSuccessResponse<{ store_verification: StoreVerificationDto }>;
+export type AdminApproveStoreVerificationResponseDto = ApiSuccessResponse<{
+  store_verification: StoreVerificationDto;
+}>;
+export type AdminRejectStoreVerificationResponseDto = ApiSuccessResponse<{
+  store_verification: StoreVerificationDto;
+}>;
 
 /* =========================================================
    Offers
    ========================================================= */
 
-export interface AdminOffersQueryDto extends BaseListQueryDto, DateRangeQueryDto {
+export interface AdminOffersQueryDto
+  extends BaseListQueryDto, DateRangeQueryDto {
   q?: string;
   status?: OfferStatus;
   store_id?: UUID;
@@ -674,17 +767,27 @@ export interface AdminArchiveOfferDto {
   reason?: string;
 }
 
-export type AdminOffersListResponseDto = ApiSuccessResponse<PaginatedResultDto<OfferDto>>;
+export type AdminOffersListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<OfferDto>
+>;
 export type AdminOfferDetailsResponseDto = ApiSuccessResponse<{
   offer: OfferDto;
   items?: EntityRefDto[];
   branches?: EntityRefDto[];
   store?: StoreDto;
 }>;
-export type AdminApproveOfferResponseDto = ApiSuccessResponse<{ offer: OfferDto }>;
-export type AdminRejectOfferResponseDto = ApiSuccessResponse<{ offer: OfferDto }>;
-export type AdminPublishOfferResponseDto = ApiSuccessResponse<{ offer: OfferDto }>;
-export type AdminArchiveOfferResponseDto = ApiSuccessResponse<{ offer: OfferDto }>;
+export type AdminApproveOfferResponseDto = ApiSuccessResponse<{
+  offer: OfferDto;
+}>;
+export type AdminRejectOfferResponseDto = ApiSuccessResponse<{
+  offer: OfferDto;
+}>;
+export type AdminPublishOfferResponseDto = ApiSuccessResponse<{
+  offer: OfferDto;
+}>;
+export type AdminArchiveOfferResponseDto = ApiSuccessResponse<{
+  offer: OfferDto;
+}>;
 
 /* =========================================================
    Coupons
@@ -704,14 +807,19 @@ export interface AdminUpdateCouponDto {
   end_at?: ISODateTime;
 }
 
-export type AdminCouponsListResponseDto = ApiSuccessResponse<PaginatedResultDto<CouponDto>>;
-export type AdminUpdateCouponResponseDto = ApiSuccessResponse<{ coupon: CouponDto }>;
+export type AdminCouponsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<CouponDto>
+>;
+export type AdminUpdateCouponResponseDto = ApiSuccessResponse<{
+  coupon: CouponDto;
+}>;
 
 /* =========================================================
    Redemptions
    ========================================================= */
 
-export interface AdminRedemptionsQueryDto extends BaseListQueryDto, DateRangeQueryDto {
+export interface AdminRedemptionsQueryDto
+  extends BaseListQueryDto, DateRangeQueryDto {
   status?: string;
   store_id?: UUID;
   branch_id?: UUID;
@@ -722,7 +830,9 @@ export interface AdminFraudBlockRedemptionDto {
   fraud_reason: string;
 }
 
-export type AdminRedemptionsListResponseDto = ApiSuccessResponse<PaginatedResultDto<RedemptionDto>>;
+export type AdminRedemptionsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<RedemptionDto>
+>;
 export type AdminRedemptionDetailsResponseDto = ApiSuccessResponse<{
   redemption: RedemptionDto;
   qr_history?: QrHistoryEventDto[];
@@ -732,7 +842,9 @@ export type AdminRedemptionDetailsResponseDto = ApiSuccessResponse<{
 export type AdminRedemptionTimelineResponseDto = ApiSuccessResponse<{
   items: RedemptionEventDto[];
 }>;
-export type AdminFraudBlockRedemptionResponseDto = ApiSuccessResponse<{ redemption: RedemptionDto }>;
+export type AdminFraudBlockRedemptionResponseDto = ApiSuccessResponse<{
+  redemption: RedemptionDto;
+}>;
 
 /* =========================================================
    Subscription plans
@@ -769,10 +881,18 @@ export interface AdminUpdateSubscriptionPlanDto {
   is_active?: boolean;
 }
 
-export type AdminSubscriptionPlansListResponseDto = ApiSuccessResponse<PaginatedResultDto<SubscriptionPlanDto>>;
-export type AdminCreateSubscriptionPlanResponseDto = ApiSuccessResponse<{ subscription_plan: SubscriptionPlanDto }>;
-export type AdminUpdateSubscriptionPlanResponseDto = ApiSuccessResponse<{ subscription_plan: SubscriptionPlanDto }>;
-export type AdminDeleteSubscriptionPlanResponseDto = ApiSuccessResponse<{ deleted_or_deactivated: true }>;
+export type AdminSubscriptionPlansListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<SubscriptionPlanDto>
+>;
+export type AdminCreateSubscriptionPlanResponseDto = ApiSuccessResponse<{
+  subscription_plan: SubscriptionPlanDto;
+}>;
+export type AdminUpdateSubscriptionPlanResponseDto = ApiSuccessResponse<{
+  subscription_plan: SubscriptionPlanDto;
+}>;
+export type AdminDeleteSubscriptionPlanResponseDto = ApiSuccessResponse<{
+  deleted_or_deactivated: true;
+}>;
 
 /* =========================================================
    Billing profiles
@@ -793,8 +913,12 @@ export interface AdminUpdateStoreBillingProfileDto {
   notes?: string;
 }
 
-export type AdminBillingProfilesListResponseDto = ApiSuccessResponse<PaginatedResultDto<BillingProfileDto>>;
-export type AdminUpdateStoreBillingProfileResponseDto = ApiSuccessResponse<{ billing_profile: BillingProfileDto }>;
+export type AdminBillingProfilesListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<BillingProfileDto>
+>;
+export type AdminUpdateStoreBillingProfileResponseDto = ApiSuccessResponse<{
+  billing_profile: BillingProfileDto;
+}>;
 
 /* =========================================================
    Subscriptions
@@ -818,14 +942,19 @@ export interface AdminUpdateSubscriptionDto {
   cancelled_at?: ISODateTime;
 }
 
-export type AdminSubscriptionsListResponseDto = ApiSuccessResponse<PaginatedResultDto<SubscriptionDto>>;
-export type AdminUpdateSubscriptionResponseDto = ApiSuccessResponse<{ subscription: SubscriptionDto }>;
+export type AdminSubscriptionsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<SubscriptionDto>
+>;
+export type AdminUpdateSubscriptionResponseDto = ApiSuccessResponse<{
+  subscription: SubscriptionDto;
+}>;
 
 /* =========================================================
    Invoices
    ========================================================= */
 
-export interface AdminInvoicesQueryDto extends BaseListQueryDto, DateRangeQueryDto {
+export interface AdminInvoicesQueryDto
+  extends BaseListQueryDto, DateRangeQueryDto {
   store_id?: UUID;
   status?: InvoiceStatus;
 }
@@ -843,21 +972,30 @@ export interface AdminVoidInvoiceDto {
   reason?: string;
 }
 
-export type AdminInvoicesListResponseDto = ApiSuccessResponse<PaginatedResultDto<InvoiceDto>>;
+export type AdminInvoicesListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<InvoiceDto>
+>;
 export type AdminInvoiceDetailsResponseDto = ApiSuccessResponse<{
   invoice: InvoiceDto;
   subscription?: SubscriptionDto | null;
   store?: StoreDto | null;
 }>;
-export type AdminIssueInvoiceResponseDto = ApiSuccessResponse<{ invoice: InvoiceDto }>;
-export type AdminMarkInvoicePaidResponseDto = ApiSuccessResponse<{ invoice: InvoiceDto }>;
-export type AdminVoidInvoiceResponseDto = ApiSuccessResponse<{ invoice: InvoiceDto }>;
+export type AdminIssueInvoiceResponseDto = ApiSuccessResponse<{
+  invoice: InvoiceDto;
+}>;
+export type AdminMarkInvoicePaidResponseDto = ApiSuccessResponse<{
+  invoice: InvoiceDto;
+}>;
+export type AdminVoidInvoiceResponseDto = ApiSuccessResponse<{
+  invoice: InvoiceDto;
+}>;
 
 /* =========================================================
    Commissions
    ========================================================= */
 
-export interface AdminCommissionsQueryDto extends BaseListQueryDto, DateRangeQueryDto {
+export interface AdminCommissionsQueryDto
+  extends BaseListQueryDto, DateRangeQueryDto {
   store_id?: UUID;
   status?: CommissionStatus;
 }
@@ -866,10 +1004,18 @@ export interface AdminCommissionNoteDto {
   note?: string;
 }
 
-export type AdminCommissionsListResponseDto = ApiSuccessResponse<PaginatedResultDto<CommissionDto>>;
-export type AdminMarkCommissionInvoicedResponseDto = ApiSuccessResponse<{ commission: CommissionDto }>;
-export type AdminMarkCommissionPaidResponseDto = ApiSuccessResponse<{ commission: CommissionDto }>;
-export type AdminWaiveCommissionResponseDto = ApiSuccessResponse<{ commission: CommissionDto }>;
+export type AdminCommissionsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<CommissionDto>
+>;
+export type AdminMarkCommissionInvoicedResponseDto = ApiSuccessResponse<{
+  commission: CommissionDto;
+}>;
+export type AdminMarkCommissionPaidResponseDto = ApiSuccessResponse<{
+  commission: CommissionDto;
+}>;
+export type AdminWaiveCommissionResponseDto = ApiSuccessResponse<{
+  commission: CommissionDto;
+}>;
 
 /* =========================================================
    Notifications
@@ -892,7 +1038,9 @@ export interface AdminBroadcastNotificationDto {
   reference_id?: UUID;
 }
 
-export type AdminBroadcastNotificationResponseDto = ApiSuccessResponse<{ queued: true }>;
+export type AdminBroadcastNotificationResponseDto = ApiSuccessResponse<{
+  queued: true;
+}>;
 
 /* =========================================================
    Contact / support
@@ -914,10 +1062,18 @@ export interface AdminUpdateSellerLeadDto {
   status: SellerLeadStatus;
 }
 
-export type AdminCustomerTicketsListResponseDto = ApiSuccessResponse<PaginatedResultDto<CustomerTicketDto>>;
-export type AdminUpdateCustomerTicketResponseDto = ApiSuccessResponse<{ customer_ticket: CustomerTicketDto }>;
-export type AdminSellerLeadsListResponseDto = ApiSuccessResponse<PaginatedResultDto<SellerLeadDto>>;
-export type AdminUpdateSellerLeadResponseDto = ApiSuccessResponse<{ seller_lead: SellerLeadDto }>;
+export type AdminCustomerTicketsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<CustomerTicketDto>
+>;
+export type AdminUpdateCustomerTicketResponseDto = ApiSuccessResponse<{
+  customer_ticket: CustomerTicketDto;
+}>;
+export type AdminSellerLeadsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<SellerLeadDto>
+>;
+export type AdminUpdateSellerLeadResponseDto = ApiSuccessResponse<{
+  seller_lead: SellerLeadDto;
+}>;
 
 /* =========================================================
    Notify me
@@ -925,13 +1081,16 @@ export type AdminUpdateSellerLeadResponseDto = ApiSuccessResponse<{ seller_lead:
 
 export type AdminNotifyMeQueryDto = BaseListQueryDto;
 
-export type AdminNotifyMeListResponseDto = ApiSuccessResponse<PaginatedResultDto<NotifyMeDto>>;
+export type AdminNotifyMeListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<NotifyMeDto>
+>;
 
 /* =========================================================
    Audit logs
    ========================================================= */
 
-export interface AdminAuditLogsQueryDto extends BaseListQueryDto, DateRangeQueryDto {
+export interface AdminAuditLogsQueryDto
+  extends BaseListQueryDto, DateRangeQueryDto {
   actor_user_id?: UUID;
   actor_staff_id?: UUID;
   entity_type?: string;
@@ -939,7 +1098,9 @@ export interface AdminAuditLogsQueryDto extends BaseListQueryDto, DateRangeQuery
   action?: string;
 }
 
-export type AdminAuditLogsListResponseDto = ApiSuccessResponse<PaginatedResultDto<AuditLogDto>>;
+export type AdminAuditLogsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<AuditLogDto>
+>;
 
 /* =========================================================
    Chatbot
@@ -951,7 +1112,9 @@ export interface AdminChatSessionsQueryDto extends BaseListQueryDto {
   source?: string;
 }
 
-export type AdminChatSessionsListResponseDto = ApiSuccessResponse<PaginatedResultDto<ChatSessionDto>>;
+export type AdminChatSessionsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<ChatSessionDto>
+>;
 export type AdminChatSessionDetailsResponseDto = ApiSuccessResponse<{
   session: ChatSessionDto;
   messages: ChatMessageDto[];
@@ -978,8 +1141,12 @@ export interface AdminCreateRecommendationDto {
   expires_at?: ISODateTime | string;
 }
 
-export type AdminRecommendationsListResponseDto = ApiSuccessResponse<PaginatedResultDto<RecommendationDto>>;
-export type AdminCreateRecommendationResponseDto = ApiSuccessResponse<{ recommendation: RecommendationDto }>;
+export type AdminRecommendationsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<RecommendationDto>
+>;
+export type AdminCreateRecommendationResponseDto = ApiSuccessResponse<{
+  recommendation: RecommendationDto;
+}>;
 
 /* =========================================================
    Reserved V2
@@ -998,5 +1165,9 @@ export interface AdminInventoryTransactionsQueryDto extends BaseListQueryDto {
   transaction_type?: string;
 }
 
-export type AdminPaymentsListResponseDto = ApiSuccessResponse<PaginatedResultDto<PaymentDto>>;
-export type AdminInventoryTransactionsListResponseDto = ApiSuccessResponse<PaginatedResultDto<InventoryTransactionDto>>;
+export type AdminPaymentsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<PaymentDto>
+>;
+export type AdminInventoryTransactionsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<InventoryTransactionDto>
+>;

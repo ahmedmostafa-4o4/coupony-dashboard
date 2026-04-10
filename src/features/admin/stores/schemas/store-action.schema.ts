@@ -53,7 +53,7 @@ export const storeRejectActionSchema: AdminFormSchema<
   transform(values) {
     return {
       admin_notes: trimOptional(values.adminNotes),
-      rejection_reason: values.rejectionReason.trim(),
+      reason: values.rejectionReason.trim(),
     };
   },
   validate(values) {
