@@ -3,7 +3,8 @@ import { getAccessToken, logoutAndRedirect } from "@/lib/auth/session";
 
 type QueryValue = string | number | boolean | null | undefined;
 
-export interface ApiRequestOptions extends RequestInit {
+export interface ApiRequestOptions extends Omit<RequestInit, "body"> {
+  body?: unknown;
   query?: Record<string, QueryValue>;
   auth?: "include" | "omit";
 }
@@ -139,7 +140,7 @@ export const apiClient = {
     return request<T>(path, {
       ...options,
       method: "POST",
-      body,
+      body: body as unknown,
     });
   },
   patch<T, TBody = unknown>(
@@ -150,7 +151,7 @@ export const apiClient = {
     return request<T>(path, {
       ...options,
       method: "PATCH",
-      body,
+      body: body as unknown,
     });
   },
   put<T, TBody = unknown>(
@@ -161,7 +162,7 @@ export const apiClient = {
     return request<T>(path, {
       ...options,
       method: "PUT",
-      body,
+      body: body as unknown,
     });
   },
   delete<T>(path: string, options?: ApiRequestOptions) {
