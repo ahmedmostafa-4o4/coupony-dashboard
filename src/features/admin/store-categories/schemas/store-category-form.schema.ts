@@ -10,8 +10,10 @@ import {
 import type { AdminFormSchema } from "@/features/admin/shared/types/admin-form.types";
 
 export interface StoreCategoryFormValues {
+  icon: File | null;
   isActive: boolean;
-  name: string;
+  nameAr: string;
+  nameEn: string;
   slug: string;
   sortOrder: string;
 }
@@ -32,22 +34,31 @@ export function createStoreCategoryFormSchema(
 
   return {
     defaultValues: {
+      icon: null,
       isActive: true,
-      name: "",
+      nameAr: "",
+      nameEn: "",
       slug: "",
       sortOrder: "",
     },
     transform(values) {
       return {
+        icon: values.icon ?? undefined,
         is_active: values.isActive,
-        name: values.name.trim(),
+        name_ar: values.nameAr.trim(),
+        name_en: values.nameEn.trim(),
         slug: trimOptional(values.slug),
         sort_order: toOptionalNumber(values.sortOrder),
       };
     },
     validate(values) {
       return {
-        name: values.name.trim() ? undefined : "Store category name is required.",
+        nameAr: values.nameAr.trim()
+          ? undefined
+          : "Store category Arabic name is required.",
+        nameEn: values.nameEn.trim()
+          ? undefined
+          : "Store category English name is required.",
         sortOrder:
           values.sortOrder.trim() && toOptionalNumber(values.sortOrder) === undefined
             ? "Sort order must be a number."
@@ -61,8 +72,10 @@ export function toStoreCategoryFormValues(
   storeCategory?: StoreCategory | null
 ): StoreCategoryFormValues {
   return {
+    icon: null,
     isActive: Boolean(storeCategory?.isActive ?? true),
-    name: String(storeCategory?.name ?? ""),
+    nameAr: String(storeCategory?.nameAr ?? ""),
+    nameEn: String(storeCategory?.nameEn ?? storeCategory?.name ?? ""),
     slug: String(storeCategory?.slug ?? ""),
     sortOrder:
       storeCategory?.sortOrder !== undefined &&

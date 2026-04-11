@@ -160,16 +160,20 @@ export interface CategoryDto {
   parent_id?: UUID | null;
   sort_order?: number;
   is_active?: boolean;
+  icon_url?: string | null;
   created_at?: ISODateTime;
   updated_at?: ISODateTime;
 }
 
 export interface StoreCategoryDto {
   id: UUID;
-  name: string;
+  name?: string;
+  name_en?: string | null;
+  name_ar?: string | null;
   slug?: string | null;
   sort_order?: number;
   is_active?: boolean;
+  icon_url?: string | null;
   created_at?: ISODateTime;
   updated_at?: ISODateTime;
 }
@@ -581,6 +585,7 @@ export interface AdminCreateCategoryDto {
   parent_id?: UUID;
   sort_order?: number;
   is_active?: boolean;
+  icon?: File;
 }
 
 export interface AdminUpdateCategoryDto {
@@ -590,6 +595,7 @@ export interface AdminUpdateCategoryDto {
   parent_id?: UUID;
   sort_order?: number;
   is_active?: boolean;
+  icon?: File;
 }
 
 export type AdminCategoriesListResponseDto = ApiSuccessResponse<
@@ -614,17 +620,21 @@ export interface AdminStoreCategoriesQueryDto extends BaseListQueryDto {
 }
 
 export interface AdminCreateStoreCategoryDto {
-  name: string;
+  name_en: string;
+  name_ar: string;
   slug?: string;
   sort_order?: number;
   is_active?: boolean;
+  icon?: File;
 }
 
 export interface AdminUpdateStoreCategoryDto {
-  name?: string;
+  name_en?: string;
+  name_ar?: string;
   slug?: string;
   sort_order?: number;
   is_active?: boolean;
+  icon?: File;
 }
 
 export type AdminStoreCategoriesListResponseDto = ApiSuccessResponse<

@@ -1,6 +1,7 @@
 export * from "./components/admin-confirm-dialog";
 export * from "./components/admin-data-table";
 export * from "./components/admin-empty-state";
+export * from "./components/admin-image-preview";
 export * from "./components/admin-filter-bar";
 export * from "./components/admin-action-dialog";
 export * from "./components/admin-page-header";
@@ -19,6 +20,7 @@ export * from "./types/admin-common.types";
 export * from "./types/admin-form.types";
 export * from "./utils/admin-data";
 export * from "./utils/admin-filters";
+export * from "./utils/admin-form-data";
 export * from "./utils/admin-form-schema";
 export * from "./utils/admin-formatters";
 export * from "./utils/admin-query-keys";

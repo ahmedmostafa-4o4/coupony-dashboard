@@ -14,5 +14,8 @@ export async function getStoreCategories(filters: StoreCategoriesListFilters = {
     }
   );
 
-  return mapPaginatedResponse(response);
+  return mapPaginatedResponse(response, (item) => ({
+    ...item,
+    name: item.name ?? item.nameEn ?? item.nameAr ?? "",
+  }));
 }

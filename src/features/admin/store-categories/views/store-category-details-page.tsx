@@ -1,6 +1,13 @@
 "use client";
 import { PageLoading } from "@/components/shared/page-loading";
-import { AdminPageHeader, getAdminEntityTitle, AdminRecordGrid, AdminSection, AdminConfirmDialog } from "@/features/admin/shared";
+import {
+  AdminConfirmDialog,
+  AdminImagePreview,
+  AdminPageHeader,
+  AdminRecordGrid,
+  AdminSection,
+  getAdminEntityTitle,
+} from "@/features/admin/shared";
 import { StoreCategoryForm } from "../components/store-category-form";
 import { StoreCategoryStatusBadge } from "../components/store-category-status-badge";
 import { useStoreCategoryActions } from "../hooks/use-store-category-actions";
@@ -76,6 +83,14 @@ export function StoreCategoryDetailsPage({
         submitLabel="Update store category"
         title="Update store category"
       />
+      <AdminSection description="Uploaded icon for this store category." title="Store category icon">
+        <AdminImagePreview
+          alt={`${detailState.item.name} icon`}
+          className="h-28 w-28"
+          fallbackLabel="No icon uploaded"
+          src={detailState.item.iconUrl}
+        />
+      </AdminSection>
       <AdminSection description="Structured fields returned for this record." title="Store Category details">
         <AdminRecordGrid value={detailState.item} />
       </AdminSection>

@@ -11,6 +11,7 @@ import type { AdminFormSchema } from "@/features/admin/shared/types/admin-form.t
 
 export interface CategoryFormValues {
   description: string;
+  icon: File | null;
   isActive: boolean;
   name: string;
   parentId: string;
@@ -35,6 +36,7 @@ export function createCategoryFormSchema(
   return {
     defaultValues: {
       description: "",
+      icon: null,
       isActive: true,
       name: "",
       parentId: "",
@@ -44,6 +46,7 @@ export function createCategoryFormSchema(
     transform(values) {
       return {
         description: trimOptional(values.description),
+        icon: values.icon ?? undefined,
         is_active: values.isActive,
         name: values.name.trim(),
         parent_id: trimOptional(values.parentId),
@@ -66,6 +69,7 @@ export function createCategoryFormSchema(
 export function toCategoryFormValues(category?: Category | null): CategoryFormValues {
   return {
     description: String(category?.description ?? ""),
+    icon: null,
     isActive: Boolean(category?.isActive ?? true),
     name: String(category?.name ?? ""),
     parentId: String(category?.parentId ?? ""),

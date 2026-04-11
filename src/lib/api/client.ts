@@ -64,12 +64,31 @@ async function parseApiResponse<T>(response: Response) {
   return (await response.text()) as T;
 }
 
+function isFormDataBody(body: unknown): body is FormData {
+  return typeof FormData !== "undefined" && body instanceof FormData;
+}
+
+function serializeRequestBody(body: unknown) {
+  if (body === undefined || body === null) {
+    return undefined;
+  }
+
+  if (isFormDataBody(body)) {
+    return body;
+  }
+
+  return JSON.stringify(body);
+}
+
 async function request<T>(path: string, options: ApiRequestOptions = {}) {
   const { auth = "include", query, headers, body, ...rest } = options;
   const accessToken = auth === "include" ? getAccessToken() : null;
+  const serializedBody = serializeRequestBody(body);
   const resolvedHeaders = {
     Accept: "application/json, text/plain;q=0.9, */*;q=0.8",
-    ...(body ? { "Content-Type": "application/json" } : {}),
+    ...(serializedBody && !isFormDataBody(serializedBody)
+      ? { "Content-Type": "application/json" }
+      : {}),
     ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
     ...headers,
   };
@@ -77,7 +96,7 @@ async function request<T>(path: string, options: ApiRequestOptions = {}) {
   const response = await fetch(resolveUrl(path, query), {
     ...rest,
     headers: resolvedHeaders,
-    body,
+    body: serializedBody,
   });
 
   if (!response.ok) {
@@ -120,7 +139,7 @@ export const apiClient = {
     return request<T>(path, {
       ...options,
       method: "POST",
-      body: body === undefined ? undefined : JSON.stringify(body),
+      body,
     });
   },
   patch<T, TBody = unknown>(
@@ -131,7 +150,7 @@ export const apiClient = {
     return request<T>(path, {
       ...options,
       method: "PATCH",
-      body: body === undefined ? undefined : JSON.stringify(body),
+      body,
     });
   },
   put<T, TBody = unknown>(
@@ -142,7 +161,7 @@ export const apiClient = {
     return request<T>(path, {
       ...options,
       method: "PUT",
-      body: body === undefined ? undefined : JSON.stringify(body),
+      body,
     });
   },
   delete<T>(path: string, options?: ApiRequestOptions) {

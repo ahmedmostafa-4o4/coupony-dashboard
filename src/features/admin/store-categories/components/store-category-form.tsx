@@ -16,9 +16,22 @@ import type {
 
 const fields: AdminFormField<StoreCategoryFormValues>[] = [
   {
-    key: "name",
-    label: "Name",
+    key: "nameEn",
+    label: "Name (English)",
     placeholder: "Supermarkets",
+  },
+  {
+    key: "nameAr",
+    label: "Name (Arabic)",
+    placeholder: "سوبر ماركت",
+  },
+  {
+    key: "icon",
+    label: "Icon",
+    description: "Upload a store category icon image.",
+    placeholder: "Choose store category icon",
+    type: "file",
+    accept: "image/*",
   },
   {
     key: "slug",

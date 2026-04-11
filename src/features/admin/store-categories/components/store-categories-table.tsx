@@ -1,6 +1,11 @@
 import type { ReactNode } from "react";
 
-import { AdminDataTable, type AdminColumn, formatAdminDate } from "@/features/admin/shared";
+import {
+  AdminDataTable,
+  AdminImagePreview,
+  type AdminColumn,
+  formatAdminDate,
+} from "@/features/admin/shared";
 import { StoreCategoryStatusBadge } from "./store-category-status-badge";
 
 import type { StoreCategory } from "../types/store-category.types";
@@ -10,6 +15,18 @@ const columns: AdminColumn<StoreCategory>[] = [
     id: "id",
     header: "ID",
     accessorKey: "id",
+  },
+  {
+    id: "icon",
+    header: "Icon",
+    cell: (item) => (
+      <AdminImagePreview
+        alt={`${item.name} icon`}
+        className="h-12 w-12"
+        fallbackLabel="No icon"
+        src={item.iconUrl}
+      />
+    ),
   },
   {
     id: "name",

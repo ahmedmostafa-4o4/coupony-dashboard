@@ -1,4 +1,4 @@
-export type AdminFormValue = string | boolean;
+export type AdminFormValue = string | boolean | File | null;
 
 export type AdminFormValues = object;
 
@@ -23,11 +23,13 @@ export interface AdminFormField<TValues extends AdminFormValues> {
     | "datetime-local"
     | "textarea"
     | "select"
-    | "checkbox";
+    | "checkbox"
+    | "file";
   placeholder?: string;
   description?: string;
   options?: AdminFormOption[];
   rows?: number;
+  accept?: string;
 }
 
 export interface AdminFormSchema<

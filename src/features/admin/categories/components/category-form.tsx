@@ -21,6 +21,14 @@ const fields: AdminFormField<CategoryFormValues>[] = [
     placeholder: "Groceries",
   },
   {
+    key: "icon",
+    label: "Icon",
+    description: "Upload a category icon image.",
+    placeholder: "Choose category icon",
+    type: "file",
+    accept: "image/*",
+  },
+  {
     key: "slug",
     label: "Slug",
     placeholder: "groceries",

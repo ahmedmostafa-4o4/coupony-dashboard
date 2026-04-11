@@ -23,7 +23,10 @@ function renderField<TValues extends AdminFormValues>({
 }: {
   errors: AdminFormErrors<TValues>;
   field: AdminFormField<TValues>;
-  onChange: (key: Extract<keyof TValues, string>, value: string | boolean) => void;
+  onChange: (
+    key: Extract<keyof TValues, string>,
+    value: string | boolean | File | null
+  ) => void;
   values: TValues;
 }) {
   const value = values[field.key];
@@ -64,6 +67,25 @@ function renderField<TValues extends AdminFormValues>({
             onChange={(event) => onChange(field.key, event.target.checked)}
           />
           <span>{field.placeholder ?? field.label}</span>
+        </label>
+      ) : field.type === "file" ? (
+        <label className="block cursor-pointer rounded-xl border border-dashed border-slate-300 bg-slate-50/70 px-4 py-5 text-center transition hover:border-slate-400 hover:bg-slate-50">
+          <input
+            accept={field.accept}
+            className="hidden"
+            type="file"
+            onChange={(event) =>
+              onChange(field.key, event.target.files?.[0] ?? null)
+            }
+          />
+          <span className="block text-sm font-medium text-slate-700">
+            {value instanceof File ? value.name : field.placeholder ?? "Choose a file"}
+          </span>
+          <span className="mt-1 block text-xs text-slate-500">
+            {value instanceof File
+              ? "Click to replace the selected file."
+              : "Click to browse and upload an icon."}
+          </span>
         </label>
       ) : (
         <Input
@@ -110,7 +132,7 @@ export function AdminSchemaForm<
 
   function updateValue(
     key: Extract<keyof TValues, string>,
-    value: string | boolean
+    value: string | boolean | File | null
   ) {
     setValues((currentValues) => ({
       ...currentValues,

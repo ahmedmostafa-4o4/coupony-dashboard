@@ -8,7 +8,9 @@ import type {
   StoreCategoryDto,
 } from "./store-categories.dto";
 
-export type StoreCategory = Camelized<StoreCategoryDto>;
+export type StoreCategory = Camelized<StoreCategoryDto> & {
+  name: string;
+};
 export type StoreCategoriesListFilters = Camelized<AdminStoreCategoriesQueryDto> & {
   search?: string;
   status?: string;
