@@ -162,7 +162,7 @@ function renderField<TValues extends AdminFormValues>({
                 onChange(field.key, date ? format(date, "yyyy-MM-dd") : "");
               }}
               initialFocus
-              captionLayout="dropdown-buttons"
+              captionLayout="dropdown"
               fromYear={1900}
               toYear={new Date().getFullYear() + 10}
               locale={locale}
