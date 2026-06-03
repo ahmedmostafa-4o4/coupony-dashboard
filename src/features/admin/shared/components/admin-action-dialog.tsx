@@ -11,7 +11,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import type {
   AdminFormErrors,
@@ -48,13 +54,18 @@ function DialogField<TValues extends AdminFormValues>({
       ) : field.type === "select" ? (
         <Select
           value={String(value ?? "")}
-          onChange={(event) => onChange(field.key, event.target.value)}
+          onValueChange={(val) => onChange(field.key, val)}
         >
-          {field.options?.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
+          <SelectTrigger>
+            <SelectValue placeholder={field.placeholder ?? "Select an option"} />
+          </SelectTrigger>
+          <SelectContent>
+            {field.options?.map((option) => (
+              <SelectItem key={option.value} value={String(option.value)}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
         </Select>
       ) : (
         <Input

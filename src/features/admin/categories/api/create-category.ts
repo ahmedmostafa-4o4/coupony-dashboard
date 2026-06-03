@@ -8,7 +8,8 @@ import type { CreateCategoryRequest } from "../types/category.types";
 export async function createCategory(payload: CreateCategoryRequest) {
   const formData = new FormData();
 
-  appendFormDataValue(formData, "name", payload.name);
+  appendFormDataValue(formData, "name_en", payload.name_en);
+  appendFormDataValue(formData, "name_ar", payload.name_ar);
   appendFormDataValue(formData, "slug", payload.slug);
   appendFormDataValue(formData, "description", payload.description);
   appendFormDataValue(formData, "parent_id", payload.parent_id);

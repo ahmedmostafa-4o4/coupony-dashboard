@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
-import { AdminDataTable, type AdminColumn, formatAdminDate } from "@/features/admin/shared";
-import { RoleStatusBadge } from "./role-status-badge";
+import { AdminDataTable, type AdminColumn } from "@/features/admin/shared";
 
 import type { Role } from "../types/role.types";
 
@@ -17,19 +16,17 @@ const columns: AdminColumn<Role>[] = [
     accessorKey: "name",
   },
   {
-    id: "description",
-    header: "Description",
-    accessorKey: "description",
-  },
-  {
-    id: "status",
-    header: "Status",
-    cell: (item) => <RoleStatusBadge value={item.status} />,
-  },
-  {
-    id: "updatedAt",
-    header: "Updated",
-    cell: (item) => formatAdminDate(item.updatedAt),
+    id: "permissions",
+    header: "Permissions",
+    cell: (item) => (
+      <div className="flex flex-wrap gap-1">
+        {item.permissions?.map((p) => (
+          <span key={p.id} className="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
+            {p.name}
+          </span>
+        ))}
+      </div>
+    ),
   },
 ];
 

@@ -1,0 +1,88 @@
+{
+  "list": {
+    "eyebrow": "Admin",
+    "title": "Categories",
+    "description": "Manage customer-facing offer categories.",
+    "create": "Create category",
+    "reload": "Reload",
+    "stats": {
+      "total": "Rows",
+      "totalHint": "Categories currently loaded from the API response."
+    },
+    "errors": {
+      "request": "Request error"
+    },
+    "form": {
+      "createDescription": "Create a customer-facing category using the typed category contract.",
+      "createTitle": "Create category",
+      "createBtn": "Create category"
+    },
+    "actions": {
+      "view": "View",
+      "delete": "Delete",
+      "deleteTitle": "Delete Category",
+      "deleteDesc": "This will call the mapped admin endpoint for the selected category."
+    }
+  },
+  "details": {
+    "loading": "Loading category details...",
+    "notFound": "Category not found",
+    "notFoundDesc": "The backend did not return a category for this route.",
+    "eyebrow": "Admin details",
+    "description": "Fallback details view until the backend exposes category lookups.",
+    "formUpdateDesc": "Update the category fields returned by the fallback detail adapter.",
+    "formUpdateTitle": "Update category",
+    "formUpdateBtn": "Update category",
+    "iconTitle": "Category icon",
+    "iconDesc": "Uploaded icon for this category.",
+    "iconFallback": "No icon uploaded",
+    "hierarchyTitle": "Category hierarchy",
+    "hierarchyDesc": "Hierarchical relationship details for this category.",
+    "parentCategory": "Parent Category",
+    "noIcon": "No Icon",
+    "topLevel": "None (Top-level Category)"
+  },
+  "table": {
+    "id": "ID",
+    "nameEn": "Name (EN)",
+    "nameAr": "Name (AR)",
+    "slug": "Slug",
+    "status": "Status",
+    "sortOrder": "Sort Order",
+    "created": "Created",
+    "emptyTitle": "No categories found",
+    "emptyDesc": "The backend has not returned any categories yet."
+  },
+  "filters": {
+    "search": "Search",
+    "searchPlaceholder": "Search categories by name",
+    "status": "Status",
+    "statusOptions": {
+      "all": "all",
+      "active": "active",
+      "inactive": "inactive"
+    }
+  },
+  "form": {
+    "nameEn": "Name (EN)",
+    "nameEnPlaceholder": "Category Name (English)",
+    "nameAr": "Name (AR)",
+    "nameArPlaceholder": "Category Name (Arabic)",
+    "slug": "Slug",
+    "slugPlaceholder": "category-slug",
+    "description": "Description",
+    "descriptionPlaceholder": "Category Description",
+    "parentCategory": "Parent Category",
+    "parentCategoryPlaceholder": "None (Top Level)",
+    "icon": "Icon",
+    "iconHint": "Upload a new icon image.",
+    "status": "Status",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "sortOrder": "Sort Order"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  }
+}

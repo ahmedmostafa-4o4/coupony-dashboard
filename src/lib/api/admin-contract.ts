@@ -29,12 +29,14 @@ export function mapPaginatedResponse<TDto, TItem = Camelized<TDto>>(
     pagination?: Record<string, unknown>;
   };
   const data = rawResponse.data;
-  const rawItems = Array.isArray(data) ? data : (data.items ?? []);
+  const rawItems = Array.isArray(data) ? data : (data.items ?? (data as any).data ?? []);
   const meta = Array.isArray(data)
     ? (rawResponse.meta ?? rawResponse.pagination ?? {})
-    : ((data.pagination as Record<string, unknown> | undefined) ??
+    : (((data as Record<string, unknown>).meta as Record<string, unknown> | undefined) ??
+      (data.pagination as Record<string, unknown> | undefined) ??
       rawResponse.meta ??
       rawResponse.pagination ??
+      (data as Record<string, unknown>) ??
       {});
   const items = rawItems.map((item) => (mapItem ? mapItem(item) : (item as TItem)));
   const total = typeof meta.total === "number" ? meta.total : items.length;

@@ -7,10 +7,16 @@ import type { AdminStoreCategoriesListResponseDto } from "../types/store-categor
 import type { StoreCategoriesListFilters } from "../types/store-category.types";
 
 export async function getStoreCategories(filters: StoreCategoriesListFilters = {}) {
+  const { status, ...rest } = filters;
+  const mappedFilters = {
+    ...rest,
+    ...(status === "active" ? { active: 1 } : status === "inactive" ? { active: 0 } : {}),
+  };
+
   const response = await apiClient.get<AdminStoreCategoriesListResponseDto>(
     apiEndpoints.admin.storeCategories.list,
     {
-      query: buildAdminQuery(filters),
+      query: buildAdminQuery(mappedFilters, "search"),
     }
   );
 

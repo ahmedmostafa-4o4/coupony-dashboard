@@ -24,6 +24,7 @@ export interface AdminFormField<TValues extends AdminFormValues> {
     | "textarea"
     | "select"
     | "checkbox"
+    | "checkbox-group"
     | "file";
   placeholder?: string;
   description?: string;

@@ -3,7 +3,6 @@ import type { Camelized } from "@/types";
 
 import type {
   AdminCreateRoleDto,
-  AdminRolePermissionsUpdateDto,
   AdminRolesQueryDto,
   AdminUpdateRoleDto,
   PermissionDto,
@@ -25,4 +24,3 @@ export type RolesListResult = AdminListResult<Role>;
 export type RoleDetailsResult = AdminItemResult<Role>;
 export type CreateRoleRequest = AdminCreateRoleDto;
 export type UpdateRoleRequest = AdminUpdateRoleDto;
-export type UpdateRolePermissionsRequest = AdminRolePermissionsUpdateDto;

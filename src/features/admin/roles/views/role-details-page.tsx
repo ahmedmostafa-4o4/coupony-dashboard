@@ -1,11 +1,10 @@
 "use client";
 import { PageLoading } from "@/components/shared/page-loading";
-import { AdminPageHeader, getAdminEntityTitle, AdminRecordGrid, AdminSection, AdminConfirmDialog } from "@/features/admin/shared";
-import { RolePermissionsForm } from "../components/role-permissions-form";
+import { AdminPageHeader, getAdminEntityTitle, AdminSection, AdminConfirmDialog } from "@/features/admin/shared";
 import { RoleForm } from "../components/role-form";
-import { RoleStatusBadge } from "../components/role-status-badge";
 import { useRoleActions } from "../hooks/use-role-actions";
 import { useRoleDetails } from "../hooks/use-role-details";
+import { usePermissionsList } from "../../permissions/hooks/use-permissions-list";
 
 export function RoleDetailsPage({
   roleId,
@@ -15,10 +14,11 @@ export function RoleDetailsPage({
   lang: string;
 }) {
   const detailState = useRoleDetails(roleId);
+  const permissionsState = usePermissionsList({ perPage: 1000 });
   void lang;
   const actions = useRoleActions(async () => { await detailState.reload(); });
 
-  if (detailState.isLoading) {
+  if (detailState.isLoading || permissionsState.isLoading) {
     return <PageLoading label="Loading role details..." />;
   }
 
@@ -37,7 +37,6 @@ export function RoleDetailsPage({
       <AdminPageHeader
         actions={
           <div className="flex flex-wrap items-center gap-2">
-            <RoleStatusBadge value={detailState.item.status} />
             
             <AdminConfirmDialog
               confirmLabel="Delete"
@@ -62,9 +61,10 @@ export function RoleDetailsPage({
         </AdminSection>
       ) : null}
       <RoleForm
-        description="Update the role metadata returned from the admin role contract."
+        description="Update the role metadata and permissions."
         initialValues={detailState.item}
         isSubmitting={actions.updateAction.isSubmitting}
+        permissionsList={permissionsState.items}
         mode="update"
         onSubmit={async (payload) => {
           await actions.updateAction.submit({
@@ -75,24 +75,7 @@ export function RoleDetailsPage({
         submitLabel="Update role"
         title="Update role"
       />
-      <RolePermissionsForm
-        description="Replace the assigned permission IDs for this role."
-        isSubmitting={actions.updatePermissionsAction.isSubmitting}
-        onSubmit={async (payload) => {
-          await actions.updatePermissionsAction.submit({
-            roleId,
-            payload,
-          });
-        }}
-        submitLabel="Update permissions"
-        title="Update permissions"
-      />
-      <AdminSection description="Structured fields returned for this record." title="Role details">
-        <AdminRecordGrid value={detailState.item} />
-      </AdminSection>
-      <AdminSection description="Raw backend payload for inspection while contracts are still being finalized." title="Raw API payload">
-        <AdminRecordGrid value={detailState.raw} />
-      </AdminSection>
     </div>
   );
 }
+

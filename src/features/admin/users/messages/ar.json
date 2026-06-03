@@ -1,0 +1,142 @@
+{
+  "list": {
+    "eyebrow": "المسؤول",
+    "title": "المستخدمين",
+    "description": "إدارة سير عمل التفعيل والتعليق وتعيين الأدوار.",
+    "create": "إنشاء مستخدم",
+    "reload": "تحديث",
+    "stats": {
+      "total": "الإجمالي",
+      "totalHint": "إجمالي حسابات المستخدمين التي تم إرجاعها.",
+      "active": "نشط",
+      "activeHint": "الحالة الافتراضية. يمكن للمستخدم تسجيل الدخول واستخدام المنصة.",
+      "suspended": "موقوف",
+      "suspendedHint": "حساب المستخدم محظور مؤقتاً. لا يمكنه تسجيل الدخول أو اتخاذ إجراءات.",
+      "deleted": "محذوف",
+      "deletedHint": "تم إزالة المستخدم، ولكن يتم الاحتفاظ بالسجلات ذات الصلة."
+    },
+    "errors": {
+      "request": "خطأ في الطلب",
+      "statistics": "خطأ في الإحصائيات"
+    },
+    "form": {
+      "createDescription": "إنشاء مستخدم مُدار بواسطة المسؤول.",
+      "createTitle": "إنشاء مستخدم",
+      "createBtn": "إنشاء مستخدم"
+    },
+    "actions": {
+      "view": "عرض",
+      "activate": "تفعيل",
+      "activateTitle": "تفعيل المستخدم",
+      "activateDesc": "سيتم استدعاء نقطة النهاية الإدارية للمستخدم المحدد.",
+      "suspend": "إيقاف",
+      "suspendTitle": "إيقاف المستخدم",
+      "suspendDesc": "سيتم استدعاء نقطة النهاية الإدارية للمستخدم المحدد.",
+      "delete": "حذف",
+      "deleteTitle": "حذف المستخدم",
+      "deleteDesc": "سيؤدي هذا إلى إزالة هذا المستخدم بشكل دائم، ثم إعادتك إلى قائمة المستخدمين."
+    }
+  },
+  "details": {
+    "loading": "جاري تحميل تفاصيل المستخدم...",
+    "notFound": "المستخدم غير موجود",
+    "notFoundDesc": "لم يتم العثور على مستخدم لهذا المسار.",
+    "eyebrow": "تفاصيل المسؤول",
+    "description": "فحص بيانات المستخدم وحالات دورة الحياة.",
+    "deletedTitle": "مستخدم محذوف",
+    "deletedDesc": "يتم الاحتفاظ بالمستخدمين المحذوفين لغرض التدقيق والمراجعة، لكن إجراءات التعديل معطلة. هذا المستخدم مميز كمحذوف. لمواصلة إدارة الحسابات، ارجع إلى قائمة المستخدمين.",
+    "formUpdateDesc": "تحديث الملف الشخصي للمستخدم وإعدادات الحساب.",
+    "formUpdateTitle": "تحديث المستخدم",
+    "formUpdateBtn": "تحديث المستخدم",
+    "passwordDesc": "أدخل كلمة مرور جديدة للمستخدم. سيحتاج إلى كلمة المرور هذه لتسجيل الدخول مرة أخرى.",
+    "passwordTitle": "تحديث كلمة المرور",
+    "passwordBtn": "تغيير كلمة المرور",
+    "storesTitle": "المتاجر",
+    "storesDesc": "المتاجر المرتبطة بحساب هذا المستخدم.",
+    "noStores": "لا توجد متاجر مرتبطة."
+  },
+  "table": {
+    "id": "المعرف",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "status": "الحالة",
+    "created": "تاريخ الإنشاء",
+    "emptyTitle": "لا يوجد مستخدمين",
+    "emptyDesc": "لم يتم إرجاع أي مستخدمين حتى الآن."
+  },
+  "filters": {
+    "search": "بحث",
+    "searchPlaceholder": "البحث عن المستخدمين بالاسم أو البريد الإلكتروني",
+    "role": "الدور",
+    "allRoles": "جميع الأدوار",
+    "status": "الحالة",
+    "statusOptions": {
+      "all": "الكل",
+      "active": "نشط",
+      "suspended": "موقوف",
+      "deleted": "محذوف"
+    },
+    "signUpDate": "تاريخ التسجيل"
+  },
+  "form": {
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "admin@example.com",
+    "phone": "رقم الهاتف",
+    "phonePlaceholder": "+1 555 0100",
+    "firstName": "الاسم الأول",
+    "firstNamePlaceholder": "سارة",
+    "lastName": "اسم العائلة",
+    "lastNamePlaceholder": "علي",
+    "status": "الحالة",
+    "statusActive": "نشط",
+    "statusSuspended": "موقوف",
+    "statusDeleted": "محذوف",
+    "language": "اللغة",
+    "timezone": "المنطقة الزمنية",
+    "role": "الدور",
+    "rolePlaceholder": "اختر دوراً",
+    "twoFactor": "تفعيل المصادقة الثنائية",
+    "twoFactorPlaceholder": "طلب مصادقة ثنائية",
+    "password": "كلمة المرور",
+    "passwordPlaceholder": "كلمة مرور مؤقتة",
+    "newPassword": "كلمة المرور الجديدة",
+    "newPasswordPlaceholder": "الحد الأدنى 8 أحرف",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "passwordConfirmation": "تأكيد كلمة المرور",
+    "passwordConfirmationPlaceholder": "أعد إدخال كلمة المرور",
+    "dateOfBirth": "تاريخ الميلاد",
+    "dateOfBirthPlaceholder": "YYYY-MM-DD",
+    "gender": "الجنس",
+    "genderMale": "ذكر",
+    "genderFemale": "أنثى",
+    "bio": "النبذة التعريفية",
+    "bioPlaceholder": "أخبرنا عن هذا المستخدم...",
+    "forceChangeTitle": "فرض تغيير كلمة المرور",
+    "forceChangeDesc": "سيؤدي تحديث كلمة المرور إلى تسجيل خروج المستخدم فوراً من جميع الأجهزة الحالية.",
+    "warning": "تحذير:",
+    "warningDesc": "تغيير كلمة المرور يؤدي إلى تدمير جميع الجلسات النشطة بالقوة."
+  },
+  "security": {
+    "title": "الأمان والتدقيق",
+    "description": "نظرة عامة على نشاط الأمان الأخير للمستخدم.",
+    "overview": "نظرة عامة على الأمان",
+    "lastLogin": "آخر تسجيل دخول",
+    "neverLoggedIn": "لم يسجل الدخول قط",
+    "lastIp": "آخر عنوان IP معروف",
+    "unknown": "غير معروف",
+    "revokeAll": "إبطال جميع الجلسات",
+    "noActive": "لا توجد جلسات نشطة",
+    "sessionsTitle": "الجلسات النشطة",
+    "sessionsDesc": "الأجهزة التي تم تسجيل الدخول منها حالياً لهذا الحساب.",
+    "noSessions": "لم يتم العثور على جلسات نشطة.",
+    "device": "الجهاز / المتصفح",
+    "ip": "عنوان IP",
+    "lastActivity": "آخر نشاط",
+    "actions": "إجراءات",
+    "unknownDevice": "جهاز غير معروف",
+    "revoke": "إبطال"
+  },
+  "storeCard": {
+    "viewStore": "عرض المتجر"
+  }
+}

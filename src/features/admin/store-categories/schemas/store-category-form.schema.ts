@@ -11,6 +11,7 @@ import type { AdminFormSchema } from "@/features/admin/shared/types/admin-form.t
 
 export interface StoreCategoryFormValues {
   icon: File | null;
+  imageCategory: File | null;
   isActive: boolean;
   nameAr: string;
   nameEn: string;
@@ -35,6 +36,7 @@ export function createStoreCategoryFormSchema(
   return {
     defaultValues: {
       icon: null,
+      imageCategory: null,
       isActive: true,
       nameAr: "",
       nameEn: "",
@@ -44,6 +46,7 @@ export function createStoreCategoryFormSchema(
     transform(values) {
       return {
         icon: values.icon ?? undefined,
+        image_category: values.imageCategory ?? undefined,
         is_active: values.isActive,
         name_ar: values.nameAr.trim(),
         name_en: values.nameEn.trim(),
@@ -73,6 +76,7 @@ export function toStoreCategoryFormValues(
 ): StoreCategoryFormValues {
   return {
     icon: null,
+    imageCategory: null,
     isActive: Boolean(storeCategory?.isActive ?? true),
     nameAr: String(storeCategory?.nameAr ?? ""),
     nameEn: String(storeCategory?.nameEn ?? storeCategory?.name ?? ""),

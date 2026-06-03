@@ -1,0 +1,58 @@
+{
+  "app": {
+    "name": "لوحة قيادة كوبوني"
+  },
+  "admin": {
+    "title": "إدارة كوبوني",
+    "subtitle": "مركز عمليات الإدارة",
+    "workspace": "مساحة عمل المسؤول",
+    "session": "الجلسة",
+    "quickAccess": "تم تفعيل الوصول السريع",
+    "search": "البحث عن مستخدمين، متاجر، عروض..."
+  },
+  "nav": {
+    "dashboard": "لوحة القيادة",
+    "navigation": "التنقل",
+    "workspace": "مساحة العمل",
+    "logout": "تسجيل الخروج",
+    "signingOut": "جاري تسجيل الخروج..."
+  },
+  "groups": {
+    "Overview": "نظرة عامة",
+    "Access": "الوصول",
+    "Catalog": "الكتالوج",
+    "Stores": "المتاجر",
+    "Operations": "العمليات",
+    "Billing": "الفواتير",
+    "Support": "الدعم"
+  },
+  "items": {
+    "dashboard": { "label": "لوحة القيادة", "description": "مؤشرات الأداء ونبض العمليات." },
+    "users": { "label": "المستخدمين", "description": "إدارة حسابات المسؤولين والمستخدمين." },
+    "roles": { "label": "الأدوار", "description": "التحكم في تعريفات الأدوار وصلاحياتها." },
+    "permissions": { "label": "الصلاحيات", "description": "مراجعة الصلاحيات المتاحة." },
+    "auditLogs": { "label": "سجلات التدقيق", "description": "تتبع الإجراءات الحساسة والتغييرات." },
+    "categories": { "label": "الفئات", "description": "تنظيم فئات العروض." },
+    "storeCategories": { "label": "فئات المتاجر", "description": "إدارة تصنيفات المتاجر." },
+    "offers": { "label": "العروض", "description": "مراجعة حالات الموافقة والنشر." },
+    "products": { "label": "المنتجات", "description": "إنشاء وتحديث منتجات الكتالوج." },
+    "productRevisions": { "label": "مراجعات المنتجات", "description": "مراجعة تغييرات المنتجات." },
+    "coupons": { "label": "الكوبونات", "description": "فحص وتعديل إعدادات الكوبونات." },
+    "recommendations": { "label": "التوصيات", "description": "تنظيم المحتوى المروج." },
+    "stores": { "label": "المتاجر", "description": "الموافقة، التعليق، وفوترة المتاجر." },
+    "storeVerifications": { "label": "توثيق المتاجر", "description": "معالجة مراجعات توثيق المتاجر." },
+    "redemptions": { "label": "الاستردادات", "description": "التحقيق في نشاط الاسترداد." },
+    "inventory": { "label": "المخزون", "description": "مراجعة حركات المخزون." },
+    "payments": { "label": "المدفوعات", "description": "مراقبة نشاط المدفوعات." },
+    "billingProfiles": { "label": "ملفات الفوترة", "description": "مرجع بيانات فوترة المتاجر." },
+    "invoices": { "label": "الفواتير", "description": "إصدار وتسوية الفواتير." },
+    "commissions": { "label": "العمولات", "description": "تتبع حالة الدفع والفوترة." },
+    "subscriptions": { "label": "الاشتراكات", "description": "إدارة حالة اشتراكات المتاجر." },
+    "subscriptionPlans": { "label": "خطط الاشتراك", "description": "صيانة كتالوج الخطط والتسعير." },
+    "contactCustomer": { "label": "اتصال / عميل", "description": "التعامل مع تذاكر دعم العملاء." },
+    "contactSeller": { "label": "اتصال / بائع", "description": "التعامل مع تذاكر دعم البائعين." },
+    "notifyMe": { "label": "أعلمني", "description": "مراجعة طلبات التنبيه والمتابعة." },
+    "notificationsBroadcast": { "label": "إشعارات / بث", "description": "إرسال إشعارات البث عبر المنصة." },
+    "chatbotSessions": { "label": "جلسات الشات بوت", "description": "فحص محادثات الدعم." }
+  }
+}

@@ -53,7 +53,7 @@ function clearAuthCookie() {
   document.cookie = cookieParts.join("; ");
 }
 
-function getBrowserStorages() {
+export function getBrowserStorages() {
   if (typeof window === "undefined") {
     return null;
   }
@@ -81,6 +81,43 @@ export function getAccessToken() {
       ?.trim() ??
     null
   );
+}
+
+export function getRefreshToken() {
+  const storages = getBrowserStorages();
+
+  if (!storages) {
+    return null;
+  }
+
+  return (
+    storages.durableStorage.getItem("refresh_token") ??
+    storages.transientStorage.getItem("refresh_token") ??
+    null
+  );
+}
+
+export function updateAuthTokens(newAccessToken: string, newRefreshToken: string) {
+  const storages = getBrowserStorages();
+
+  if (!storages) {
+    return;
+  }
+
+  // Update wherever the refresh token currently lives
+  if (storages.durableStorage.getItem("refresh_token")) {
+    storages.durableStorage.setItem("access_token", newAccessToken);
+    storages.durableStorage.setItem("refresh_token", newRefreshToken);
+    
+    // Also try to update the cookie expiration if we were using it for durable storage
+    // But we don't have maxAge here, so we just set it as a session cookie or leave the old one to expire naturally and this one updates it.
+    // Setting without Max-Age becomes a session cookie, so we can just let persistAuthSession handle full re-logins.
+    setAuthCookie(newAccessToken);
+  } else {
+    storages.transientStorage.setItem("access_token", newAccessToken);
+    storages.transientStorage.setItem("refresh_token", newRefreshToken);
+    setAuthCookie(newAccessToken);
+  }
 }
 
 export function persistAuthSession(data: AdminLoginData, rememberMe: boolean) {

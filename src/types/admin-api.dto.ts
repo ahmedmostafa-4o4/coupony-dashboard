@@ -100,6 +100,36 @@ export type RecommendationTargetType =
   | "category"
   | string;
 export type RecommendationGeneratedBy = "manual" | "system" | "model" | string;
+export type ProductStatus =
+  | "draft"
+  | "active"
+  | "inactive"
+  | "archived"
+  | string;
+export type ProductApprovalStatus =
+  | "pending"
+  | "approved"
+  | "rejected"
+  | string;
+export type ProductRevisionStatus =
+  | "pending"
+  | "approved"
+  | "rejected"
+  | string;
+export type ProductRevisionAction =
+  | "create"
+  | "update"
+  | "delete"
+  | string;
+
+export interface UserSessionDto {
+  id: string;
+  ip_address?: string | null;
+  user_agent?: string | null;
+  device_type?: string | null;
+  expires_at?: ISODateTime | null;
+  last_activity?: number | null;
+}
 
 export interface UserDto {
   id: UUID;
@@ -111,6 +141,9 @@ export interface UserDto {
   email_verified_at?: ISODateTime | null;
   phone_verified_at?: ISODateTime | null;
   two_factor_enabled?: boolean;
+  last_login_at?: ISODateTime | null;
+  last_ip?: string | null;
+  sessions?: UserSessionDto[] | null;
   created_at?: ISODateTime;
   updated_at?: ISODateTime;
 }
@@ -129,6 +162,7 @@ export interface RoleDto {
   name: string;
   guard_name?: string;
   permissions_count?: number;
+  permissions?: PermissionDto[];
   created_at?: ISODateTime;
   updated_at?: ISODateTime;
 }
@@ -155,6 +189,8 @@ export interface UserRoleAssignmentDto {
 export interface CategoryDto {
   id: UUID;
   name: string;
+  name_en?: string | null;
+  name_ar?: string | null;
   slug?: string | null;
   description?: string | null;
   parent_id?: UUID | null;
@@ -174,6 +210,7 @@ export interface StoreCategoryDto {
   sort_order?: number;
   is_active?: boolean;
   icon_url?: string | null;
+  image_category?: string | null;
   created_at?: ISODateTime;
   updated_at?: ISODateTime;
 }
@@ -374,15 +411,21 @@ export interface NotifyMeDto {
 }
 
 export interface AuditLogDto {
-  id: UUID;
-  actor_user_id?: UUID | null;
-  actor_staff_id?: UUID | null;
-  entity_type?: string;
-  entity_id?: UUID | string;
-  action?: string;
-  before?: JsonObject | null;
-  after?: JsonObject | null;
-  metadata?: JsonObject | null;
+  id: number;
+  log_name?: string | null;
+  description?: string | null;
+  subject_id?: string | number | null;
+  subject_type?: string | null;
+  event?: string | null;
+  causer_id?: string | number | null;
+  causer_type?: string | null;
+  properties?: JsonObject | null;
+  causer?: {
+    id: number | string;
+    first_name?: string;
+    last_name?: string;
+    email?: string;
+  } | null;
   created_at?: ISODateTime;
 }
 
@@ -441,25 +484,139 @@ export interface InventoryTransactionDto {
   created_at?: ISODateTime;
 }
 
+export interface ProductImageDto {
+  id?: UUID | string;
+  url?: string | null;
+  path?: string | null;
+  alt?: string | null;
+  sort_order?: number | null;
+  [key: string]: unknown;
+}
+
+export interface ProductVariantDto {
+  id?: UUID | string;
+  sku?: string | null;
+  title?: string | null;
+  price?: number | null;
+  stock?: number | null;
+  attributes?: JsonObject | null;
+  [key: string]: unknown;
+}
+
+export interface ProductDto {
+  id: UUID;
+  store_id?: UUID | null;
+  title?: string | null;
+  slug?: string | null;
+  short_description?: string | null;
+  description?: string | null;
+  currency?: CurrencyCode | string | null;
+  sku?: string | null;
+  status?: ProductStatus;
+  approval_status?: ProductApprovalStatus;
+  is_featured?: boolean;
+  category_ids?: Array<UUID | string> | null;
+  categories?: Array<CategoryDto | EntityRefDto> | null;
+  images?: ProductImageDto[] | JsonObject[] | null;
+  variants?: ProductVariantDto[] | JsonObject[] | null;
+  offer?: JsonObject | null;
+  store?: StoreDto | EntityRefDto | null;
+  pending_revision?: JsonObject | null;
+  created_at?: ISODateTime | null;
+  updated_at?: ISODateTime | null;
+  [key: string]: unknown;
+}
+
+export interface ProductRevisionDto {
+  id: UUID;
+  product_id?: UUID | null;
+  product_title?: string | null;
+  title?: string | null;
+  status?: ProductRevisionStatus;
+  action?: ProductRevisionAction | null;
+  type?: string | null;
+  submitted_at?: ISODateTime | null;
+  submitted_by?: EntityRefDto | UserDto | string | null;
+  requested_by?: EntityRefDto | UserDto | string | null;
+  created_by?: EntityRefDto | UserDto | string | null;
+  reviewed_at?: ISODateTime | null;
+  reviewed_by?: EntityRefDto | UserDto | string | null;
+  reason?: string | null;
+  rejection_reason?: string | null;
+  notes?: string | null;
+  review_notes?: string | null;
+  metadata?: JsonObject | null;
+  review_metadata?: JsonObject | null;
+  product?: JsonObject | null;
+  categories?: unknown[] | JsonObject | null;
+  images?: unknown[] | JsonObject | null;
+  variants?: unknown[] | JsonObject | null;
+  offer?: JsonObject | null;
+  payload?: JsonObject | null;
+  raw_payload?: JsonObject | null;
+  changes?: JsonObject | null;
+  diff?: JsonObject | null;
+  created_at?: ISODateTime | null;
+  updated_at?: ISODateTime | null;
+  [key: string]: unknown;
+}
+
 /* =========================================================
    Dashboard
    ========================================================= */
 
 export type AdminDashboardQueryDto = DateRangeQueryDto;
 
-export interface AdminDashboardSummaryDto {
-  users_count?: number;
-  stores_count?: number;
-  pending_stores_count?: number;
-  pending_offers_count?: number;
-  redemptions_count?: number;
-  pending_commissions_count?: number;
-  issued_invoices_count?: number;
-  [key: string]: unknown;
+export interface AdminDashboardGrowthDto {
+  total_users: number;
+  total_stores: number;
+  new_users_this_month: number;
+  new_stores_this_month: number;
+}
+
+export interface AdminDashboardFinancialDto {
+  total_sales_volume: number;
+  premium_stores: number;
+  average_store_rating: number;
+}
+
+export interface AdminDashboardPointsEconomyDto {
+  total_points_in_circulation: number;
+  lifetime_points_earned: number;
+  lifetime_points_spent: number;
+  points_redemption_rate: number;
+}
+
+export interface AdminDashboardOperationalDto {
+  pending_store_approvals: number;
+  pending_verifications: number;
+  unresolved_customer_tickets: number;
+  unresolved_seller_tickets: number;
+}
+
+export interface AdminDashboardChartsDto {
+  user_growth: { date: string; count: number }[];
+  store_growth: { date: string; count: number }[];
+  claims_volume: { date: string; count: number }[];
+  subscription_distribution: { tier: string; count: number }[];
+  top_stores: {
+    id: string;
+    name: string;
+    total_sales: number;
+    rating_avg: string;
+  }[];
+  points_flow: {
+    earned: { date: string; count: string }[];
+    spent: { date: string; count: string }[];
+  };
 }
 
 export type AdminDashboardResponseDto = ApiSuccessResponse<{
-  summary: AdminDashboardSummaryDto;
+  growth: AdminDashboardGrowthDto;
+  financial: AdminDashboardFinancialDto;
+  points_economy: AdminDashboardPointsEconomyDto;
+  operational: AdminDashboardOperationalDto;
+  charts: AdminDashboardChartsDto;
 }>;
 
 /* =========================================================
@@ -475,11 +632,17 @@ export interface AdminUsersQueryDto extends BaseListQueryDto {
 export interface AdminCreateUserDto {
   email: string;
   password: string;
+  password_confirmation: string;
   phone_number?: string;
-  first_name?: string;
-  last_name?: string;
-  role_names?: string[];
+  first_name: string;
+  last_name: string;
+  role: string;
   status?: UserStatus;
+  language?: string;
+  timezone?: string;
+  date_of_birth?: string;
+  gender?: string;
+  bio?: string;
 }
 
 export interface AdminUpdateUserDto {
@@ -542,15 +705,13 @@ export type AdminRolesQueryDto = BaseListQueryDto;
 export interface AdminCreateRoleDto {
   name: string;
   guard_name?: string;
+  permissions: string[];
 }
 
 export interface AdminUpdateRoleDto {
   name?: string;
   guard_name?: string;
-}
-
-export interface AdminRolePermissionsUpdateDto {
-  permission_ids: UUID[];
+  permissions: string[];
 }
 
 export type AdminPermissionsQueryDto = BaseListQueryDto;
@@ -579,7 +740,8 @@ export interface AdminCategoriesQueryDto extends BaseListQueryDto {
 }
 
 export interface AdminCreateCategoryDto {
-  name: string;
+  name_en: string;
+  name_ar: string;
   slug?: string;
   description?: string;
   parent_id?: UUID;
@@ -589,7 +751,8 @@ export interface AdminCreateCategoryDto {
 }
 
 export interface AdminUpdateCategoryDto {
-  name?: string;
+  name_en?: string;
+  name_ar?: string;
   slug?: string;
   description?: string;
   parent_id?: UUID;
@@ -626,6 +789,7 @@ export interface AdminCreateStoreCategoryDto {
   sort_order?: number;
   is_active?: boolean;
   icon?: File;
+  image_category?: File;
 }
 
 export interface AdminUpdateStoreCategoryDto {
@@ -635,6 +799,7 @@ export interface AdminUpdateStoreCategoryDto {
   sort_order?: number;
   is_active?: boolean;
   icon?: File;
+  image_category?: File;
 }
 
 export type AdminStoreCategoriesListResponseDto = ApiSuccessResponse<
@@ -722,6 +887,73 @@ export type AdminCloseStoreResponseDto = ApiSuccessResponse<{
 }>;
 
 /* =========================================================
+   Products
+   ========================================================= */
+
+export interface AdminProductsQueryDto extends BaseListQueryDto {
+  search?: string;
+  status?: ProductStatus;
+  approval_status?: ProductApprovalStatus;
+  store_id?: UUID;
+}
+
+export interface AdminCreateProductDto {
+  store_id: UUID | string;
+  title?: string;
+  slug?: string;
+  short_description?: string;
+  description?: string;
+  currency?: CurrencyCode | string;
+  sku?: string;
+  is_featured?: boolean;
+  category_ids?: Array<UUID | string>;
+  images?: unknown[];
+  variants?: unknown[];
+  offer?: JsonObject;
+}
+
+export interface AdminUpdateProductDto {
+  title?: string;
+  slug?: string;
+  short_description?: string;
+  description?: string;
+  currency?: CurrencyCode | string;
+  sku?: string;
+  is_featured?: boolean;
+  category_ids?: Array<UUID | string>;
+  images?: unknown[];
+  variants?: unknown[];
+  offer?: JsonObject;
+}
+
+export type AdminProductsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<ProductDto> | ProductDto[]
+>;
+export type AdminProductDetailsResponseDto = ApiSuccessResponse<{
+  product?: ProductDto;
+  store?: StoreDto | null;
+  categories?: Array<CategoryDto | EntityRefDto> | null;
+  images?: ProductImageDto[] | JsonObject[] | null;
+  variants?: ProductVariantDto[] | JsonObject[] | null;
+  offer?: JsonObject | null;
+  pending_revision?: JsonObject | null;
+  [key: string]: unknown;
+}>;
+export type AdminCreateProductResponseDto = ApiSuccessResponse<{
+  product?: ProductDto;
+  [key: string]: unknown;
+}>;
+export type AdminUpdateProductResponseDto = ApiSuccessResponse<{
+  product?: ProductDto;
+  [key: string]: unknown;
+}>;
+export type AdminDeleteProductResponseDto = ApiSuccessResponse<{
+  deleted?: true;
+  product?: ProductDto;
+  [key: string]: unknown;
+}>;
+
+/* =========================================================
    Store verifications
    ========================================================= */
 
@@ -749,6 +981,51 @@ export type AdminApproveStoreVerificationResponseDto = ApiSuccessResponse<{
 }>;
 export type AdminRejectStoreVerificationResponseDto = ApiSuccessResponse<{
   store_verification: StoreVerificationDto;
+}>;
+
+/* =========================================================
+   Product revisions
+   ========================================================= */
+
+export type AdminPendingProductRevisionsQueryDto = BaseListQueryDto;
+
+export interface AdminApproveProductRevisionDto {
+  notes?: string;
+}
+
+export interface AdminRejectProductRevisionDto {
+  reason: string;
+  notes?: string;
+}
+
+export type AdminPendingProductRevisionsListResponseDto = ApiSuccessResponse<
+  PaginatedResultDto<ProductRevisionDto> | ProductRevisionDto[]
+>;
+export type AdminProductRevisionDetailsResponseDto = ApiSuccessResponse<{
+  revision?: ProductRevisionDto;
+  product_revision?: ProductRevisionDto;
+  product?: JsonObject | null;
+  categories?: unknown[] | JsonObject | null;
+  images?: unknown[] | JsonObject | null;
+  variants?: unknown[] | JsonObject | null;
+  offer?: JsonObject | null;
+  metadata?: JsonObject | null;
+  review?: JsonObject | null;
+  payload?: JsonObject | null;
+  raw_payload?: JsonObject | null;
+  changes?: JsonObject | null;
+  diff?: JsonObject | null;
+  [key: string]: unknown;
+}>;
+export type AdminApproveProductRevisionResponseDto = ApiSuccessResponse<{
+  revision?: ProductRevisionDto;
+  product_revision?: ProductRevisionDto;
+  [key: string]: unknown;
+}>;
+export type AdminRejectProductRevisionResponseDto = ApiSuccessResponse<{
+  revision?: ProductRevisionDto;
+  product_revision?: ProductRevisionDto;
+  [key: string]: unknown;
 }>;
 
 /* =========================================================
@@ -1099,13 +1376,15 @@ export type AdminNotifyMeListResponseDto = ApiSuccessResponse<
    Audit logs
    ========================================================= */
 
+/**
+ * AdminAuditLogsQueryDto
+ */
 export interface AdminAuditLogsQueryDto
-  extends BaseListQueryDto, DateRangeQueryDto {
-  actor_user_id?: UUID;
-  actor_staff_id?: UUID;
-  entity_type?: string;
-  entity_id?: UUID | string;
-  action?: string;
+  extends BaseListQueryDto,
+    DateRangeQueryDto {
+  causer_id?: UUID | string;
+  subject_type?: string;
+  event?: string;
 }
 
 export type AdminAuditLogsListResponseDto = ApiSuccessResponse<

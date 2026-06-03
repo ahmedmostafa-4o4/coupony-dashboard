@@ -1,0 +1,81 @@
+{
+  "list": {
+    "eyebrow": "Admin",
+    "title": "Store Categories",
+    "description": "Manage categories used to group and classify stores.",
+    "create": "Create store category",
+    "reload": "Reload",
+    "stats": {
+      "total": "Rows",
+      "totalHint": "Store categories currently loaded from the API response."
+    },
+    "errors": {
+      "request": "Request error"
+    },
+    "form": {
+      "createDescription": "Create a customer-facing store category.",
+      "createTitle": "Create store category",
+      "createBtn": "Create store category"
+    },
+    "actions": {
+      "view": "View",
+      "delete": "Delete",
+      "deleteTitle": "Delete Store Category",
+      "deleteDesc": "This will call the mapped admin endpoint for the selected category."
+    }
+  },
+  "details": {
+    "loading": "Loading category details...",
+    "notFound": "Category not found",
+    "notFoundDesc": "The backend did not return a category for this route.",
+    "eyebrow": "Admin details",
+    "description": "Fallback details view until the backend exposes category lookups.",
+    "formUpdateDesc": "Update the category fields returned by the fallback detail adapter.",
+    "formUpdateTitle": "Update store category",
+    "formUpdateBtn": "Update store category",
+    "iconFallback": "No icon uploaded"
+  },
+  "table": {
+    "id": "ID",
+    "nameEn": "Name (EN)",
+    "nameAr": "Name (AR)",
+    "slug": "Slug",
+    "status": "Status",
+    "sortOrder": "Sort Order",
+    "created": "Created",
+    "emptyTitle": "No categories found",
+    "emptyDesc": "The backend has not returned any categories yet."
+  },
+  "filters": {
+    "search": "Search",
+    "searchPlaceholder": "Search store categories by name",
+    "status": "Status",
+    "statusOptions": {
+      "all": "all",
+      "active": "active",
+      "inactive": "inactive"
+    }
+  },
+  "form": {
+    "nameEn": "Name (EN)",
+    "nameEnPlaceholder": "Category Name (English)",
+    "nameAr": "Name (AR)",
+    "nameArPlaceholder": "Category Name (Arabic)",
+    "slug": "Slug",
+    "slugPlaceholder": "category-slug",
+    "description": "Description",
+    "descriptionPlaceholder": "Category Description",
+    "status": "Status",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "sortOrder": "Sort Order",
+    "icon": "Icon",
+    "iconHint": "Upload a new icon image.",
+    "imageCategory": "Category Image",
+    "imageCategoryHint": "Upload a main image for this store category."
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  }
+}

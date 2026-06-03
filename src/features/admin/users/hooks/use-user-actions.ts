@@ -3,14 +3,14 @@
 import { useAdminAction } from "@/features/admin/shared";
 
 import { activateUser } from "../api/activate-user";
-import { assignUserRole } from "../api/assign-user-role";
 import { createUser } from "../api/create-user";
 import { deleteUser } from "../api/delete-user";
-import { removeUserRole } from "../api/remove-user-role";
+import { revokeUserSession } from "../api/revoke-user-session";
+import { revokeUserSessions } from "../api/revoke-user-sessions";
 import { suspendUser } from "../api/suspend-user";
 import { updateUser } from "../api/update-user";
+import { forceChangePassword } from "../api/force-change-password";
 import type {
-  AssignUserRoleRequest,
   UpdateUserRequest,
   UserActionReasonRequest,
 } from "../types/user.types";
@@ -55,24 +55,28 @@ export function useUserActions(onSuccess?: () => Promise<void> | void) {
       }) => deleteUser(userId, payload),
       onSuccess,
     }),
-    assignRoleAction: useAdminAction({
+    revokeAllSessionsAction: useAdminAction({
+      action: revokeUserSessions,
+      onSuccess,
+    }),
+    revokeSessionAction: useAdminAction({
+      action: ({
+        userId,
+        sessionId,
+      }: {
+        userId: string;
+        sessionId: string;
+      }) => revokeUserSession(userId, sessionId),
+      onSuccess,
+    }),
+    changePasswordAction: useAdminAction({
       action: ({
         userId,
         payload,
       }: {
         userId: string;
-        payload: AssignUserRoleRequest;
-      }) => assignUserRole(userId, payload),
-      onSuccess,
-    }),
-    removeRoleAction: useAdminAction({
-      action: ({
-        userId,
-        assignmentId,
-      }: {
-        userId: string;
-        assignmentId: string;
-      }) => removeUserRole(userId, assignmentId),
+        payload: { password: string; passwordConfirmation: string };
+      }) => forceChangePassword(userId, payload),
       onSuccess,
     }),
   };

@@ -16,6 +16,7 @@ export async function createStoreCategory(
   appendFormDataValue(formData, "sort_order", payload.sort_order);
   appendFormDataValue(formData, "is_active", payload.is_active);
   appendFormDataValue(formData, "icon", payload.icon);
+  appendFormDataValue(formData, "image_category", payload.image_category);
 
   return apiClient.post<
     AdminCreateStoreCategoryResponseDto,

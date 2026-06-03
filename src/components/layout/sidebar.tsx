@@ -7,6 +7,7 @@ import { AdminNavigation } from "@/components/navigation/admin-nav";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils/cn";
 import Image from "next/image";
+import { getGlobalDictionary } from "@/messages/get-dictionary";
 
 function SidebarLogo() {
   return (
@@ -49,6 +50,8 @@ export function Sidebar({
   collapsed?: boolean;
   onToggleCollapse?: () => void;
 }) {
+  const dict = getGlobalDictionary(lang);
+
   return (
     <aside
       className={cn(
@@ -90,10 +93,10 @@ export function Sidebar({
             >
               <div>
                 <p className="text-lg font-semibold tracking-tight text-slate-950">
-                  {siteConfig.adminTitle}
+                  {dict.admin.title}
                 </p>
                 <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
-                  Admin workspace
+                  {dict.admin.workspace}
                 </p>
               </div>
             </div>
@@ -142,7 +145,7 @@ export function Sidebar({
       </div>
 
       <div className="min-h-0 flex-1 overflow-hidden">
-        <AdminNavigation lang={lang} collapsed={collapsed} />
+        <AdminNavigation lang={lang} collapsed={collapsed} dict={dict} />
       </div>
 
       <div
@@ -158,11 +161,7 @@ export function Sidebar({
               ? "mb-0 max-h-0 opacity-0"
               : "mb-3 max-h-8 opacity-100 px-2",
           )}
-        >
-          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">
-            Session
-          </p>
-        </div>
+        ></div>
         <div className={cn(collapsed ? "flex justify-center" : "")}>
           <LogoutButton
             className={cn(
@@ -170,6 +169,7 @@ export function Sidebar({
               collapsed ? "h-11 w-11 px-0" : "w-full",
             )}
             compact={collapsed}
+            dict={dict.nav}
           />
         </div>
       </div>

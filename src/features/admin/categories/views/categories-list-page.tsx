@@ -2,23 +2,25 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AdminPageHeader, AdminSection, AdminStatCard, AdminConfirmDialog, createAdminDetailHref } from "@/features/admin/shared";
+import { AdminPageHeader, AdminSection, AdminStatCard, AdminConfirmDialog, createAdminDetailHref, AdminPagination } from "@/features/admin/shared";
 import { CategoriesFilters } from "../components/categories-filters";
 import { CategoryForm } from "../components/category-form";
 import { CategoriesTable } from "../components/categories-table";
 import { useCategoryActions } from "../hooks/use-category-actions";
 import { useCategoriesList } from "../hooks/use-categories-list";
 import type { CategoriesListFilters } from "../types/category.types";
+import { getCategoriesDictionary } from "../utils/get-dictionary";
 
-const defaultFilters: CategoriesListFilters = { search: "", status: "all" };
+const defaultFilters: CategoriesListFilters = { search: "", status: "all", page: 1, perPage: 15 };
 
 export function CategoriesListPage({ lang }: { lang: string }) {
   const [filters, setFilters] = useState<CategoriesListFilters>(defaultFilters);
   const [activeComposer, setActiveComposer] = useState<string | null>(null);
   
-  
   const listState = useCategoriesList(filters);
+  const allCategoriesState = useCategoriesList({ status: "all" });
   const actions = useCategoryActions(async () => { await listState.reload(); });
+  const dict = getCategoriesDictionary(lang);
 
   return (
     <div className="space-y-6">
@@ -30,37 +32,39 @@ export function CategoriesListPage({ lang }: { lang: string }) {
               variant="secondary"
               onClick={() => setActiveComposer("createAction")}
             >
-              Create category
+              {dict.list.create}
             </Button>
             <Button variant="secondary" onClick={() => void listState.reload()}>
-              Reload
+              {dict.list.reload}
             </Button>
           </>
         }
-        description="Manage customer-facing offer categories."
-        eyebrow="Admin"
-        title="Categories"
+        description={dict.list.description}
+        eyebrow={dict.list.eyebrow}
+        title={dict.list.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
         <AdminStatCard
-          hint="Categories currently loaded from the API response."
-          label="Rows"
+          hint={dict.list.stats.totalHint}
+          label={dict.list.stats.total}
           value={listState.total}
         />
       </div>
       <CategoriesFilters
-        onChange={setFilters}
+        onChange={(newFilters) => setFilters({ ...newFilters, page: 1 })}
         onReset={() => setFilters(defaultFilters)}
         values={filters}
+        dict={dict.filters}
       />
       {listState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.list.errors.request}>
           <p className="text-sm text-rose-600">{listState.error}</p>
         </AdminSection>
       ) : null}
       {activeComposer === "createAction" ? (
         <CategoryForm
-          description="Create a customer-facing category using the typed category contract."
+          description={dict.list.form.createDescription}
+          categoriesList={allCategoriesState.items}
           isSubmitting={actions.createAction.isSubmitting}
           mode="create"
           onSubmit={async (payload) => {
@@ -70,12 +74,15 @@ export function CategoriesListPage({ lang }: { lang: string }) {
               setActiveComposer(null);
             }
           }}
-          submitLabel="Create category"
-          title="Create category"
+          submitLabel={dict.list.form.createBtn}
+          title={dict.list.form.createTitle}
+          dict={dict.form}
         />
       ) : null}
       <CategoriesTable
         items={listState.items}
+        dict={dict.table}
+        statusDict={dict.status}
         renderActions={(item) => (
           <div className="flex flex-wrap justify-end gap-2">
             <Link
@@ -86,23 +93,32 @@ export function CategoriesListPage({ lang }: { lang: string }) {
                 String(item.id ?? ""),
               )}
             >
-              View
+              {dict.list.actions.view}
             </Link>
             <AdminConfirmDialog
-              confirmLabel="Delete"
-              description="This will call the mapped admin endpoint for the selected category."
+              confirmLabel={dict.list.actions.delete}
+              description={dict.list.actions.deleteDesc}
               isPending={actions.deleteAction.isSubmitting}
               onConfirm={async () => {
                 await actions.deleteAction.submit(
                   String(item.id ?? ""),
                 );
               }}
-              title="Delete Category"
-              triggerLabel="Delete"
+              title={dict.list.actions.deleteTitle}
+              triggerLabel={dict.list.actions.delete}
               variant="danger"
             />
           </div>
         )}
+      />
+      <AdminPagination
+        currentPage={Number(filters.page) || 1}
+        lastPage={Number(listState.meta?.lastPage) || 0}
+        perPage={Number(filters.perPage) || 15}
+        onPageChange={(page) => setFilters({ ...filters, page })}
+        onPerPageChange={(perPage) =>
+          setFilters({ ...filters, perPage, page: 1 })
+        }
       />
     </div>
   );

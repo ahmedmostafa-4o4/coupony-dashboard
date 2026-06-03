@@ -8,6 +8,8 @@ export const adminRouteSegments = {
   storeCategories: "/store-categories",
   stores: "/stores",
   storeVerifications: "/store-verifications",
+  products: "/products",
+  productRevisions: "/product-revisions",
   offers: "/offers",
   coupons: "/coupons",
   redemptions: "/redemptions",

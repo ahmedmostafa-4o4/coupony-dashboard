@@ -2,7 +2,6 @@ export type {
   AdminCreateRoleDto,
   AdminCreateRoleResponseDto,
   AdminDeleteRoleResponseDto,
-  AdminRolePermissionsUpdateDto,
   AdminRolesListResponseDto,
   AdminRolesQueryDto,
   AdminUpdateRoleDto,

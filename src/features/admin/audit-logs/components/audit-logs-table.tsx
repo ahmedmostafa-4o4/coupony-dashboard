@@ -13,17 +13,17 @@ const columns: AdminColumn<AuditLog>[] = [
   {
     id: "actor",
     header: "Actor",
-    accessorKey: "actor",
+    cell: (item) => item.causer ? `${item.causer.firstName || ""} ${item.causer.lastName || ""}`.trim() || item.causer.email || String(item.causer.id) : item.causerId ? String(item.causerId) : "-",
   },
   {
     id: "action",
     header: "Action",
-    accessorKey: "action",
+    cell: (item) => (item.event || item.description || "-").toUpperCase(),
   },
   {
     id: "target",
     header: "Target",
-    accessorKey: "target",
+    cell: (item) => item.subjectType ? `${item.subjectType.split('\\').pop()} #${item.subjectId || '?'}` : "-",
   },
   {
     id: "createdAt",

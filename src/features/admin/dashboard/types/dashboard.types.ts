@@ -1,18 +1,20 @@
 import type { AdminItemResult } from "@/lib/api/admin-contract";
 import type { Camelized } from "@/types";
 
-import type { AdminDashboardSummaryDto } from "./dashboard.dto";
-
-export interface DashboardMetric {
-  hint?: string;
-  label: string;
-  value: number | string;
-}
+import type {
+  AdminDashboardGrowthDto,
+  AdminDashboardFinancialDto,
+  AdminDashboardPointsEconomyDto,
+  AdminDashboardOperationalDto,
+  AdminDashboardChartsDto,
+} from "./dashboard.dto";
 
 export type DashboardOverview = Camelized<{
-  summary: AdminDashboardSummaryDto;
-}> & {
-  metrics?: DashboardMetric[];
-};
+  growth: AdminDashboardGrowthDto;
+  financial: AdminDashboardFinancialDto;
+  pointsEconomy: AdminDashboardPointsEconomyDto;
+  operational: AdminDashboardOperationalDto;
+  charts: AdminDashboardChartsDto;
+}>;
 
 export type DashboardOverviewResult = AdminItemResult<DashboardOverview>;

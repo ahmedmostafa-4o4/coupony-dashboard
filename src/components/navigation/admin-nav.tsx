@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 
 import { adminNavigation } from "@/features/admin/shared";
 import { cn } from "@/lib/utils/cn";
+import type { GlobalDictionary } from "@/messages/get-dictionary";
 
 function Glyph({
   children,
@@ -163,6 +164,25 @@ function ItemIcon({ itemKey }: { itemKey: string }) {
           <path d="M12 4.5 14 9l4.5 2-4.5 2-2 4.5-2-4.5-4.5-2L10 9l2-4.5Z" />
         </Glyph>
       );
+    case "products":
+      return (
+        <Glyph>
+          <rect x="6" y="5" width="12" height="14" rx="2" />
+          <path d="M9 9h6" />
+          <path d="M9 12h6" />
+          <path d="M9 15h4" />
+        </Glyph>
+      );
+    case "productRevisions":
+      return (
+        <Glyph>
+          <path d="M7 5h7l3 3v11H7z" />
+          <path d="M14 5v3h3" />
+          <path d="M10 12h4" />
+          <path d="M10 15h4" />
+          <path d="m9.5 9.5 1 1 2-2" />
+        </Glyph>
+      );
     case "coupons":
       return (
         <Glyph>
@@ -297,9 +317,11 @@ function ItemIcon({ itemKey }: { itemKey: string }) {
 export function AdminNavigation({
   lang,
   collapsed = false,
+  dict,
 }: {
   lang: string;
   collapsed?: boolean;
+  dict: GlobalDictionary;
 }) {
   const pathname = usePathname();
 
@@ -348,10 +370,10 @@ export function AdminNavigation({
         <div className="h-full overflow-y-auto">
           <div className="border-b border-slate-200 px-5 py-5">
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">
-              Workspace
+              {dict.nav.workspace}
             </p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
-              Navigation
+              {dict.nav.navigation}
             </h2>
           </div>
 
@@ -359,7 +381,7 @@ export function AdminNavigation({
             {adminNavigation.map((group) => (
               <div key={group.title} className="space-y-2">
                 <p className="px-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">
-                  {group.title}
+                  {dict.groups[group.title as keyof typeof dict.groups] || group.title}
                 </p>
                 <div className="space-y-1">
                   {group.items.map((item) => {
@@ -385,10 +407,10 @@ export function AdminNavigation({
                         </NavIcon>
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-sm font-medium">
-                            {item.label}
+                            {dict.items[item.key as keyof typeof dict.items]?.label || item.label}
                           </p>
                           <p className="truncate text-xs text-slate-400">
-                            {item.description}
+                            {dict.items[item.key as keyof typeof dict.items]?.description || item.description}
                           </p>
                         </div>
                       </Link>

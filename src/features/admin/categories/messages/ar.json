@@ -1,0 +1,88 @@
+{
+  "list": {
+    "eyebrow": "الإدارة",
+    "title": "الأقسام",
+    "description": "إدارة الأقسام الخاصة بعروض العملاء.",
+    "create": "إنشاء قسم",
+    "reload": "تحديث",
+    "stats": {
+      "total": "الصفوف",
+      "totalHint": "الأقسام المحملة حاليًا من واجهة برمجة التطبيقات."
+    },
+    "errors": {
+      "request": "خطأ في الطلب"
+    },
+    "form": {
+      "createDescription": "إنشاء قسم مواجه للعملاء باستخدام العقد المحدد للقسم.",
+      "createTitle": "إنشاء قسم",
+      "createBtn": "إنشاء قسم"
+    },
+    "actions": {
+      "view": "عرض",
+      "delete": "حذف",
+      "deleteTitle": "حذف القسم",
+      "deleteDesc": "سيؤدي هذا إلى استدعاء واجهة برمجة التطبيقات للحذف للقسم المحدد."
+    }
+  },
+  "details": {
+    "loading": "جاري تحميل تفاصيل القسم...",
+    "notFound": "القسم غير موجود",
+    "notFoundDesc": "لم يرجع الخادم أي قسم لهذا الرابط.",
+    "eyebrow": "تفاصيل الإدارة",
+    "description": "عرض التفاصيل الاحتياطي حتى يكشف الخادم عن عمليات البحث عن الأقسام.",
+    "formUpdateDesc": "تحديث حقول القسم التي يرجعها محول التفاصيل الاحتياطي.",
+    "formUpdateTitle": "تحديث القسم",
+    "formUpdateBtn": "تحديث القسم",
+    "iconTitle": "أيقونة القسم",
+    "iconDesc": "الأيقونة المرفوعة لهذا القسم.",
+    "iconFallback": "لم يتم رفع أيقونة",
+    "hierarchyTitle": "تسلسل القسم",
+    "hierarchyDesc": "تفاصيل العلاقة الهرمية لهذا القسم.",
+    "parentCategory": "القسم الأب",
+    "noIcon": "بدون أيقونة",
+    "topLevel": "لا يوجد (قسم رئيسي)"
+  },
+  "table": {
+    "id": "المعرف",
+    "nameEn": "الاسم (EN)",
+    "nameAr": "الاسم (AR)",
+    "slug": "الرابط (Slug)",
+    "status": "الحالة",
+    "sortOrder": "ترتيب الفرز",
+    "created": "تاريخ الإنشاء",
+    "emptyTitle": "لم يتم العثور على أقسام",
+    "emptyDesc": "لم يرجع الخادم أي أقسام بعد."
+  },
+  "filters": {
+    "search": "بحث",
+    "searchPlaceholder": "البحث عن الأقسام بالاسم",
+    "status": "الحالة",
+    "statusOptions": {
+      "all": "الكل",
+      "active": "نشط",
+      "inactive": "غير نشط"
+    }
+  },
+  "form": {
+    "nameEn": "الاسم (EN)",
+    "nameEnPlaceholder": "اسم القسم (بالإنجليزية)",
+    "nameAr": "الاسم (AR)",
+    "nameArPlaceholder": "اسم القسم (بالعربية)",
+    "slug": "الرابط (Slug)",
+    "slugPlaceholder": "رابط-القسم",
+    "description": "الوصف",
+    "descriptionPlaceholder": "وصف القسم",
+    "parentCategory": "القسم الأب",
+    "parentCategoryPlaceholder": "لا يوجد (رئيسي)",
+    "icon": "الأيقونة",
+    "iconHint": "رفع صورة أيقونة جديدة.",
+    "status": "الحالة",
+    "statusActive": "نشط",
+    "statusInactive": "غير نشط",
+    "sortOrder": "الترتيب"
+  },
+  "status": {
+    "active": "نشط",
+    "inactive": "غير نشط"
+  }
+}

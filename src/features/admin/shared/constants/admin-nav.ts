@@ -64,6 +64,18 @@ export const adminNavigation: AdminNavigationGroup[] = [
         href: (lang) => createAdminHref(lang, "offers"),
       },
       {
+        key: "products",
+        label: "Products",
+        description: "Create, update, and inspect live catalog products.",
+        href: (lang) => createAdminHref(lang, "products"),
+      },
+      {
+        key: "productRevisions",
+        label: "Product Revisions",
+        description: "Review seller-submitted product changes awaiting approval.",
+        href: (lang) => createAdminHref(lang, "productRevisions"),
+      },
+      {
         key: "coupons",
         label: "Coupons",
         description: "Inspect and patch coupon-level configuration.",

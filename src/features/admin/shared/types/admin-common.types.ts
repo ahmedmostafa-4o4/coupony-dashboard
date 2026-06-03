@@ -22,8 +22,9 @@ export interface AdminFilterOption {
 
 export interface AdminFilterField {
   key: string;
+  keySecondary?: string;
   label: string;
-  type?: "search" | "text" | "select";
+  type?: "search" | "text" | "select" | "daterange";
   placeholder?: string;
   options?: AdminFilterOption[];
 }

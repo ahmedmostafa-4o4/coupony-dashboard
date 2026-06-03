@@ -8,6 +8,7 @@ export * from "./dashboard";
 export * from "./notifications";
 export * from "./notify-me";
 export * from "./offers";
+export * from "./products";
 export * from "./permissions";
 export * from "./recommendations";
 export * from "./redemptions";

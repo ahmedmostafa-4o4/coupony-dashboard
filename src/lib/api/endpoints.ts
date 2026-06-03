@@ -7,18 +7,20 @@ export const apiEndpoints = {
     login: "/auth/login",
   },
   admin: {
-    dashboard: "/admin/dashboard",
+    dashboard: "/admin/dashboard/overview",
     users: {
       list: "/admin/users",
       statistics: "/admin/users/statistics",
       detail: (userId: string) => `/admin/users/${segment(userId)}`,
       status: (userId: string) => `/admin/users/${segment(userId)}/status`,
+      password: (userId: string) => `/admin/users/${segment(userId)}/password`,
       activate: (userId: string) => `/admin/users/${segment(userId)}/activate`,
       suspend: (userId: string) => `/admin/users/${segment(userId)}/suspend`,
       delete: (userId: string) => `/admin/users/${segment(userId)}`,
-      roles: (userId: string) => `/admin/users/${segment(userId)}/roles`,
-      roleAssignment: (userId: string, assignmentId: string) =>
-        `/admin/users/${segment(userId)}/roles/${segment(assignmentId)}`,
+      revokeAllSessions: (userId: string) =>
+        `/admin/users/${segment(userId)}/sessions`,
+      revokeSession: (userId: string, sessionId: string) =>
+        `/admin/users/${segment(userId)}/sessions/${segment(sessionId)}`,
     },
     roles: {
       list: "/admin/roles",
@@ -27,10 +29,10 @@ export const apiEndpoints = {
         `/admin/roles/${segment(roleId)}/permissions`,
     },
     permissions: {
-      list: "/admin/permissions",
+      list: "/admin/roles/permissions",
     },
     auditLogs: {
-      list: "/admin/audit-logs",
+      list: "/admin/audits",
     },
     categories: {
       list: "/admin/categories",
@@ -68,6 +70,22 @@ export const apiEndpoints = {
       reject: (offerId: string) => `/admin/offers/${segment(offerId)}/reject`,
       publish: (offerId: string) => `/admin/offers/${segment(offerId)}/publish`,
       archive: (offerId: string) => `/admin/offers/${segment(offerId)}/archive`,
+    },
+    products: {
+      list: "/admin/products",
+      create: "/admin/products",
+      detail: (productId: string) => `/admin/products/${segment(productId)}`,
+      update: (productId: string) => `/admin/products/${segment(productId)}`,
+      delete: (productId: string) => `/admin/products/${segment(productId)}`,
+      revisions: {
+        pending: "/admin/products/pending",
+        detail: (revisionId: string) =>
+          `/admin/products/revisions/${segment(revisionId)}`,
+        approve: (revisionId: string) =>
+          `/admin/products/revisions/${segment(revisionId)}/approve`,
+        reject: (revisionId: string) =>
+          `/admin/products/revisions/${segment(revisionId)}/reject`,
+      },
     },
     coupons: {
       list: "/admin/coupons",

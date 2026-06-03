@@ -1,57 +1,42 @@
 import { CardGrid } from "@/components/ui/card";
 import { AdminStatCard } from "@/features/admin/shared";
 
-import type {
-  DashboardMetric,
-  DashboardOverview,
-} from "../types/dashboard.types";
-
-function inferMetrics(payload: DashboardOverview | null) {
-  if (!payload) {
-    return [] as DashboardMetric[];
-  }
-
-  if (Array.isArray(payload.metrics) && payload.metrics.length) {
-    return payload.metrics;
-  }
-
-  return Object.entries(payload)
-    .flatMap(([key, value]) =>
-      typeof value === "number" || typeof value === "string"
-        ? [
-            {
-              hint: "Derived from the dashboard payload.",
-              label: key.replace(/([a-z0-9])([A-Z])/g, "$1 $2"),
-              value,
-            },
-          ]
-        : []
-    )
-    .slice(0, 6)
-    ;
-}
+import type { DashboardOverview } from "../types/dashboard.types";
+import type { DashboardDictionary } from "../utils/get-dictionary";
 
 export function DashboardOverviewGrid({
   overview,
+  dict,
 }: {
   overview: DashboardOverview | null;
+  dict: DashboardDictionary["dashboard"]["overview"];
 }) {
-  const metrics = inferMetrics(overview);
-
-  if (!metrics.length) {
+  if (!overview) {
     return null;
   }
 
+  const { growth, financial } = overview;
+
   return (
     <CardGrid>
-      {metrics.map((metric) => (
-        <AdminStatCard
-          key={metric.label}
-          hint={metric.hint}
-          label={metric.label}
-          value={metric.value}
-        />
-      ))}
+      <AdminStatCard
+        label={dict.totalSalesVolume}
+        value={financial?.totalSalesVolume ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(financial.totalSalesVolume) : "$0.00"}
+      />
+      <AdminStatCard
+        label={dict.totalActiveStores}
+        value={growth?.totalStores || 0}
+        hint={financial?.premiumStores ? dict.premiumStores.replace("{{count}}", financial.premiumStores.toString()) : undefined}
+      />
+      <AdminStatCard
+        label={dict.totalUsers}
+        value={growth?.totalUsers || 0}
+        hint={growth?.newUsersThisMonth ? dict.newUsers.replace("{{count}}", growth.newUsersThisMonth.toString()) : undefined}
+      />
+      <AdminStatCard
+        label={dict.averageStoreRating}
+        value={financial?.averageStoreRating ? `${financial.averageStoreRating} ⭐` : "0 ⭐"}
+      />
     </CardGrid>
   );
 }

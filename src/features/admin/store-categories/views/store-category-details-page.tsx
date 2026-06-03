@@ -12,6 +12,7 @@ import { StoreCategoryForm } from "../components/store-category-form";
 import { StoreCategoryStatusBadge } from "../components/store-category-status-badge";
 import { useStoreCategoryActions } from "../hooks/use-store-category-actions";
 import { useStoreCategoryDetails } from "../hooks/use-store-category-details";
+import { getStoreCategoriesDictionary } from "../utils/get-dictionary";
 
 export function StoreCategoryDetailsPage({
   storeCategoryId,
@@ -21,18 +22,18 @@ export function StoreCategoryDetailsPage({
   lang: string;
 }) {
   const detailState = useStoreCategoryDetails(storeCategoryId);
-  void lang;
   const actions = useStoreCategoryActions(async () => { await detailState.reload(); });
+  const dict = getStoreCategoriesDictionary(lang);
 
   if (detailState.isLoading) {
-    return <PageLoading label="Loading store category details..." />;
+    return <PageLoading label={dict.details.loading} />;
   }
 
   if (!detailState.item) {
     return (
-      <AdminSection title="Store Category not found">
+      <AdminSection title={dict.details.notFound}>
         <p className="text-sm text-slate-500">
-          The backend did not return a store category for this route.
+          {dict.details.notFoundDesc}
         </p>
       </AdminSection>
     );
@@ -45,32 +46,33 @@ export function StoreCategoryDetailsPage({
           <div className="flex flex-wrap items-center gap-2">
             <StoreCategoryStatusBadge
               value={detailState.item.isActive ? "active" : "inactive"}
+              dict={dict.status}
             />
             
             <AdminConfirmDialog
-              confirmLabel="Delete"
-              description="This will call the mapped admin endpoint for the selected store category."
+              confirmLabel={dict.list.actions.delete}
+              description={dict.list.actions.deleteDesc}
               isPending={actions.deleteAction.isSubmitting}
               onConfirm={async () => {
                 await actions.deleteAction.submit(storeCategoryId);
               }}
-              title="Delete Store Category"
-              triggerLabel="Delete"
+              title={dict.list.actions.deleteTitle}
+              triggerLabel={dict.list.actions.delete}
               variant="danger"
             />
           </div>
         }
-        description="Fallback details view until the backend exposes store category lookups."
-        eyebrow="Admin details"
+        description={dict.details.description}
+        eyebrow={dict.details.eyebrow}
         title={getAdminEntityTitle(detailState.item, storeCategoryId)}
       />
       {detailState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.list.errors.request}>
           <p className="text-sm text-rose-600">{detailState.error}</p>
         </AdminSection>
       ) : null}
       <StoreCategoryForm
-        description="Update the store-category fields returned by the fallback detail adapter."
+        description={dict.details.formUpdateDesc}
         initialValues={detailState.item}
         isSubmitting={actions.updateAction.isSubmitting}
         mode="update"
@@ -80,23 +82,26 @@ export function StoreCategoryDetailsPage({
             payload,
           });
         }}
-        submitLabel="Update store category"
-        title="Update store category"
+        submitLabel={dict.details.formUpdateBtn}
+        title={dict.details.formUpdateTitle}
+        dict={dict.form}
       />
-      <AdminSection description="Uploaded icon for this store category." title="Store category icon">
+      <AdminSection description={dict.form.iconHint} title={dict.form.icon}>
         <AdminImagePreview
           alt={`${detailState.item.name} icon`}
           className="h-28 w-28"
-          fallbackLabel="No icon uploaded"
+          fallbackLabel={dict.details.iconFallback ?? "No icon"}
           src={detailState.item.iconUrl}
         />
       </AdminSection>
-      <AdminSection description="Structured fields returned for this record." title="Store Category details">
-        <AdminRecordGrid value={detailState.item} />
+      <AdminSection description={dict.form.imageCategoryHint} title={dict.form.imageCategory}>
+        <AdminImagePreview
+          alt={`${detailState.item.name} image`}
+          className="h-48 w-48 rounded-md"
+          fallbackLabel={dict.details.iconFallback ?? "No image"}
+          src={detailState.item.imageCategory}
+        />
       </AdminSection>
-      <AdminSection description="Raw backend payload for inspection while contracts are still being finalized." title="Raw API payload">
-        <AdminRecordGrid value={detailState.raw} />
-      </AdminSection>
-    </div>
+      </div>
   );
 }

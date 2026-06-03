@@ -1,0 +1,50 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "eyebrow": "Overview",
+    "description": "High-level operational visibility across marketplace, catalog, billing, and support surfaces.",
+    "refresh": "Refresh",
+    "loading": "Loading dashboard overview...",
+    "actionRequired": {
+      "title": "Action Required: You have {{count}} pending tasks that require your attention.",
+      "reviewStores": "Review Stores",
+      "reviewTickets": "Review Tickets"
+    },
+    "overview": {
+      "totalSalesVolume": "Total Sales Volume",
+      "totalActiveStores": "Total Active Stores",
+      "totalUsers": "Total Users",
+      "averageStoreRating": "Average Store Rating",
+      "premiumStores": "{{count}} premium stores",
+      "newUsers": "+{{count}} this month"
+    },
+    "loyalty": {
+      "title": "Loyalty Points Economy",
+      "description": "Overview of the platform's loyalty points economy and outstanding liability.",
+      "redemptionRate": "Redemption Rate",
+      "pointsSpent": "{{spent}} / {{earned}} points spent",
+      "outstandingLiability": "Outstanding Liability",
+      "pointsInCirculation": "Points currently in circulation"
+    },
+    "charts": {
+      "userAcquisition": "User Acquisition",
+      "userAcquisitionDesc": "New users over time.",
+      "storeGrowth": "Store Growth",
+      "storeGrowthDesc": "New stores over time.",
+      "claimsVolume": "Claims Volume",
+      "claimsVolumeDesc": "Coupon redemptions and claims over time.",
+      "subscriptions": "Subscriptions",
+      "subscriptionsDesc": "MRR distribution by tier.",
+      "pointsFlow": "Points Economy Flow",
+      "pointsFlowDesc": "Points earned vs spent per day.",
+      "topStores": "Top Stores Leaderboard",
+      "topStoresDesc": "Highest grossing and rated stores.",
+      "noStores": "No top stores found yet.",
+      "table": {
+        "storeName": "Store Name",
+        "totalSales": "Total Sales",
+        "rating": "Rating"
+      }
+    }
+  }
+}

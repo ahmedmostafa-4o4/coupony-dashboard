@@ -14,43 +14,55 @@ import type {
   UpdateStoreCategoryRequest,
 } from "../types/store-category.types";
 
-const fields: AdminFormField<StoreCategoryFormValues>[] = [
-  {
-    key: "nameEn",
-    label: "Name (English)",
-    placeholder: "Supermarkets",
-  },
-  {
-    key: "nameAr",
-    label: "Name (Arabic)",
-    placeholder: "سوبر ماركت",
-  },
-  {
-    key: "icon",
-    label: "Icon",
-    description: "Upload a store category icon image.",
-    placeholder: "Choose store category icon",
-    type: "file",
-    accept: "image/*",
-  },
-  {
-    key: "slug",
-    label: "Slug",
-    placeholder: "supermarkets",
-  },
-  {
-    key: "sortOrder",
-    label: "Sort order",
-    placeholder: "10",
-    type: "number",
-  },
-  {
-    key: "isActive",
-    label: "Active",
-    placeholder: "Store category is active",
-    type: "checkbox",
-  },
-];
+import type { StoreCategoriesDictionary } from "../utils/get-dictionary";
+
+export function getStoreCategoryFormFields(dict: StoreCategoriesDictionary["form"]): AdminFormField<StoreCategoryFormValues>[] {
+  return [
+    {
+      key: "nameEn",
+      label: dict.nameEn,
+      placeholder: dict.nameEnPlaceholder,
+    },
+    {
+      key: "nameAr",
+      label: dict.nameAr,
+      placeholder: dict.nameArPlaceholder,
+    },
+    {
+      key: "icon",
+      label: dict.icon,
+      description: dict.iconHint,
+      placeholder: dict.icon,
+      type: "file",
+      accept: "image/*",
+    },
+    {
+      key: "imageCategory",
+      label: dict.imageCategory,
+      description: dict.imageCategoryHint,
+      placeholder: dict.imageCategory,
+      type: "file",
+      accept: "image/*",
+    },
+    {
+      key: "slug",
+      label: dict.slug,
+      placeholder: dict.slugPlaceholder,
+    },
+    {
+      key: "sortOrder",
+      label: dict.sortOrder,
+      placeholder: "10",
+      type: "number",
+    },
+    {
+      key: "isActive",
+      label: dict.status,
+      placeholder: dict.statusActive,
+      type: "checkbox",
+    },
+  ];
+}
 
 export function StoreCategoryForm({
   description,
@@ -60,6 +72,7 @@ export function StoreCategoryForm({
   onSubmit,
   submitLabel,
   title,
+  dict,
 }: {
   description: string;
   initialValues?: StoreCategory | null;
@@ -68,6 +81,7 @@ export function StoreCategoryForm({
   onSubmit: (payload: CreateStoreCategoryRequest) => Promise<unknown>;
   submitLabel: string;
   title: string;
+  dict: StoreCategoriesDictionary["form"];
 } | {
   description: string;
   initialValues?: StoreCategory | null;
@@ -76,12 +90,13 @@ export function StoreCategoryForm({
   onSubmit: (payload: UpdateStoreCategoryRequest) => Promise<unknown>;
   submitLabel: string;
   title: string;
+  dict: StoreCategoriesDictionary["form"];
 }) {
   if (mode === "create") {
     return (
       <AdminSchemaForm
         description={description}
-        fields={fields}
+        fields={getStoreCategoryFormFields(dict)}
         initialValues={toStoreCategoryFormValues(initialValues)}
         isSubmitting={isSubmitting}
         onSubmit={onSubmit}
@@ -95,7 +110,7 @@ export function StoreCategoryForm({
   return (
     <AdminSchemaForm
       description={description}
-      fields={fields}
+      fields={getStoreCategoryFormFields(dict)}
       initialValues={toStoreCategoryFormValues(initialValues)}
       isSubmitting={isSubmitting}
       onSubmit={onSubmit}

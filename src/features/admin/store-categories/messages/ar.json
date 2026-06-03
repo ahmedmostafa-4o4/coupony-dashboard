@@ -1,0 +1,81 @@
+{
+  "list": {
+    "eyebrow": "الإدارة",
+    "title": "أقسام المتاجر",
+    "description": "إدارة الأقسام المستخدمة لتجميع وتصنيف المتاجر.",
+    "create": "إنشاء قسم متجر",
+    "reload": "تحديث",
+    "stats": {
+      "total": "الصفوف",
+      "totalHint": "أقسام المتاجر المحملة حاليًا من واجهة برمجة التطبيقات."
+    },
+    "errors": {
+      "request": "خطأ في الطلب"
+    },
+    "form": {
+      "createDescription": "إنشاء قسم متجر مواجه للعملاء.",
+      "createTitle": "إنشاء قسم متجر",
+      "createBtn": "إنشاء قسم متجر"
+    },
+    "actions": {
+      "view": "عرض",
+      "delete": "حذف",
+      "deleteTitle": "حذف قسم المتجر",
+      "deleteDesc": "سيؤدي هذا إلى استدعاء واجهة برمجة التطبيقات للحذف للقسم المحدد."
+    }
+  },
+  "details": {
+    "loading": "جاري تحميل تفاصيل القسم...",
+    "notFound": "القسم غير موجود",
+    "notFoundDesc": "لم يرجع الخادم أي قسم لهذا الرابط.",
+    "eyebrow": "تفاصيل الإدارة",
+    "description": "عرض التفاصيل الاحتياطي حتى يكشف الخادم عن عمليات البحث عن الأقسام.",
+    "formUpdateDesc": "تحديث حقول القسم التي يرجعها محول التفاصيل الاحتياطي.",
+    "formUpdateTitle": "تحديث قسم المتجر",
+    "formUpdateBtn": "تحديث قسم المتجر",
+    "iconFallback": "لم يتم رفع أيقونة"
+  },
+  "table": {
+    "id": "المعرف",
+    "nameEn": "الاسم (EN)",
+    "nameAr": "الاسم (AR)",
+    "slug": "الرابط (Slug)",
+    "status": "الحالة",
+    "sortOrder": "ترتيب الفرز",
+    "created": "تاريخ الإنشاء",
+    "emptyTitle": "لم يتم العثور على أقسام",
+    "emptyDesc": "لم يرجع الخادم أي أقسام بعد."
+  },
+  "filters": {
+    "search": "بحث",
+    "searchPlaceholder": "البحث عن أقسام المتاجر بالاسم",
+    "status": "الحالة",
+    "statusOptions": {
+      "all": "الكل",
+      "active": "نشط",
+      "inactive": "غير نشط"
+    }
+  },
+  "form": {
+    "nameEn": "الاسم (EN)",
+    "nameEnPlaceholder": "اسم القسم (بالإنجليزية)",
+    "nameAr": "الاسم (AR)",
+    "nameArPlaceholder": "اسم القسم (بالعربية)",
+    "slug": "الرابط (Slug)",
+    "slugPlaceholder": "رابط-القسم",
+    "description": "الوصف",
+    "descriptionPlaceholder": "وصف القسم",
+    "status": "الحالة",
+    "statusActive": "نشط",
+    "statusInactive": "غير نشط",
+    "sortOrder": "الترتيب",
+    "icon": "الأيقونة",
+    "iconHint": "رفع صورة أيقونة جديدة.",
+    "imageCategory": "صورة القسم",
+    "imageCategoryHint": "رفع صورة رئيسية لقسم المتجر هذا."
+  },
+  "status": {
+    "active": "نشط",
+    "inactive": "غير نشط"
+  }
+}

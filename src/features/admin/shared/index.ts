@@ -5,6 +5,7 @@ export * from "./components/admin-image-preview";
 export * from "./components/admin-filter-bar";
 export * from "./components/admin-action-dialog";
 export * from "./components/admin-page-header";
+export * from "./components/admin-pagination";
 export * from "./components/admin-record-grid";
 export * from "./components/admin-schema-form";
 export * from "./components/admin-section";

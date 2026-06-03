@@ -1,0 +1,50 @@
+{
+  "dashboard": {
+    "title": "لوحة القيادة",
+    "eyebrow": "نظرة عامة",
+    "description": "رؤية تشغيلية عالية المستوى عبر السوق والكتالوج والفواتير وأسطح الدعم.",
+    "refresh": "تحديث",
+    "loading": "جاري تحميل لوحة القيادة...",
+    "actionRequired": {
+      "title": "إجراء مطلوب: لديك {{count}} مهام معلقة تتطلب انتباهك.",
+      "reviewStores": "مراجعة المتاجر",
+      "reviewTickets": "مراجعة التذاكر"
+    },
+    "overview": {
+      "totalSalesVolume": "إجمالي حجم المبيعات",
+      "totalActiveStores": "إجمالي المتاجر النشطة",
+      "totalUsers": "إجمالي المستخدمين",
+      "averageStoreRating": "متوسط تقييم المتجر",
+      "premiumStores": "{{count}} متاجر مميزة",
+      "newUsers": "+{{count}} هذا الشهر"
+    },
+    "loyalty": {
+      "title": "اقتصاد نقاط الولاء",
+      "description": "نظرة عامة على اقتصاد نقاط الولاء للمنصة والالتزامات المستحقة.",
+      "redemptionRate": "معدل الاسترداد",
+      "pointsSpent": "{{spent}} / {{earned}} نقاط تم إنفاقها",
+      "outstandingLiability": "الالتزامات المستحقة",
+      "pointsInCirculation": "النقاط المتداولة حاليا"
+    },
+    "charts": {
+      "userAcquisition": "اكتساب المستخدمين",
+      "userAcquisitionDesc": "المستخدمون الجدد بمرور الوقت.",
+      "storeGrowth": "نمو المتاجر",
+      "storeGrowthDesc": "المتاجر الجديدة بمرور الوقت.",
+      "claimsVolume": "حجم المطالبات",
+      "claimsVolumeDesc": "استرداد الكوبونات والمطالبات بمرور الوقت.",
+      "subscriptions": "الاشتراكات",
+      "subscriptionsDesc": "توزيع الإيرادات المتكررة الشهرية (MRR) حسب الفئة.",
+      "pointsFlow": "تدفق اقتصاد النقاط",
+      "pointsFlowDesc": "النقاط المكتسبة مقابل المنفقة يومياً.",
+      "topStores": "لوحة صدارة أفضل المتاجر",
+      "topStoresDesc": "المتاجر الأعلى إيراداً وتقييماً.",
+      "noStores": "لم يتم العثور على متاجر بعد.",
+      "table": {
+        "storeName": "اسم المتجر",
+        "totalSales": "إجمالي المبيعات",
+        "rating": "التقييم"
+      }
+    }
+  }
+}

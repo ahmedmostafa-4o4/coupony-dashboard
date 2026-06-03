@@ -2,15 +2,16 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AdminPageHeader, AdminSection, AdminStatCard, AdminConfirmDialog, createAdminDetailHref } from "@/features/admin/shared";
+import { AdminPageHeader, AdminSection, AdminStatCard, AdminConfirmDialog, createAdminDetailHref, AdminPagination } from "@/features/admin/shared";
 import { StoreCategoriesFilters } from "../components/store-categories-filters";
 import { StoreCategoryForm } from "../components/store-category-form";
 import { StoreCategoriesTable } from "../components/store-categories-table";
 import { useStoreCategoryActions } from "../hooks/use-store-category-actions";
 import { useStoreCategoriesList } from "../hooks/use-store-categories-list";
 import type { StoreCategoriesListFilters } from "../types/store-category.types";
+import { getStoreCategoriesDictionary } from "../utils/get-dictionary";
 
-const defaultFilters: StoreCategoriesListFilters = { search: "", status: "all" };
+const defaultFilters: StoreCategoriesListFilters = { search: "", status: "all", page: 1, perPage: 15 };
 
 export function StoreCategoriesListPage({ lang }: { lang: string }) {
   const [filters, setFilters] = useState<StoreCategoriesListFilters>(defaultFilters);
@@ -19,6 +20,7 @@ export function StoreCategoriesListPage({ lang }: { lang: string }) {
   
   const listState = useStoreCategoriesList(filters);
   const actions = useStoreCategoryActions(async () => { await listState.reload(); });
+  const dict = getStoreCategoriesDictionary(lang);
 
   return (
     <div className="space-y-6">
@@ -30,37 +32,38 @@ export function StoreCategoriesListPage({ lang }: { lang: string }) {
               variant="secondary"
               onClick={() => setActiveComposer("createAction")}
             >
-              Create store category
+              {dict.list.create}
             </Button>
             <Button variant="secondary" onClick={() => void listState.reload()}>
-              Reload
+              {dict.list.reload}
             </Button>
           </>
         }
-        description="Manage merchant-facing store categories."
-        eyebrow="Admin"
-        title="Store Categories"
+        description={dict.list.description}
+        eyebrow={dict.list.eyebrow}
+        title={dict.list.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
         <AdminStatCard
-          hint="Store Categories currently loaded from the API response."
-          label="Rows"
+          hint={dict.list.stats.totalHint}
+          label={dict.list.stats.total}
           value={listState.total}
         />
       </div>
       <StoreCategoriesFilters
-        onChange={setFilters}
+        onChange={(newFilters) => setFilters({ ...newFilters, page: 1 })}
         onReset={() => setFilters(defaultFilters)}
         values={filters}
+        dict={dict.filters}
       />
       {listState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.list.errors.request}>
           <p className="text-sm text-rose-600">{listState.error}</p>
         </AdminSection>
       ) : null}
       {activeComposer === "createAction" ? (
         <StoreCategoryForm
-          description="Create a merchant-facing category using the typed store-category contract."
+          description={dict.list.form.createDescription}
           isSubmitting={actions.createAction.isSubmitting}
           mode="create"
           onSubmit={async (payload) => {
@@ -70,12 +73,15 @@ export function StoreCategoriesListPage({ lang }: { lang: string }) {
               setActiveComposer(null);
             }
           }}
-          submitLabel="Create store category"
-          title="Create store category"
+          submitLabel={dict.list.form.createBtn}
+          title={dict.list.form.createTitle}
+          dict={dict.form}
         />
       ) : null}
       <StoreCategoriesTable
         items={listState.items}
+        dict={dict.table}
+        statusDict={dict.status}
         renderActions={(item) => (
           <div className="flex flex-wrap justify-end gap-2">
             <Link
@@ -86,23 +92,32 @@ export function StoreCategoriesListPage({ lang }: { lang: string }) {
                 String(item.id ?? ""),
               )}
             >
-              View
+              {dict.list.actions.view}
             </Link>
             <AdminConfirmDialog
-              confirmLabel="Delete"
-              description="This will call the mapped admin endpoint for the selected store category."
+              confirmLabel={dict.list.actions.delete}
+              description={dict.list.actions.deleteDesc}
               isPending={actions.deleteAction.isSubmitting}
               onConfirm={async () => {
                 await actions.deleteAction.submit(
                   String(item.id ?? ""),
                 );
               }}
-              title="Delete Store Category"
-              triggerLabel="Delete"
+              title={dict.list.actions.deleteTitle}
+              triggerLabel={dict.list.actions.delete}
               variant="danger"
             />
           </div>
         )}
+      />
+      <AdminPagination
+        currentPage={Number(filters.page) || 1}
+        lastPage={Number(listState.meta?.lastPage) || 0}
+        perPage={Number(filters.perPage) || 15}
+        onPageChange={(page) => setFilters({ ...filters, page })}
+        onPerPageChange={(perPage) =>
+          setFilters({ ...filters, perPage, page: 1 })
+        }
       />
     </div>
   );

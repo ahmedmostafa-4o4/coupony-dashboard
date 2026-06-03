@@ -13,7 +13,8 @@ export interface CategoryFormValues {
   description: string;
   icon: File | null;
   isActive: boolean;
-  name: string;
+  nameEn: string;
+  nameAr: string;
   parentId: string;
   slug: string;
   sortOrder: string;
@@ -38,8 +39,9 @@ export function createCategoryFormSchema(
       description: "",
       icon: null,
       isActive: true,
-      name: "",
-      parentId: "",
+      nameEn: "",
+      nameAr: "",
+      parentId: "none",
       slug: "",
       sortOrder: "",
     },
@@ -48,15 +50,17 @@ export function createCategoryFormSchema(
         description: trimOptional(values.description),
         icon: values.icon ?? undefined,
         is_active: values.isActive,
-        name: values.name.trim(),
-        parent_id: trimOptional(values.parentId),
+        name_en: values.nameEn.trim(),
+        name_ar: values.nameAr.trim(),
+        parent_id: values.parentId === "none" ? undefined : trimOptional(values.parentId),
         slug: trimOptional(values.slug),
         sort_order: toOptionalNumber(values.sortOrder),
       };
     },
     validate(values) {
       return {
-        name: values.name.trim() ? undefined : "Category name is required.",
+        nameEn: values.nameEn.trim() ? undefined : "English category name is required.",
+        nameAr: values.nameAr.trim() ? undefined : "Arabic category name is required.",
         sortOrder:
           values.sortOrder.trim() && toOptionalNumber(values.sortOrder) === undefined
             ? "Sort order must be a number."
@@ -71,8 +75,9 @@ export function toCategoryFormValues(category?: Category | null): CategoryFormVa
     description: String(category?.description ?? ""),
     icon: null,
     isActive: Boolean(category?.isActive ?? true),
-    name: String(category?.name ?? ""),
-    parentId: String(category?.parentId ?? ""),
+    nameEn: String(category?.nameEn ?? ""),
+    nameAr: String(category?.nameAr ?? ""),
+    parentId: category?.parentId ? String(category.parentId) : "none",
     slug: String(category?.slug ?? ""),
     sortOrder:
       category?.sortOrder !== undefined && category?.sortOrder !== null

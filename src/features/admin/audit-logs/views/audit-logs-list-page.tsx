@@ -5,9 +5,9 @@ import { AdminPageHeader, AdminSection, AdminStatCard } from "@/features/admin/s
 import { AuditLogsFilters } from "../components/audit-logs-filters";
 import { AuditLogsTable } from "../components/audit-logs-table";
 import { useAuditLogsList } from "../hooks/use-audit-logs-list";
-import type { AuditLogsListFilters } from "../types/audit-log.types";
+import type { AuditLogsListFilters, AuditLog } from "../types/audit-log.types";
 
-const defaultFilters: AuditLogsListFilters = { search: "" };
+const defaultFilters: AuditLogsListFilters = { event: "all", subjectType: "all" };
 
 export function AuditLogsListPage({ lang }: { lang: string }) {
   const [filters, setFilters] = useState<AuditLogsListFilters>(defaultFilters);
@@ -49,10 +49,7 @@ export function AuditLogsListPage({ lang }: { lang: string }) {
         </AdminSection>
       ) : null}
 
-      <AuditLogsTable
-        items={listState.items}
-
-      />
+      <AuditLogsTable items={listState.items} />
     </div>
   );
 }

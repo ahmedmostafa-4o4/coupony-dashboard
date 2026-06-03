@@ -63,12 +63,7 @@ export function SubscriptionDetailsPage({
         submitLabel="Update subscription"
         title="Update subscription"
       />
-      <AdminSection description="Structured fields returned for this record." title="Subscription details">
-        <AdminRecordGrid value={detailState.item} />
-      </AdminSection>
-      <AdminSection description="Raw backend payload for inspection while contracts are still being finalized." title="Raw API payload">
-        <AdminRecordGrid value={detailState.raw} />
-      </AdminSection>
-    </div>
+      </div>
   );
 }
+

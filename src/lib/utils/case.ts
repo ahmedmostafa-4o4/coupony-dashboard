@@ -24,3 +24,24 @@ export function camelizeKeys<TValue>(value: TValue): TValue {
     ])
   ) as TValue;
 }
+
+function toSnakeCase(value: string) {
+  return value.replace(/[A-Z]/g, (character) => `_${character.toLowerCase()}`);
+}
+
+export function decamelizeKeys<TValue>(value: TValue): TValue {
+  if (Array.isArray(value)) {
+    return value.map((entry) => decamelizeKeys(entry)) as TValue;
+  }
+
+  if (!isPlainObject(value)) {
+    return value;
+  }
+
+  return Object.fromEntries(
+    Object.entries(value).map(([key, entryValue]) => [
+      toSnakeCase(key),
+      decamelizeKeys(entryValue),
+    ])
+  ) as TValue;
+}

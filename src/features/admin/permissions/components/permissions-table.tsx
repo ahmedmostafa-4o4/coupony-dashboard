@@ -11,19 +11,9 @@ const columns: AdminColumn<Permission>[] = [
     accessorKey: "id",
   },
   {
-    id: "key",
-    header: "Key",
-    accessorKey: "key",
-  },
-  {
-    id: "resource",
-    header: "Resource",
-    accessorKey: "resource",
-  },
-  {
-    id: "description",
-    header: "Description",
-    accessorKey: "description",
+    id: "name",
+    header: "Name",
+    accessorKey: "name",
   },
 ];
 

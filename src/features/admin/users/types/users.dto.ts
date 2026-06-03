@@ -22,6 +22,7 @@ export type {
   AdminUsersQueryDto,
   RoleDto,
   UserRoleAssignmentDto,
+  UserSessionDto,
   UserStatus,
 } from "@/types/admin-api.dto";
 
@@ -34,10 +35,7 @@ export interface UserProfileDto {
   last_name?: string | null;
 }
 
-export type UserStoreSummaryDto = Pick<
-  StoreDto,
-  "id" | "name" | "status" | "subscription_tier"
->;
+export type UserStoreSummaryDto = StoreDto;
 
 export interface AdminUpdateUserStatusRequest {
   status: string;
@@ -59,7 +57,7 @@ export interface UserRecordDto extends UserDto {
   full_name?: string | null;
   points?: number | null;
   profile?: UserProfileDto | null;
-  roles?: Array<string | RoleDto | UserRoleAssignmentDto>;
+  roles?: string[];
   stores?: UserStoreSummaryDto[];
 }
 

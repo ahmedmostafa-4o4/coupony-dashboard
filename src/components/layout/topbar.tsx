@@ -3,8 +3,10 @@
 import Link from "next/link";
 
 import { LogoutButton } from "@/components/layout/logout-button";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { siteConfig } from "@/config/site";
 import { createAdminHref } from "@/features/admin/shared";
+import { getGlobalDictionary } from "@/messages/get-dictionary";
 
 export function Topbar({
   lang,
@@ -13,6 +15,8 @@ export function Topbar({
   lang: string;
   onOpenSidebar: () => void;
 }) {
+  const dict = getGlobalDictionary(lang);
+
   return (
     <header className="sticky top-0 z-10 border-b border-slate-200 bg-[#fbfbfa]/90 px-6 py-4 backdrop-blur xl:px-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -39,24 +43,22 @@ export function Topbar({
           </button>
           <div>
             <p className="text-sm font-medium text-slate-500">
-              {siteConfig.name}
+              {dict.app.name}
             </p>
             <h1 className="text-2xl font-semibold tracking-tight text-slate-950">
-              Operations command center
+              {dict.admin.subtitle}
             </h1>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <span className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
-            {lang}
-          </span>
+          <LanguageSwitcher currentLang={lang} />
           <Link
             href={createAdminHref(lang, "dashboard")}
             className="rounded-2xl bg-slate-950 px-4 py-2 text-sm font-medium text-white! transition hover:bg-slate-800"
           >
-            Dashboard
+            {dict.nav.dashboard}
           </Link>
-          <LogoutButton className="rounded-2xl" />
+          <LogoutButton className="rounded-2xl" dict={dict.nav} />
         </div>
       </div>
       <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -75,14 +77,14 @@ export function Topbar({
             <path d="m20 20-3.5-3.5" />
           </svg>
           <input
-            aria-label="Search"
+            aria-label={dict.admin.search}
             className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
-            placeholder="Search users, stores, offers..."
+            placeholder={dict.admin.search}
             type="search"
           />
         </div>
         <div className="rounded-[22px] border border-slate-200 bg-white px-4 py-3 text-sm text-slate-500 shadow-sm">
-          Quick access enabled
+          {dict.admin.quickAccess}
         </div>
       </div>
     </header>

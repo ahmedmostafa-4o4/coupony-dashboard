@@ -17,6 +17,7 @@ export async function updateStoreCategory(
   appendFormDataValue(formData, "sort_order", payload.sort_order);
   appendFormDataValue(formData, "is_active", payload.is_active);
   appendFormDataValue(formData, "icon", payload.icon);
+  appendFormDataValue(formData, "image_category", payload.image_category);
   appendFormDataValue(formData, "_method", "PUT");
 
   return apiClient.post<

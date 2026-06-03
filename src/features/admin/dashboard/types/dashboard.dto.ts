@@ -1,5 +1,9 @@
 export type {
   AdminDashboardQueryDto,
   AdminDashboardResponseDto,
-  AdminDashboardSummaryDto,
+  AdminDashboardGrowthDto,
+  AdminDashboardFinancialDto,
+  AdminDashboardPointsEconomyDto,
+  AdminDashboardOperationalDto,
+  AdminDashboardChartsDto,
 } from "@/types/admin-api.dto";

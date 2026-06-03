@@ -5,7 +5,7 @@ import type { AdminUpdateUserResponseDto } from "../types/users.dto";
 import type { UpdateUserRequest } from "../types/user.types";
 
 export async function updateUser(userId: string, payload: UpdateUserRequest) {
-  return apiClient.patch<AdminUpdateUserResponseDto, UpdateUserRequest>(
+  return apiClient.put<AdminUpdateUserResponseDto, UpdateUserRequest>(
     apiEndpoints.admin.users.detail(userId),
     payload
   );

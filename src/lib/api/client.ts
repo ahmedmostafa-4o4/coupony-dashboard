@@ -1,5 +1,5 @@
 import type { ApiErrorPayload } from "@/types";
-import { getAccessToken, logoutAndRedirect } from "@/lib/auth/session";
+import { getAccessToken, getRefreshToken, updateAuthTokens, logoutAndRedirect } from "@/lib/auth/session";
 
 type QueryValue = string | number | boolean | null | undefined;
 
@@ -7,6 +7,7 @@ export interface ApiRequestOptions extends Omit<RequestInit, "body"> {
   body?: unknown;
   query?: Record<string, QueryValue>;
   auth?: "include" | "omit";
+  _retry?: boolean;
 }
 
 export class ApiError extends Error {
@@ -82,11 +83,12 @@ function serializeRequestBody(body: unknown) {
 }
 
 async function request<T>(path: string, options: ApiRequestOptions = {}) {
-  const { auth = "include", query, headers, body, ...rest } = options;
+  const { auth = "include", query, headers, body, _retry = false, ...rest } = options;
   const accessToken = auth === "include" ? getAccessToken() : null;
   const serializedBody = serializeRequestBody(body);
   const resolvedHeaders = {
     Accept: "application/json, text/plain;q=0.9, */*;q=0.8",
+    "Accept-Language": typeof document !== "undefined" ? document.documentElement.lang || "en" : "en",
     ...(serializedBody && !isFormDataBody(serializedBody)
       ? { "Content-Type": "application/json" }
       : {}),
@@ -102,7 +104,40 @@ async function request<T>(path: string, options: ApiRequestOptions = {}) {
 
   if (!response.ok) {
     if (response.status === 401 && auth === "include") {
+      if (!_retry) {
+        const refreshToken = getRefreshToken();
+        if (refreshToken) {
+          try {
+            const refreshResponse = await fetch(resolveUrl("/auth/refresh"), {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json, text/plain;q=0.9, */*;q=0.8",
+                "Accept-Language": typeof document !== "undefined" ? document.documentElement.lang || "en" : "en",
+              },
+              body: JSON.stringify({ refresh_token: refreshToken }),
+            });
+
+            if (refreshResponse.ok) {
+              const resData = (await refreshResponse.json()) as { data: { access_token: string; refresh_token: string; } };
+              const newAccessToken = resData.data.access_token;
+              const newRefreshToken = resData.data.refresh_token;
+
+              updateAuthTokens(newAccessToken, newRefreshToken);
+
+              return request<T>(path, { ...options, _retry: true });
+            }
+          } catch {
+            // Silently fall through to logout
+          }
+        }
+      }
+
       logoutAndRedirect();
+      throw new ApiError({
+        message: "Authentication failed",
+        status: 401,
+      });
     }
 
     const errorPayload = (await parseApiResponse<ApiErrorPayload | string>(

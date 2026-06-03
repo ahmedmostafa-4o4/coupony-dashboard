@@ -1,0 +1,142 @@
+{
+  "list": {
+    "eyebrow": "Admin",
+    "title": "Users",
+    "description": "Manage activation, suspension, and role assignment workflows.",
+    "create": "Create user",
+    "reload": "Reload",
+    "stats": {
+      "total": "Total",
+      "totalHint": "Total user accounts returned by the statistics endpoint.",
+      "active": "Active",
+      "activeHint": "The default status. The user can log in and use the platform normally.",
+      "suspended": "Suspended",
+      "suspendedHint": "The user's account is temporarily blocked. They cannot log in or perform actions.",
+      "deleted": "Deleted",
+      "deletedHint": "A soft-deleted state indicating the user has been removed, but relational records are kept."
+    },
+    "errors": {
+      "request": "Request error",
+      "statistics": "Statistics error"
+    },
+    "form": {
+      "createDescription": "Create an admin-managed user with the typed request contract.",
+      "createTitle": "Create user",
+      "createBtn": "Create user"
+    },
+    "actions": {
+      "view": "View",
+      "activate": "Activate",
+      "activateTitle": "Activate User",
+      "activateDesc": "This will call the mapped admin endpoint for the selected user.",
+      "suspend": "Suspend",
+      "suspendTitle": "Suspend User",
+      "suspendDesc": "This will call the mapped admin endpoint for the selected user.",
+      "delete": "Delete",
+      "deleteTitle": "Delete User",
+      "deleteDesc": "This will permanently remove this user, then return you to the users list."
+    }
+  },
+  "details": {
+    "loading": "Loading user details...",
+    "notFound": "User not found",
+    "notFoundDesc": "The backend did not return a user for this route.",
+    "eyebrow": "Admin details",
+    "description": "Inspect the current admin-facing user payload and lifecycle actions.",
+    "deletedTitle": "User deleted",
+    "deletedDesc": "Deleted users are kept visible for audit/reference, but mutation actions are disabled. This user is marked as deleted. To continue managing accounts, return to the users list.",
+    "formUpdateDesc": "Update the user profile and admin-facing account settings.",
+    "formUpdateTitle": "Update user",
+    "formUpdateBtn": "Update user",
+    "passwordDesc": "Enter a new password for the user. They will need this password to log in again.",
+    "passwordTitle": "Update Password",
+    "passwordBtn": "Change password",
+    "storesTitle": "Stores",
+    "storesDesc": "Stores linked to this user account.",
+    "noStores": "No linked stores."
+  },
+  "table": {
+    "id": "ID",
+    "name": "Name",
+    "email": "Email",
+    "status": "Status",
+    "created": "Created",
+    "emptyTitle": "No users found",
+    "emptyDesc": "The backend has not returned any users yet."
+  },
+  "filters": {
+    "search": "Search",
+    "searchPlaceholder": "Search users by name or email",
+    "role": "Role",
+    "allRoles": "All roles",
+    "status": "Status",
+    "statusOptions": {
+      "all": "all",
+      "active": "active",
+      "suspended": "suspended",
+      "deleted": "deleted"
+    },
+    "signUpDate": "Sign up date"
+  },
+  "form": {
+    "email": "Email",
+    "emailPlaceholder": "admin@example.com",
+    "phone": "Phone number",
+    "phonePlaceholder": "+1 555 0100",
+    "firstName": "First name",
+    "firstNamePlaceholder": "Sara",
+    "lastName": "Last name",
+    "lastNamePlaceholder": "Ali",
+    "status": "Status",
+    "statusActive": "Active",
+    "statusSuspended": "Suspended",
+    "statusDeleted": "Deleted",
+    "language": "Language",
+    "timezone": "Timezone",
+    "role": "Role",
+    "rolePlaceholder": "Select a role",
+    "twoFactor": "Two-factor enabled",
+    "twoFactorPlaceholder": "Require two-factor authentication",
+    "password": "Password",
+    "passwordPlaceholder": "Temporary password",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "Minimum 8 characters",
+    "confirmPassword": "Confirm Password",
+    "passwordConfirmation": "Confirm Password",
+    "passwordConfirmationPlaceholder": "Re-enter password",
+    "dateOfBirth": "Date of Birth",
+    "dateOfBirthPlaceholder": "YYYY-MM-DD",
+    "gender": "Gender",
+    "genderMale": "Male",
+    "genderFemale": "Female",
+    "bio": "Bio",
+    "bioPlaceholder": "Tell us about this user...",
+    "forceChangeTitle": "Force Change Password",
+    "forceChangeDesc": "Updating the password will instantly log the user out of all their current devices.",
+    "warning": "Warning:",
+    "warningDesc": "Changing the password forcibly destroys all active sessions and tokens."
+  },
+  "security": {
+    "title": "Security & Auditing",
+    "description": "Overview of the user's recent security activity.",
+    "overview": "Security Overview",
+    "lastLogin": "Last Login",
+    "neverLoggedIn": "Never logged in",
+    "lastIp": "Last Known IP",
+    "unknown": "Unknown",
+    "revokeAll": "Revoke All Sessions",
+    "noActive": "No active sessions",
+    "sessionsTitle": "Active Sessions",
+    "sessionsDesc": "Devices currently logged into this account.",
+    "noSessions": "No active sessions found.",
+    "device": "Device / Browser",
+    "ip": "IP Address",
+    "lastActivity": "Last Activity",
+    "actions": "Actions",
+    "unknownDevice": "Unknown device",
+    "revoke": "Revoke"
+  },
+  "storeCard": {
+    "viewStore": "View Store"
+  }
+}

@@ -9,10 +9,12 @@ export function LogoutButton({
   className,
   variant = "danger",
   compact = false,
+  dict,
 }: {
   className?: string;
   variant?: "primary" | "secondary" | "ghost" | "danger";
   compact?: boolean;
+  dict?: { logout: string; signingOut: string };
 }) {
   const [isPending, setIsPending] = useState(false);
 
@@ -27,8 +29,8 @@ export function LogoutButton({
       disabled={isPending}
       variant={variant}
       onClick={handleClick}
-      aria-label={isPending ? "Signing out" : "Logout"}
-      title={isPending ? "Signing out" : "Logout"}
+      aria-label={isPending ? (dict?.signingOut || "Signing out") : (dict?.logout || "Logout")}
+      title={isPending ? (dict?.signingOut || "Signing out") : (dict?.logout || "Logout")}
     >
       {compact ? (
         <svg
@@ -46,9 +48,9 @@ export function LogoutButton({
           <path d="M21 12H9" />
         </svg>
       ) : isPending ? (
-        "Signing out..."
+        dict?.signingOut || "Signing out..."
       ) : (
-        "Logout"
+        dict?.logout || "Logout"
       )}
     </Button>
   );

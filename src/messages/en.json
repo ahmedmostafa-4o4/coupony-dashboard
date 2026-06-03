@@ -1,5 +1,58 @@
 {
-  "app.name": "Coupony Dashboard",
-  "admin.title": "Coupony Admin",
-  "admin.subtitle": "Operational command center for the marketplace."
+  "app": {
+    "name": "Coupony Dashboard"
+  },
+  "admin": {
+    "title": "Coupony Admin",
+    "subtitle": "Operations command center",
+    "workspace": "Admin workspace",
+    "session": "Session",
+    "quickAccess": "Quick access enabled",
+    "search": "Search users, stores, offers..."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "navigation": "Navigation",
+    "workspace": "Workspace",
+    "logout": "Logout",
+    "signingOut": "Signing out..."
+  },
+  "groups": {
+    "Overview": "Overview",
+    "Access": "Access",
+    "Catalog": "Catalog",
+    "Stores": "Stores",
+    "Operations": "Operations",
+    "Billing": "Billing",
+    "Support": "Support"
+  },
+  "items": {
+    "dashboard": { "label": "Dashboard", "description": "High-level KPIs and operational pulse." },
+    "users": { "label": "Users", "description": "Manage admin and platform user accounts." },
+    "roles": { "label": "Roles", "description": "Control role definitions and permission bundles." },
+    "permissions": { "label": "Permissions", "description": "Review the available authorization surface." },
+    "auditLogs": { "label": "Audit Logs", "description": "Trace sensitive actions and change history." },
+    "categories": { "label": "Categories", "description": "Organize customer-facing offer categories." },
+    "storeCategories": { "label": "Store Categories", "description": "Manage merchant store classification." },
+    "offers": { "label": "Offers", "description": "Review approval, publish, and archival states." },
+    "products": { "label": "Products", "description": "Create, update, and inspect live catalog products." },
+    "productRevisions": { "label": "Product Revisions", "description": "Review seller-submitted product changes awaiting approval." },
+    "coupons": { "label": "Coupons", "description": "Inspect and patch coupon-level configuration." },
+    "recommendations": { "label": "Recommendations", "description": "Curate promoted content and placements." },
+    "stores": { "label": "Stores", "description": "Approve, suspend, and bill merchants." },
+    "storeVerifications": { "label": "Store Verifications", "description": "Process merchant verification reviews." },
+    "redemptions": { "label": "Redemptions", "description": "Investigate redemption activity and fraud flags." },
+    "inventory": { "label": "Inventory", "description": "Review inventory transaction movements." },
+    "payments": { "label": "Payments", "description": "Monitor payment activity and anomalies." },
+    "billingProfiles": { "label": "Billing Profiles", "description": "Reference store billing profile data." },
+    "invoices": { "label": "Invoices", "description": "Issue, void, and reconcile invoices." },
+    "commissions": { "label": "Commissions", "description": "Track payout status and invoicing workflow." },
+    "subscriptions": { "label": "Subscriptions", "description": "Manage merchant subscription lifecycle state." },
+    "subscriptionPlans": { "label": "Subscription Plans", "description": "Maintain plan catalog and pricing definitions." },
+    "contactCustomer": { "label": "Contact / Customer", "description": "Handle customer support tickets." },
+    "contactSeller": { "label": "Contact / Seller", "description": "Handle seller support tickets." },
+    "notifyMe": { "label": "Notify Me", "description": "Review notify-me requests and follow-ups." },
+    "notificationsBroadcast": { "label": "Notifications / Broadcast", "description": "Send broadcast notifications across the platform." },
+    "chatbotSessions": { "label": "Chatbot Sessions", "description": "Inspect support chatbot conversations." }
+  }
 }

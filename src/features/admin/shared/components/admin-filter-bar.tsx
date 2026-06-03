@@ -4,11 +4,18 @@ import type { ChangeEvent } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import type {
   AdminFilterField,
   AdminFilterValues,
 } from "@/features/admin/shared/types/admin-common.types";
+import { AdminDateRangePicker } from "./admin-date-range-picker";
 
 export function AdminFilterBar<TFilters extends AdminFilterValues>({
   fields,
@@ -44,14 +51,41 @@ export function AdminFilterBar<TFilters extends AdminFilterValues>({
             {field.type === "select" ? (
               <Select
                 value={String(values[field.key] ?? "")}
-                onChange={(event) => handleFieldChange(field, event)}
+                onValueChange={(val) =>
+                  onChange({
+                    ...values,
+                    [field.key]: val,
+                  } as TFilters)
+                }
               >
-                {field.options?.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
+                <SelectTrigger>
+                  <SelectValue placeholder={field.placeholder ?? "Select an option"} />
+                </SelectTrigger>
+                <SelectContent>
+                  {field.options?.map((option) => (
+                    <SelectItem key={option.value} value={String(option.value)}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
               </Select>
+            ) : field.type === "daterange" ? (
+              <AdminDateRangePicker
+                fromValue={String(values[field.key] ?? "")}
+                toValue={String(values[field.keySecondary!] ?? "")}
+                onFromChange={(value) =>
+                  onChange({
+                    ...values,
+                    [field.key]: value,
+                  } as TFilters)
+                }
+                onToChange={(value) =>
+                  onChange({
+                    ...values,
+                    [field.keySecondary!]: value,
+                  } as TFilters)
+                }
+              />
             ) : (
               <Input
                 type={field.type === "search" ? "search" : "text"}
