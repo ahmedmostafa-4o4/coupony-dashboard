@@ -3,6 +3,7 @@
 import { Clock } from "lucide-react";
 import { AdminSection } from "@/features/admin/shared";
 import type { StoreHours } from "../types/store.types";
+import type { StoresDictionary } from "../utils/get-dictionary";
 
 const DAYS_OF_WEEK = [
   "Sunday",
@@ -14,16 +15,15 @@ const DAYS_OF_WEEK = [
   "Saturday",
 ];
 
-export function StoreHoursTab({ hours }: { hours?: StoreHours[] }) {
+export function StoreHoursTab({ hours, dict }: { hours?: StoreHours[]; dict: StoresDictionary["details"]["hours"] }) {
   if (!hours?.length) {
     return (
-      <AdminSection description="Store opening hours returned by the API." title="Hours">
+      <AdminSection description={dict.desc} title={dict.title}>
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50 py-12 text-center">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
             <Clock className="h-6 w-6 text-slate-400" />
           </div>
-          <h3 className="mt-4 text-sm font-semibold text-slate-900">No hours found</h3>
-          <p className="mt-1 text-sm text-slate-500">This store has not specified its operating hours.</p>
+          <p className="mt-1 text-sm text-slate-500">{dict.none}</p>
         </div>
       </AdminSection>
     );
@@ -33,7 +33,7 @@ export function StoreHoursTab({ hours }: { hours?: StoreHours[] }) {
   const sortedHours = [...hours].sort((a, b) => a.dayOfWeek - b.dayOfWeek);
 
   return (
-    <AdminSection description="Store opening hours returned by the API." title="Hours">
+    <AdminSection description={dict.desc} title={dict.title}>
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <ul className="divide-y divide-slate-100">
           {sortedHours.map((hour, i) => {
@@ -53,7 +53,7 @@ export function StoreHoursTab({ hours }: { hours?: StoreHours[] }) {
                 <div className="flex flex-1 justify-end">
                   {hour.isClosed ? (
                     <span className="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">
-                      Closed
+                      {dict.closed}
                     </span>
                   ) : (
                     <span className="text-sm font-medium text-slate-700">

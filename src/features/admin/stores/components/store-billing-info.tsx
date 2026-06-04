@@ -5,8 +5,9 @@ import { AdminSection, AdminRecordGrid } from "@/features/admin/shared";
 import { getStoreBilling } from "../api/get-store-billing";
 import type { StoreSubscription } from "../types/store.types";
 import { PageLoading } from "@/components/shared/page-loading";
+import type { StoresDictionary } from "../utils/get-dictionary";
 
-export function StoreBillingInfo({ storeId }: { storeId: string }) {
+export function StoreBillingInfo({ storeId, dict }: { storeId: string; dict: StoresDictionary["details"]["billing"] }) {
   const [subscription, setSubscription] = useState<StoreSubscription | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,14 +39,14 @@ export function StoreBillingInfo({ storeId }: { storeId: string }) {
 
   if (!subscription) {
     return (
-      <AdminSection title="Billing Profile">
-        <p className="text-sm text-slate-500">No active billing subscription found for this store.</p>
+      <AdminSection title={dict.title}>
+        <p className="text-sm text-slate-500">{dict.noBillingDesc}</p>
       </AdminSection>
     );
   }
 
   return (
-    <AdminSection title="Billing Profile" description="Subscription and billing details.">
+    <AdminSection title={dict.title} description={dict.desc}>
       <AdminRecordGrid value={subscription} />
     </AdminSection>
   );

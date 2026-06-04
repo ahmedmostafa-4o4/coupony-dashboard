@@ -10,34 +10,7 @@ import {
 } from "../schemas/store-form.schema";
 import type { Store, UpdateStoreRequest } from "../types/store.types";
 
-const fields: AdminFormField<StoreFormValues>[] = [
-  { key: "name", label: "Store name", placeholder: "Fresh Mart" },
-  {
-    key: "email",
-    label: "Email",
-    placeholder: "merchant@example.com",
-    type: "email",
-  },
-  { key: "phone", label: "Phone", placeholder: "+1 555 0199" },
-  { key: "taxId", label: "Tax ID", placeholder: "TX-1001" },
-  {
-    key: "commissionRate",
-    label: "Commission rate",
-    placeholder: "12.5",
-    type: "number",
-  },
-  {
-    key: "subscriptionTier",
-    label: "Subscription tier",
-    placeholder: "growth",
-  },
-  {
-    key: "description",
-    label: "Description",
-    placeholder: "Operational notes about this merchant.",
-    type: "textarea",
-  },
-];
+import type { StoresDictionary } from "../utils/get-dictionary";
 
 export function StoreForm({
   description,
@@ -46,6 +19,7 @@ export function StoreForm({
   onSubmit,
   submitLabel,
   title,
+  dict,
 }: {
   description: string;
   initialValues?: Store | null;
@@ -53,7 +27,36 @@ export function StoreForm({
   onSubmit: (payload: UpdateStoreRequest) => Promise<unknown>;
   submitLabel: string;
   title: string;
+  dict: StoresDictionary["form"];
 }) {
+  const fields: AdminFormField<StoreFormValues>[] = [
+    { key: "name", label: dict.fields.name, placeholder: "Fresh Mart" },
+    {
+      key: "email",
+      label: dict.fields.email,
+      placeholder: "merchant@example.com",
+      type: "email",
+    },
+    { key: "phone", label: dict.fields.phone, placeholder: "+1 555 0199" },
+    { key: "taxId", label: "Tax ID", placeholder: "TX-1001" },
+    {
+      key: "commissionRate",
+      label: "Commission rate",
+      placeholder: "12.5",
+      type: "number",
+    },
+    {
+      key: "subscriptionTier",
+      label: "Subscription tier",
+      placeholder: "growth",
+    },
+    {
+      key: "description",
+      label: dict.fields.description,
+      placeholder: "Operational notes about this merchant.",
+      type: "textarea",
+    },
+  ];
   return (
     <AdminSchemaForm
       description={description}

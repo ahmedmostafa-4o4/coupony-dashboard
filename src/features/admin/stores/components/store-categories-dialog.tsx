@@ -14,16 +14,20 @@ import {
 import { getStoreCategories } from "@/features/admin/store-categories/api/get-store-categories";
 import { Check, Plus } from "lucide-react";
 
+import type { StoresDictionary } from "../utils/get-dictionary";
+
 interface StoreCategoriesDialogProps {
   currentCategoryIds: (string | number)[];
   isPending: boolean;
   onAttach: (categoryId: string | number) => Promise<boolean>;
+  dict: StoresDictionary["details"]["categories"];
 }
 
 export function StoreCategoriesDialog({
   currentCategoryIds,
   isPending,
   onAttach,
+  dict,
 }: StoreCategoriesDialogProps) {
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState<any[]>([]);
@@ -51,14 +55,14 @@ export function StoreCategoriesDialog({
       <DialogTrigger asChild>
         <Button size="sm">
           <Plus className="mr-2 h-4 w-4" />
-          Add Category
+          {dict.assign}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Add Category</DialogTitle>
+          <DialogTitle>{dict.assignTitle}</DialogTitle>
           <DialogDescription>
-            Select a category to add to this store.
+            {dict.assignDesc}
           </DialogDescription>
         </DialogHeader>
 
@@ -95,7 +99,7 @@ export function StoreCategoriesDialog({
                       }
                     }}
                   >
-                    Add
+                    {dict.assign}
                   </Button>
                 </div>
               ))}

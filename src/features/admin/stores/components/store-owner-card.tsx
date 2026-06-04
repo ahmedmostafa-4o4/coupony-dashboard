@@ -3,18 +3,19 @@
 import { UserCircle, Mail, Phone, Calendar, ShieldCheck } from "lucide-react";
 import { AdminSection } from "@/features/admin/shared";
 import type { StoreOwner } from "../types/store.types";
+import type { StoresDictionary } from "../utils/get-dictionary";
 import { format } from "date-fns";
 
-export function StoreOwnerCard({ owner }: { owner?: StoreOwner | null }) {
+export function StoreOwnerCard({ owner, dict }: { owner?: StoreOwner | null; dict: StoresDictionary["details"]["owner"] }) {
   if (!owner) {
     return (
-      <AdminSection description="Linked seller account managing this store." title="Owner">
+      <AdminSection description={dict.desc} title={dict.title}>
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50 py-12 text-center">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
             <UserCircle className="h-6 w-6 text-slate-400" />
           </div>
-          <h3 className="mt-4 text-sm font-semibold text-slate-900">No owner assigned</h3>
-          <p className="mt-1 text-sm text-slate-500">This store doesn't have an owner record attached.</p>
+          <h3 className="mt-4 text-sm font-semibold text-slate-900">{dict.unassigned}</h3>
+          <p className="mt-1 text-sm text-slate-500"></p>
         </div>
       </AdminSection>
     );
@@ -24,7 +25,7 @@ export function StoreOwnerCard({ owner }: { owner?: StoreOwner | null }) {
   const fullName = owner.fullName || [profile?.firstName, profile?.lastName].filter(Boolean).join(" ") || "Unnamed User";
   
   return (
-    <AdminSection description="Linked seller account managing this store." title="Owner">
+    <AdminSection description={dict.desc} title={dict.title}>
       <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
         {/* Header / Avatar */}
         <div className="bg-slate-50/50 p-6 sm:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 border-b border-slate-100">
@@ -82,6 +83,7 @@ export function StoreOwnerCard({ owner }: { owner?: StoreOwner | null }) {
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-50 mr-3">
                     <Mail className="h-4 w-4 text-slate-400" />
                   </div>
+                  <span className="sr-only">{dict.email}</span>
                   {owner.email}
                 </div>
               )}
@@ -116,7 +118,7 @@ export function StoreOwnerCard({ owner }: { owner?: StoreOwner | null }) {
             
             <div className="mt-6 pt-6 border-t border-slate-100">
               <p className="text-xs text-slate-400">
-                Joined platform on {owner.createdAt ? format(new Date(owner.createdAt), "MMM d, yyyy") : "Unknown"}
+                {dict.joined} {owner.createdAt ? format(new Date(owner.createdAt), "MMM d, yyyy") : "-"}
               </p>
             </div>
           </div>

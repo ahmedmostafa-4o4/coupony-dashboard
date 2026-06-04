@@ -20,14 +20,18 @@ import {
 } from "@/components/ui/select";
 import { Upload, X, File as FileIcon } from "lucide-react";
 
+import type { StoresDictionary } from "../utils/get-dictionary";
+
 interface StoreVerificationUploadDialogProps {
   isPending: boolean;
   onUpload: (documentType: string, file: File) => Promise<boolean>;
+  dict: StoresDictionary["details"]["verifications"];
 }
 
 export function StoreVerificationUploadDialog({
   isPending,
   onUpload,
+  dict,
 }: StoreVerificationUploadDialogProps) {
   const [open, setOpen] = useState(false);
   const [documentType, setDocumentType] = useState<string>("commercial_register");
@@ -56,25 +60,25 @@ export function StoreVerificationUploadDialog({
       <DialogTrigger asChild>
         <Button size="sm">
           <Upload className="mr-2 h-4 w-4" />
-          Upload Document
+          {dict.upload}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Upload Verification Document</DialogTitle>
+          <DialogTitle>{dict.uploadDialog.title}</DialogTitle>
           <DialogDescription>
-            Upload a document for verifying this store.
+            {dict.uploadDialog.desc}
           </DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
             <label htmlFor="document_type" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-              Document Type
+              {dict.uploadDialog.documentType}
             </label>
             <Select value={documentType} onValueChange={setDocumentType} disabled={isPending}>
               <SelectTrigger id="document_type">
-                <SelectValue placeholder="Select type" />
+                <SelectValue placeholder={dict.uploadDialog.selectType} />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="commercial_register">Commercial Register</SelectItem>
@@ -87,7 +91,7 @@ export function StoreVerificationUploadDialog({
 
           <div className="grid gap-2">
             <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-              Document File (Image or PDF)
+              {dict.uploadDialog.file}
             </label>
             {!file ? (
               <div 
@@ -149,10 +153,10 @@ export function StoreVerificationUploadDialog({
 
         <DialogFooter>
           <Button type="button" variant="ghost" onClick={() => setOpen(false)} disabled={isPending}>
-            Cancel
+            {dict.uploadDialog.cancel}
           </Button>
           <Button onClick={handleSubmit} disabled={!file || isPending}>
-            {isPending ? "Uploading..." : "Upload"}
+            {isPending ? dict.uploadDialog.uploading : dict.uploadDialog.confirm}
           </Button>
         </DialogFooter>
       </DialogContent>

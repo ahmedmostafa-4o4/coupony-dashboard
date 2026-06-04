@@ -8,10 +8,12 @@ import { StoresTable } from "../components/stores-table";
 import { useStoreActions } from "../hooks/use-store-actions";
 import { useStoresList } from "../hooks/use-stores-list";
 import type { StoresListFilters } from "../types/store.types";
+import { getStoresDictionary } from "../utils/get-dictionary";
 
 const defaultFilters: StoresListFilters = { search: "", status: "all" };
 
 export function StoresListPage({ lang }: { lang: string }) {
+  const dict = getStoresDictionary(lang);
   const [filters, setFilters] = useState<StoresListFilters>(defaultFilters);
   
   
@@ -25,18 +27,18 @@ export function StoresListPage({ lang }: { lang: string }) {
         actions={
           <>
             <Button variant="secondary" onClick={() => void listState.reload()}>
-              Reload
+              {dict.list.reload}
             </Button>
           </>
         }
-        description="Review merchant status, moderation, and billing setup."
-        eyebrow="Admin"
-        title="Stores"
+        description={dict.list.description}
+        eyebrow={dict.list.eyebrow}
+        title={dict.list.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
         <AdminStatCard
-          hint="Stores currently loaded from the API response."
-          label="Rows"
+          hint={dict.list.rowsHint}
+          label={dict.list.rows}
           value={listState.total}
         />
       </div>
@@ -44,15 +46,17 @@ export function StoresListPage({ lang }: { lang: string }) {
         onChange={setFilters}
         onReset={() => setFilters(defaultFilters)}
         values={filters}
+        dict={dict.filters}
       />
       {listState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.list.errors.request}>
           <p className="text-sm text-rose-600">{listState.error}</p>
         </AdminSection>
       ) : null}
 
       <StoresTable
         items={listState.items}
+        dict={dict.table}
         renderActions={(item) => (
           <div className="flex flex-wrap justify-end gap-2">
             <Link
@@ -63,10 +67,10 @@ export function StoresListPage({ lang }: { lang: string }) {
                 String(item.id ?? ""),
               )}
             >
-              View
+              {dict.table.actions.view}
             </Link>
             <AdminConfirmDialog
-              confirmLabel="Approve"
+              confirmLabel={dict.details.verifications.approve}
               description="This will call the mapped admin endpoint for the selected store."
               isPending={actions.approveAction.isSubmitting}
               onConfirm={async () => {
@@ -75,7 +79,7 @@ export function StoresListPage({ lang }: { lang: string }) {
                 });
               }}
               title="Approve Store"
-              triggerLabel="Approve"
+              triggerLabel={dict.details.verifications.approve}
               variant="primary"
             />
           </div>

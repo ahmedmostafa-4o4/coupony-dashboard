@@ -33,7 +33,9 @@ import { StoreHoursTab } from "../components/store-hours-tab";
 import { StoreOwnerCard } from "../components/store-owner-card";
 import { StorePointsCard } from "../components/store-points-card";
 
-const approveFields: AdminFormField<StoreApproveActionValues>[] = [
+import { getStoresDictionary } from "../utils/get-dictionary";
+
+const approveFields = (dict: any): AdminFormField<StoreApproveActionValues>[] => [
   {
     key: "adminNotes",
     label: "Admin notes",
@@ -42,7 +44,7 @@ const approveFields: AdminFormField<StoreApproveActionValues>[] = [
   },
 ];
 
-const rejectFields: AdminFormField<StoreRejectActionValues>[] = [
+const rejectFields = (dict: any): AdminFormField<StoreRejectActionValues>[] => [
   {
     key: "rejectionReason",
     label: "Rejection reason",
@@ -57,7 +59,7 @@ const rejectFields: AdminFormField<StoreRejectActionValues>[] = [
   },
 ];
 
-const suspendFields: AdminFormField<StoreSuspendActionValues>[] = [
+const suspendFields = (dict: any): AdminFormField<StoreSuspendActionValues>[] => [
   {
     key: "reason",
     label: "Suspend reason",
@@ -66,7 +68,7 @@ const suspendFields: AdminFormField<StoreSuspendActionValues>[] = [
   },
 ];
 
-const closeFields: AdminFormField<StoreCloseActionValues>[] = [
+const closeFields = (dict: any): AdminFormField<StoreCloseActionValues>[] => [
   {
     key: "reason",
     label: "Close reason",
@@ -82,19 +84,20 @@ export function StoreDetailsPage({
   storeId: string;
   lang: string;
 }) {
+  const dict = getStoresDictionary(lang);
   const detailState = useStoreDetails(storeId);
   
   const actions = useStoreActions(async () => { await detailState.reload(); });
 
   if (detailState.isLoading) {
-    return <PageLoading label="Loading store details..." />;
+    return <PageLoading label={dict.details.loading} />;
   }
 
   if (!detailState.item) {
     return (
-      <AdminSection title="Store not found">
+      <AdminSection title={dict.details.notFound}>
         <p className="text-sm text-slate-500">
-          The backend did not return a store for this route.
+          {dict.details.notFoundDesc}
         </p>
       </AdminSection>
     );
@@ -109,7 +112,7 @@ export function StoreDetailsPage({
             <AdminActionDialog
               confirmLabel="Approve"
               description="Optionally record moderator notes when approving this store."
-              fields={approveFields}
+              fields={approveFields(dict)}
               isPending={actions.approveAction.isSubmitting}
               onSubmit={(payload) =>
                 actions.approveAction.submit({
@@ -125,7 +128,7 @@ export function StoreDetailsPage({
             <AdminActionDialog
               confirmLabel="Reject"
               description="Provide the rejection reason required by the moderation endpoint."
-              fields={rejectFields}
+              fields={rejectFields(dict)}
               isPending={actions.rejectAction.isSubmitting}
               onSubmit={(payload) =>
                 actions.rejectAction.submit({
@@ -141,7 +144,7 @@ export function StoreDetailsPage({
             <AdminActionDialog
               confirmLabel="Suspend"
               description="Provide the suspend reason required by the store moderation contract."
-              fields={suspendFields}
+              fields={suspendFields(dict)}
               isPending={actions.suspendAction.isSubmitting}
               onSubmit={(payload) =>
                 actions.suspendAction.submit({
@@ -157,7 +160,7 @@ export function StoreDetailsPage({
             <AdminActionDialog
               confirmLabel="Close"
               description="Optionally record why this store is being closed."
-              fields={closeFields}
+              fields={closeFields(dict)}
               isPending={actions.closeAction.isSubmitting}
               onSubmit={(payload) =>
                 actions.closeAction.submit({
@@ -172,34 +175,34 @@ export function StoreDetailsPage({
             />
           </div>
         }
-        description="Inspect merchant details, moderation history, and operational actions."
-        eyebrow="Admin details"
+        description={dict.list.description}
+        eyebrow={dict.details.eyebrow}
         title={getAdminEntityTitle(detailState.item, storeId)}
       />
       {detailState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.list.errors.request}>
           <p className="text-sm text-rose-600">{detailState.error}</p>
         </AdminSection>
       ) : null}
 
-      <Tabs defaultValue="overview" className="w-full">
+      <Tabs defaultValue="overview" className="w-full" dir={lang === "ar" ? "rtl" : "ltr"}>
         <div className="overflow-x-auto pb-2">
           <TabsList className="inline-flex h-10 items-center justify-center rounded-md bg-slate-100 p-1 text-slate-500">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="owner">Owner</TabsTrigger>
-            <TabsTrigger value="points">Points</TabsTrigger>
-            <TabsTrigger value="addresses">Addresses</TabsTrigger>
-            <TabsTrigger value="categories">Categories</TabsTrigger>
-            <TabsTrigger value="verifications">Verifications</TabsTrigger>
-            <TabsTrigger value="hours">Hours</TabsTrigger>
-            <TabsTrigger value="reviews">Reviews</TabsTrigger>
-            <TabsTrigger value="billing">Billing Profile</TabsTrigger>
+            <TabsTrigger value="overview">{dict.details.tabs.overview}</TabsTrigger>
+            <TabsTrigger value="owner">{dict.details.owner.title || "Owner"}</TabsTrigger>
+            <TabsTrigger value="points">{dict.details.points.title || "Points"}</TabsTrigger>
+            <TabsTrigger value="addresses">{dict.details.tabs.addresses}</TabsTrigger>
+            <TabsTrigger value="categories">{dict.details.tabs.categories}</TabsTrigger>
+            <TabsTrigger value="verifications">{dict.details.tabs.verifications}</TabsTrigger>
+            <TabsTrigger value="hours">{dict.details.tabs.hours}</TabsTrigger>
+            <TabsTrigger value="reviews">{dict.details.reviews.title || "Reviews"}</TabsTrigger>
+            <TabsTrigger value="billing">{dict.details.billing.title || "Billing Profile"}</TabsTrigger>
           </TabsList>
         </div>
 
         <TabsContent value="overview" className="mt-6 space-y-6">
           <StoreForm
-            description="Update merchant moderation, billing, and contact fields."
+            description={dict.form.updateDesc}
             initialValues={detailState.item}
             isSubmitting={actions.updateAction.isSubmitting}
             onSubmit={async (payload) => {
@@ -208,21 +211,22 @@ export function StoreDetailsPage({
                 payload,
               });
             }}
-            submitLabel="Update store"
-            title="Update store profile"
+            submitLabel={dict.form.save}
+            title={dict.form.updateTitle}
+            dict={dict.form}
           />
         </TabsContent>
 
         <TabsContent value="owner" className="mt-6">
-          <StoreOwnerCard owner={detailState.item.owner} />
+          <StoreOwnerCard owner={detailState.item.owner} dict={dict.details.owner} />
         </TabsContent>
 
         <TabsContent value="points" className="mt-6">
-          <StorePointsCard points={detailState.item.points} />
+          <StorePointsCard points={detailState.item.points} dict={dict.details.points} />
         </TabsContent>
 
         <TabsContent value="addresses" className="mt-6">
-          <StoreAddressesTab storeId={detailState.item.id as string} />
+          <StoreAddressesTab storeId={detailState.item.id as string} dict={dict.details.addresses} />
         </TabsContent>
 
         <TabsContent value="categories" className="mt-6">
@@ -230,23 +234,24 @@ export function StoreDetailsPage({
             storeId={detailState.item.id as string}
             categories={detailState.item.categories}
             onReload={async () => { await detailState.reload(); }}
+            dict={dict.details.categories}
           />
         </TabsContent>
 
         <TabsContent value="verifications" className="mt-6">
-          <StoreVerificationsTab storeId={detailState.item.id as string} />
+          <StoreVerificationsTab storeId={detailState.item.id as string} dict={dict.details.verifications} />
         </TabsContent>
 
         <TabsContent value="hours" className="mt-6">
-          <StoreHoursTab hours={detailState.item.hours} />
+          <StoreHoursTab hours={detailState.item.hours} dict={dict.details.hours} />
         </TabsContent>
 
         <TabsContent value="reviews" className="mt-6">
-          <StoreReviewsTable storeId={storeId} />
+          <StoreReviewsTable storeId={storeId} dict={dict.details.reviews} />
         </TabsContent>
 
         <TabsContent value="billing" className="mt-6">
-          <StoreBillingInfo storeId={storeId} />
+          <StoreBillingInfo storeId={storeId} dict={dict.details.billing} />
         </TabsContent>
       </Tabs>
     </div>

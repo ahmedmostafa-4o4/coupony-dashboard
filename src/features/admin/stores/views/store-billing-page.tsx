@@ -11,6 +11,8 @@ import { StoreBillingProfileForm } from "../components/store-billing-profile-for
 import { useStoreActions } from "../hooks/use-store-actions";
 import { useStoreDetails } from "../hooks/use-store-details";
 
+import { getStoresDictionary } from "../utils/get-dictionary";
+
 export function StoreBillingPage({
   lang,
   storeId,
@@ -18,6 +20,7 @@ export function StoreBillingPage({
   lang: string;
   storeId: string;
 }) {
+  const dict = getStoresDictionary(lang);
   const detailState = useStoreDetails(storeId);
   const actions = useStoreActions(async () => {
     await detailState.reload();
@@ -26,23 +29,23 @@ export function StoreBillingPage({
   void lang;
 
   if (detailState.isLoading) {
-    return <PageLoading label="Loading store billing profile..." />;
+    return <PageLoading label={dict.details.loading} />;
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" dir={lang === "ar" ? "rtl" : "ltr"}>
       <AdminPageHeader
-        description="Update the billing profile payload currently attached to this store."
-        eyebrow="Billing"
-        title={`Store Billing ${storeId}`}
+        description={dict.details.billing.desc}
+        eyebrow={dict.details.eyebrow}
+        title={dict.details.billing.manage}
       />
       {detailState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.list.errors.request}>
           <p className="text-sm text-rose-600">{detailState.error}</p>
         </AdminSection>
       ) : null}
       <StoreBillingProfileForm
-        description="Update the typed store billing profile DTO for this merchant."
+        description={dict.details.billing.desc}
         initialValues={detailState.item}
         isSubmitting={actions.updateBillingProfileAction.isSubmitting}
         onSubmit={async (payload) => {
@@ -51,11 +54,11 @@ export function StoreBillingPage({
             storeId,
           });
         }}
-        submitLabel="Update billing profile"
-        title="Billing profile payload"
+        submitLabel={dict.details.billing.updateBtn}
+        title={dict.details.billing.title}
       />
       <AdminSection
-        description="Current store payload returned by the details endpoint."
+        description="Raw JSON data."
         title="Store details"
       >
         <AdminRecordGrid value={detailState.item} />

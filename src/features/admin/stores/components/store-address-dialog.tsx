@@ -25,6 +25,7 @@ import {
 } from "../schemas/store-address-form.schema";
 import type { StoreAddress } from "../types/store.types";
 import { hasErrors } from "@/features/admin/shared/utils/admin-form-schema";
+import type { StoresDictionary } from "../utils/get-dictionary";
 
 const LocationPicker = dynamic(
   () => import("@/features/admin/shared/components/location-picker"),
@@ -35,10 +36,12 @@ export function StoreAddressDialog({
   address,
   isPending,
   onSubmit,
+  dict,
 }: {
   address?: StoreAddress;
   isPending: boolean;
   onSubmit: (payload: StoreAddressPayload) => Promise<boolean>;
+  dict: StoresDictionary["details"]["addresses"];
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const isEditing = Boolean(address);
@@ -103,18 +106,16 @@ export function StoreAddressDialog({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant={isEditing ? "secondary" : "primary"}>
-          {isEditing ? "Edit" : "Add Address"}
+          {isEditing ? dict.edit : dict.add}
         </Button>
       </DialogTrigger>
       <DialogContent className="!flex flex-col max-w-4xl max-h-[90vh] overflow-hidden p-0 gap-0 border-slate-200">
         <DialogHeader className="px-6 py-4 border-b border-slate-100 bg-white shrink-0">
           <DialogTitle className="text-xl">
-            {isEditing ? "Edit Address" : "Add Address"}
+            {dict.form.title}
           </DialogTitle>
           <p className="text-sm text-slate-500 mt-1">
-            {isEditing
-              ? "Update the details for this store location."
-              : "Add a new physical location or mailing address for this store."}
+            {dict.form.desc}
           </p>
         </DialogHeader>
 
@@ -123,49 +124,49 @@ export function StoreAddressDialog({
             {/* Left Column - Details */}
             <div className="space-y-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Label (e.g. Main Store)</label>
+                <label className="text-sm font-medium text-slate-700">{dict.form.label}</label>
                 <Input value={values.label} onChange={(e) => updateValue("label", e.target.value)} />
                 {errors.label && <p className="text-sm font-medium text-rose-600">{errors.label}</p>}
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">Address Line 1</label>
+                  <label className="text-sm font-medium text-slate-700">{dict.form.addressLine1}</label>
                   <Input value={values.addressLine1} onChange={(e) => updateValue("addressLine1", e.target.value)} />
                   {errors.addressLine1 && <p className="text-sm font-medium text-rose-600">{errors.addressLine1}</p>}
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">Address Line 2</label>
+                  <label className="text-sm font-medium text-slate-700">{dict.form.addressLine2}</label>
                   <Input value={values.addressLine2} onChange={(e) => updateValue("addressLine2", e.target.value)} />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">City</label>
+                  <label className="text-sm font-medium text-slate-700">{dict.form.city}</label>
                   <Input value={values.city} onChange={(e) => updateValue("city", e.target.value)} />
                   {errors.city && <p className="text-sm font-medium text-rose-600">{errors.city}</p>}
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">State / Province</label>
+                  <label className="text-sm font-medium text-slate-700">{dict.form.state}</label>
                   <Input value={values.stateProvince} onChange={(e) => updateValue("stateProvince", e.target.value)} />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">Postal Code</label>
+                  <label className="text-sm font-medium text-slate-700">{dict.form.postalCode}</label>
                   <Input value={values.postalCode} onChange={(e) => updateValue("postalCode", e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">Country Code</label>
+                  <label className="text-sm font-medium text-slate-700">{dict.form.country}</label>
                   <Input value={values.countryCode} onChange={(e) => updateValue("countryCode", e.target.value)} />
                   {errors.countryCode && <p className="text-sm font-medium text-rose-600">{errors.countryCode}</p>}
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Phone Number</label>
+                <label className="text-sm font-medium text-slate-700">{dict.form.phone}</label>
                 <Input value={values.phoneNumber} onChange={(e) => updateValue("phoneNumber", e.target.value)} />
               </div>
 
@@ -246,7 +247,7 @@ export function StoreAddressDialog({
             Cancel
           </Button>
           <Button disabled={isPending} onClick={handleConfirm}>
-            {isPending ? "Working..." : isEditing ? "Save Changes" : "Create Address"}
+            {isPending ? dict.form.saving : dict.form.save}
           </Button>
         </DialogFooter>
       </DialogContent>

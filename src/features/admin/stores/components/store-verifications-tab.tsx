@@ -9,10 +9,14 @@ import { useStoreVerifications } from "../hooks/use-store-verifications";
 import { StoreVerificationUploadDialog } from "./store-verification-upload-dialog";
 import { StoreVerificationRejectDialog } from "./store-verification-reject-dialog";
 
+import type { StoresDictionary } from "../utils/get-dictionary";
+
 export function StoreVerificationsTab({
   storeId,
+  dict,
 }: {
   storeId: string;
+  dict: StoresDictionary["details"]["verifications"];
 }) {
   const { verifications, isLoading, reload } = useStoreVerifications(storeId);
   const actions = useStoreVerificationsActions(storeId, async () => {
@@ -24,6 +28,7 @@ export function StoreVerificationsTab({
       <StoreVerificationUploadDialog
         isPending={actions.isUploading}
         onUpload={actions.handleUpload}
+        dict={dict}
       />
     </div>
   );
@@ -40,13 +45,13 @@ export function StoreVerificationsTab({
     return (
       <div className="space-y-6">
         {headerActions}
-        <AdminSection description="Verification documents and moderation statuses." title="Verifications">
+        <AdminSection description={dict.desc} title={dict.title}>
           <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50 py-12 text-center">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
               <FileCheck className="h-6 w-6 text-slate-400" />
             </div>
-            <h3 className="mt-4 text-sm font-semibold text-slate-900">No documents found</h3>
-            <p className="mt-1 text-sm text-slate-500">This store has not submitted any verification documents.</p>
+            <h3 className="mt-4 text-sm font-semibold text-slate-900">{dict.none}</h3>
+            <p className="mt-1 text-sm text-slate-500">{dict.noneDesc}</p>
           </div>
         </AdminSection>
       </div>
@@ -56,7 +61,7 @@ export function StoreVerificationsTab({
   return (
     <div className="space-y-6">
       {headerActions}
-      <AdminSection description="Verification documents and moderation statuses." title="Verifications">
+      <AdminSection description={dict.desc} title={dict.title}>
         <div className="grid gap-4 sm:grid-cols-2">
           {verifications.map((doc, i) => (
             <div
@@ -73,7 +78,7 @@ export function StoreVerificationsTab({
                       {doc.documentType?.replace(/_/g, " ") || "Document"}
                     </h3>
                     <p className="text-xs text-slate-500">
-                      Submitted: {doc.createdAt ? format(new Date(doc.createdAt), "MMM d, yyyy") : "Unknown"}
+                      {dict.submitted}: {doc.createdAt ? format(new Date(doc.createdAt), "MMM d, yyyy") : "-"}
                     </p>
                   </div>
                 </div>
@@ -81,26 +86,26 @@ export function StoreVerificationsTab({
                 {doc.status === "approved" && (
                   <span className="flex items-center text-xs font-medium text-emerald-600">
                     <CheckCircle2 className="mr-1 h-4 w-4" />
-                    Approved
+                    {dict.approved}
                   </span>
                 )}
                 {doc.status === "rejected" && (
                   <span className="flex items-center text-xs font-medium text-rose-600">
                     <XCircle className="mr-1 h-4 w-4" />
-                    Rejected
+                    {dict.rejected}
                   </span>
                 )}
                 {doc.status === "pending" && (
                   <span className="flex items-center text-xs font-medium text-amber-600">
                     <Clock className="mr-1 h-4 w-4" />
-                    Pending
+                    {dict.pending}
                   </span>
                 )}
               </div>
 
               {doc.rejectionReason && (
                 <div className="mt-4 rounded-lg bg-rose-50 p-3 text-sm text-rose-700">
-                  <span className="font-semibold">Reason for rejection:</span> {doc.rejectionReason}
+                  <span className="font-semibold">{dict.reason}:</span> {doc.rejectionReason}
                 </div>
               )}
 
@@ -112,7 +117,7 @@ export function StoreVerificationsTab({
                     rel="noopener noreferrer"
                     className="inline-flex text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline"
                   >
-                    View Document Asset &rarr;
+                    {dict.viewAsset} &rarr;
                   </a>
                 </div>
               )}
@@ -125,6 +130,7 @@ export function StoreVerificationsTab({
                     onReject={async (reason) => {
                       return await actions.handleReject(doc.id, reason);
                     }}
+                    dict={dict}
                   />
                   <Button
                     size="sm"
@@ -135,7 +141,7 @@ export function StoreVerificationsTab({
                     }}
                   >
                     <Check className="mr-1 h-4 w-4" />
-                    Approve
+                    {dict.approve}
                   </Button>
                 </div>
               )}

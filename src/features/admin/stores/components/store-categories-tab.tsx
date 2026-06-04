@@ -7,14 +7,18 @@ import { useStoreCategoriesActions } from "../hooks/use-store-categories-actions
 import { StoreCategoriesDialog } from "./store-categories-dialog";
 import { AdminConfirmDialog } from "@/features/admin/shared/components/admin-confirm-dialog";
 
+import type { StoresDictionary } from "../utils/get-dictionary";
+
 export function StoreCategoriesTab({
   storeId,
   categories,
   onReload,
+  dict,
 }: {
   storeId: string;
   categories?: StoreCategorySummary[];
   onReload: () => Promise<void>;
+  dict: StoresDictionary["details"]["categories"];
 }) {
   const actions = useStoreCategoriesActions(storeId, onReload);
 
@@ -24,6 +28,7 @@ export function StoreCategoriesTab({
         currentCategoryIds={categories?.map((c) => c.id) || []}
         isPending={actions.isAttaching !== null}
         onAttach={actions.handleAttach}
+        dict={dict}
       />
     </div>
   );
@@ -32,13 +37,12 @@ export function StoreCategoriesTab({
     return (
       <div className="space-y-6">
         {headerActions}
-        <AdminSection description="Store categories attached to this merchant." title="Categories">
+        <AdminSection description={dict.desc} title={dict.title}>
           <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50 py-12 text-center">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
               <Tags className="h-6 w-6 text-slate-400" />
             </div>
-            <h3 className="mt-4 text-sm font-semibold text-slate-900">No categories found</h3>
-            <p className="mt-1 text-sm text-slate-500">This store has not been assigned any categories.</p>
+            <h3 className="mt-4 text-sm font-semibold text-slate-900">{dict.none}</h3>
           </div>
         </AdminSection>
       </div>
@@ -48,7 +52,7 @@ export function StoreCategoriesTab({
   return (
     <div className="space-y-6">
       {headerActions}
-      <AdminSection description="Store categories attached to this merchant." title="Categories">
+      <AdminSection description={dict.desc} title={dict.title}>
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {categories.map((category, i) => (
             <div
@@ -82,10 +86,10 @@ export function StoreCategoriesTab({
               </div>
               <div className="flex items-center justify-end border-t border-slate-100 bg-slate-50 px-4 py-2">
                 <AdminConfirmDialog
-                  title="Remove Category"
-                  description={`Are you sure you want to remove ${category.name} from this store?`}
-                  confirmLabel="Remove"
-                  triggerLabel="Remove"
+                  title={dict.detachTitle}
+                  description={dict.detachDesc}
+                  confirmLabel={dict.detach}
+                  triggerLabel={dict.detach}
                   variant="danger"
                   isPending={actions.isDetaching === category.id}
                   onConfirm={async () => { await actions.handleDetach(category.id); }}

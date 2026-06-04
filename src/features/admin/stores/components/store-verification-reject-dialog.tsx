@@ -14,16 +14,20 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { X } from "lucide-react";
 
+import type { StoresDictionary } from "../utils/get-dictionary";
+
 interface StoreVerificationRejectDialogProps {
   isPending: boolean;
   onReject: (reason: string) => Promise<boolean>;
   disabled?: boolean;
+  dict: StoresDictionary["details"]["verifications"];
 }
 
 export function StoreVerificationRejectDialog({
   isPending,
   onReject,
   disabled,
+  dict,
 }: StoreVerificationRejectDialogProps) {
   const [open, setOpen] = useState(false);
   const [reason, setReason] = useState("");
@@ -48,25 +52,25 @@ export function StoreVerificationRejectDialog({
           disabled={disabled}
         >
           <X className="mr-1 h-4 w-4" />
-          Reject
+          {dict.reject}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Reject Document</DialogTitle>
+          <DialogTitle>{dict.rejectDialog.title}</DialogTitle>
           <DialogDescription>
-            Please provide a reason for rejecting this verification document. This will be sent to the store owner.
+            {dict.rejectDialog.desc}
           </DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
             <label htmlFor="reason" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-              Rejection Reason <span className="text-rose-500">*</span>
+              {dict.rejectDialog.reason} <span className="text-rose-500">*</span>
             </label>
             <Textarea
               id="reason"
-              placeholder="e.g. The document is blurry and unreadable..."
+              placeholder={dict.rejectDialog.reasonPlaceholder}
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               disabled={isPending}
@@ -77,14 +81,14 @@ export function StoreVerificationRejectDialog({
 
         <DialogFooter>
           <Button type="button" variant="ghost" onClick={() => setOpen(false)} disabled={isPending}>
-            Cancel
+            {dict.rejectDialog.cancel}
           </Button>
           <Button 
             onClick={handleSubmit} 
             disabled={!reason.trim() || isPending}
             variant="danger"
           >
-            {isPending ? "Rejecting..." : "Confirm Rejection"}
+            {isPending ? dict.rejectDialog.rejecting : dict.rejectDialog.confirm}
           </Button>
         </DialogFooter>
       </DialogContent>

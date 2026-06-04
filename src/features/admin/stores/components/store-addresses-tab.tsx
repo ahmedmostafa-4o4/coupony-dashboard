@@ -6,11 +6,14 @@ import { useStoreAddressActions } from "../hooks/use-store-address-actions";
 import { useStoreAddresses } from "../hooks/use-store-addresses";
 import { StoreAddressDialog } from "./store-address-dialog";
 import { AdminConfirmDialog } from "@/features/admin/shared/components/admin-confirm-dialog";
+import type { StoresDictionary } from "../utils/get-dictionary";
 
 export function StoreAddressesTab({
   storeId,
+  dict,
 }: {
   storeId: string;
+  dict: StoresDictionary["details"]["addresses"];
 }) {
   const { items: addresses, isLoading, error, reload } = useStoreAddresses(storeId);
   const actions = useStoreAddressActions(storeId, async () => { await reload(); });
@@ -29,21 +32,21 @@ export function StoreAddressesTab({
         <StoreAddressDialog
           isPending={actions.isCreating}
           onSubmit={actions.handleCreate}
+          dict={dict}
         />
       </div>
 
       {!addresses?.length ? (
-        <AdminSection description="Known store addresses and branch locations." title="Addresses">
+        <AdminSection description={dict.desc} title={dict.title}>
           <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50 py-12 text-center">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
               <MapPin className="h-6 w-6 text-slate-400" />
             </div>
-            <h3 className="mt-4 text-sm font-semibold text-slate-900">No addresses found</h3>
-            <p className="mt-1 text-sm text-slate-500">This store has not added any locations yet.</p>
+            <h3 className="mt-4 text-sm font-semibold text-slate-900">{dict.none}</h3>
           </div>
         </AdminSection>
       ) : (
-        <AdminSection description="Known store addresses and branch locations." title="Addresses">
+        <AdminSection description={dict.desc} title={dict.title}>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {addresses.map((address, i) => (
               <div
@@ -117,12 +120,13 @@ export function StoreAddressesTab({
                     address={address}
                     isPending={actions.isUpdating === address.id}
                     onSubmit={(payload) => actions.handleUpdate(address.id, payload)}
+                    dict={dict}
                   />
                   <AdminConfirmDialog
-                    title="Delete Address"
-                    description={`Are you sure you want to delete ${address.label}? This action cannot be undone.`}
-                    confirmLabel="Delete"
-                    triggerLabel="Delete"
+                    title={dict.deleteTitle}
+                    description={dict.deleteDesc}
+                    confirmLabel={dict.delete}
+                    triggerLabel={dict.delete}
                     variant="danger"
                     isPending={actions.isDeleting === address.id}
                     onConfirm={async () => { await actions.handleDelete(address.id); }}

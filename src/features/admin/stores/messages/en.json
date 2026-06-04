@@ -1,0 +1,219 @@
+{
+  "list": {
+    "eyebrow": "Admin",
+    "title": "Stores",
+    "description": "Review merchant status, moderation, and billing setup.",
+    "reload": "Reload",
+    "rows": "Rows",
+    "rowsHint": "Stores currently loaded from the API response.",
+    "errors": {
+      "request": "Request error",
+      "action": "Action error",
+      "notLoaded": "Store not loaded"
+    }
+  },
+  "filters": {
+    "searchPlaceholder": "Search by name, email, or domain...",
+    "statusPlaceholder": "All Statuses",
+    "statusOptions": {
+      "all": "All Statuses",
+      "active": "Active",
+      "inactive": "Inactive",
+      "suspended": "Suspended"
+    },
+    "reset": "Reset Filters"
+  },
+  "table": {
+    "columns": {
+      "store": "Store",
+      "status": "Status",
+      "owner": "Owner",
+      "created": "Created"
+    },
+    "noStores": "No stores found.",
+    "actions": {
+      "view": "View Details",
+      "suspend": "Suspend Store",
+      "suspendDesc": "This will lock the store from the dashboard and hide all its products. Are you sure?",
+      "reject": "Reject Store",
+      "rejectDesc": "This will reject the store application. Are you sure?",
+      "close": "Close Store",
+      "closeDesc": "This will permanently close the store. It cannot be reopened. Are you sure?",
+      "confirm": "Confirm"
+    }
+  },
+  "details": {
+    "eyebrow": "Store Profile",
+    "loading": "Loading store data...",
+    "notFound": "Store Not Found",
+    "notFoundDesc": "The requested store does not exist or has been removed.",
+    "tabs": {
+      "overview": "Overview",
+      "update": "Update Profile",
+      "hours": "Operating Hours",
+      "addresses": "Addresses",
+      "categories": "Categories",
+      "verifications": "Verifications"
+    },
+    "billing": {
+      "title": "Billing Configuration",
+      "desc": "Manage the billing profile associated with this store.",
+      "plan": "Subscription Plan",
+      "status": "Status",
+      "billingCycle": "Billing Cycle",
+      "nextBillingDate": "Next Billing Date",
+      "noBilling": "No Billing Profile Found",
+      "noBillingDesc": "This store has not set up a billing profile yet.",
+      "manage": "Manage Billing Configuration",
+      "updateBtn": "Update Billing Data"
+    },
+    "owner": {
+      "title": "Store Owner",
+      "desc": "Details of the primary user account attached to this store.",
+      "name": "Owner Name",
+      "email": "Email Address",
+      "role": "Role",
+      "joined": "Joined",
+      "unassigned": "Unassigned"
+    },
+    "points": {
+      "title": "Store Points Balance",
+      "desc": "Review the points balance attached to this store entity.",
+      "active": "Active Balance",
+      "lifetimeEarned": "Lifetime Earned",
+      "lifetimeSpent": "Lifetime Spent"
+    },
+    "categories": {
+      "title": "Assigned Categories",
+      "desc": "Categories this store operates within.",
+      "none": "No categories assigned yet.",
+      "detachTitle": "Remove Category",
+      "detachDesc": "Are you sure you want to detach this category from the store?",
+      "detach": "Detach",
+      "assign": "Assign Categories",
+      "assignTitle": "Assign Categories",
+      "assignDesc": "Select one or more categories to attach to this store.",
+      "save": "Save Assignments"
+    },
+    "addresses": {
+      "title": "Store Addresses",
+      "desc": "Manage physical locations for this store.",
+      "add": "Add Address",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteTitle": "Delete Address",
+      "deleteDesc": "Are you sure you want to delete this address? This cannot be undone.",
+      "none": "No addresses added yet.",
+      "form": {
+        "title": "Store Address",
+        "desc": "Update the physical location details.",
+        "label": "Label (e.g. Main Branch)",
+        "addressLine1": "Address Line 1",
+        "addressLine2": "Address Line 2 (Optional)",
+        "city": "City",
+        "state": "State",
+        "postalCode": "Postal Code",
+        "country": "Country",
+        "phone": "Phone Number",
+        "isPrimary": "Set as Primary Address",
+        "save": "Save Address",
+        "saving": "Saving..."
+      }
+    },
+    "hours": {
+      "title": "Operating Hours",
+      "desc": "The business hours for this store.",
+      "open": "Open",
+      "closed": "Closed",
+      "none": "No operating hours specified."
+    },
+    "verifications": {
+      "title": "Verifications",
+      "desc": "Verification documents and moderation statuses.",
+      "upload": "Upload Document",
+      "none": "No documents found",
+      "noneDesc": "This store has not submitted any verification documents.",
+      "submitted": "Submitted",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "pending": "Pending",
+      "reason": "Reason for rejection",
+      "viewAsset": "View Document Asset",
+      "approve": "Approve",
+      "reject": "Reject",
+      "rejectDialog": {
+        "title": "Reject Document",
+        "desc": "Please provide a reason for rejecting this verification document.",
+        "reason": "Rejection Reason",
+        "reasonPlaceholder": "e.g. The document is blurry...",
+        "cancel": "Cancel",
+        "confirm": "Confirm Rejection",
+        "rejecting": "Rejecting..."
+      },
+      "uploadDialog": {
+        "title": "Upload Verification Document",
+        "desc": "Upload a new verification document for this store.",
+        "documentType": "Document Type",
+        "selectType": "Select document type",
+        "file": "Document File",
+        "cancel": "Cancel",
+        "uploading": "Uploading...",
+        "confirm": "Upload Document",
+        "types": {
+          "business_license": "Business License",
+          "tax_id": "Tax ID",
+          "national_id": "National ID",
+          "commercial_register": "Commercial Register"
+        }
+      }
+    },
+    "reviews": {
+      "title": "Store Reviews",
+      "desc": "Recent ratings and reviews submitted by users.",
+      "rating": "Rating",
+      "user": "User",
+      "comment": "Comment",
+      "date": "Date"
+    }
+  },
+  "form": {
+    "updateTitle": "Update Store Settings",
+    "updateDesc": "Modify store's primary information.",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "fields": {
+      "name": "Store Name",
+      "slug": "Slug",
+      "domain": "Domain",
+      "email": "Contact Email",
+      "phone": "Contact Phone",
+      "description": "Description",
+      "status": "Status",
+      "logoUrl": "Logo URL",
+      "coverUrl": "Cover URL",
+      "facebookUrl": "Facebook URL",
+      "twitterUrl": "Twitter URL",
+      "instagramUrl": "Instagram URL"
+    }
+  },
+  "billingForm": {
+    "provider": "Billing Provider",
+    "customerId": "Customer ID",
+    "subscriptionId": "Subscription ID",
+    "planId": "Plan ID",
+    "billingCycle": "Billing Cycle",
+    "status": "Subscription Status",
+    "nextBillingDate": "Next Billing Date",
+    "amount": "Subscription Amount",
+    "currency": "Currency",
+    "save": "Update Billing"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "suspended": "Suspended",
+    "rejected": "Rejected",
+    "pending": "Pending",
+    "closed": "Closed"
+  }
+}
