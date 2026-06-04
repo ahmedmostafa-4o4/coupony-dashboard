@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { PageLoading } from "@/components/shared/page-loading";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   AdminConfirmDialog,
   AdminPageHeader,
@@ -23,6 +24,7 @@ import { ProductSummaryCards } from "../components/product-summary-cards";
 import { ProductVariantsTable } from "../components/product-variants-table";
 import { useProductActions } from "../hooks/use-product-actions";
 import { useProductDetails } from "../hooks/use-product-details";
+import { getProductsDictionary } from "../utils/get-dictionary";
 
 export function ProductDetailsPage({
   productId,
@@ -33,19 +35,20 @@ export function ProductDetailsPage({
 }) {
   const router = useRouter();
   const detailState = useProductDetails(productId);
+  const dict = getProductsDictionary(lang);
   const actions = useProductActions(async () => {
     await detailState.reload();
   });
 
   if (detailState.isLoading) {
-    return <PageLoading label="Loading product details..." />;
+    return <PageLoading label={dict.details.loading} />;
   }
 
   if (!detailState.item) {
     return (
-      <AdminSection title="Product not found">
+      <AdminSection title={dict.details.notFound}>
         <p className="text-sm text-slate-500">
-          The backend did not return a product for this route.
+          {dict.details.notFoundDesc}
         </p>
       </AdminSection>
     );
@@ -58,13 +61,14 @@ export function ProductDetailsPage({
       <AdminPageHeader
         actions={
           <div className="flex flex-wrap items-center gap-2">
-            <ProductStatusBadge value={product.status} />
+            <ProductStatusBadge value={product.status} dict={dict.status} />
             <ProductApprovalStatusBadge
               value={product.approvalStatusLabel ?? product.approvalStatus}
+              dict={dict.status}
             />
             <AdminConfirmDialog
-              confirmLabel="Delete"
-              description="This will permanently remove the product, then return you to the products list."
+              confirmLabel={dict.list.actions.delete}
+              description={dict.list.actions.deleteDesc}
               isPending={actions.deleteAction.isSubmitting}
               onConfirm={async () => {
                 const result = await actions.deleteAction.submit(productId);
@@ -73,144 +77,174 @@ export function ProductDetailsPage({
                   router.replace(createAdminHref(lang, "products"));
                 }
               }}
-              title="Delete Product"
-              triggerLabel="Delete"
+              title={dict.list.actions.deleteTitle}
+              triggerLabel={dict.list.actions.delete}
               variant="danger"
             />
           </div>
         }
-        description="Inspect and update the live product payload returned by the admin API."
-        eyebrow="Admin details"
+        description={dict.list.description}
+        eyebrow={dict.details.eyebrow}
         title={getAdminEntityTitle(product, productId)}
       />
       {detailState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.list.errors.request}>
           <p className="text-sm text-rose-600">{detailState.error}</p>
         </AdminSection>
       ) : null}
       {actions.updateAction.error ? (
-        <AdminSection title="Update error">
+        <AdminSection title={dict.list.errors.update}>
           <p className="text-sm text-rose-600">{actions.updateAction.error}</p>
         </AdminSection>
       ) : null}
       {actions.deleteAction.error ? (
-        <AdminSection title="Delete error">
+        <AdminSection title={dict.list.errors.delete}>
           <p className="text-sm text-rose-600">{actions.deleteAction.error}</p>
         </AdminSection>
       ) : null}
 
-      <AdminSection
-        title="Overview"
-        description="High-level product summary for quick admin review."
-      >
-        <ProductSummaryCards product={product} />
-      </AdminSection>
+      <Tabs defaultValue="overview" className="w-full" dir={lang === "ar" ? "rtl" : "ltr"}>
+        <TabsList className="mb-6 flex h-auto w-full flex-wrap justify-start gap-1 p-1">
+          <TabsTrigger value="overview">{dict.details.tabs.overview}</TabsTrigger>
+          <TabsTrigger value="update">{dict.details.tabs.update}</TabsTrigger>
+          <TabsTrigger value="store">{dict.details.tabs.store}</TabsTrigger>
+          <TabsTrigger value="categories">{dict.details.tabs.categories}</TabsTrigger>
+          <TabsTrigger value="images">{dict.details.tabs.images}</TabsTrigger>
+          <TabsTrigger value="variants">{dict.details.tabs.variants}</TabsTrigger>
+          <TabsTrigger value="offer">{dict.details.tabs.offer}</TabsTrigger>
+        </TabsList>
 
-      <AdminSection
-        title="Product status"
-        description="Lifecycle and moderation state for this live product."
-      >
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-              Product status
-            </p>
-            <div className="mt-2">
-              <ProductStatusBadge value={product.status} />
+        <TabsContent value="overview" className="space-y-6 mt-0">
+          <AdminSection
+            title={dict.details.overview.title}
+            description={dict.details.overview.desc}
+          >
+            <ProductSummaryCards product={product} dict={dict.revisionOverview} />
+          </AdminSection>
+
+          <AdminSection
+            title={dict.details.overview.status}
+            description={dict.details.overview.statusDesc}
+          >
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                  {dict.details.overview.status}
+                </p>
+                <div className="mt-2">
+                  <ProductStatusBadge value={product.status} dict={dict.status} />
+                </div>
+              </div>
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                  {dict.details.overview.approval}
+                </p>
+                <div className="mt-2">
+                  <ProductApprovalStatusBadge
+                    value={product.approvalStatusLabel ?? product.approvalStatus}
+                    dict={dict.status}
+                  />
+                </div>
+              </div>
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                  {dict.details.overview.featured}
+                </p>
+                <p className="mt-2 text-sm font-medium text-slate-900">
+                  {product.featuredLabel ?? dict.productsTable.featuredVal.standard}
+                </p>
+              </div>
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                  {dict.details.overview.currency}
+                </p>
+                <p className="mt-2 text-sm font-medium text-slate-900">
+                  {product.currency ?? "—"}
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-              Approval
-            </p>
-            <div className="mt-2">
-              <ProductApprovalStatusBadge
-                value={product.approvalStatusLabel ?? product.approvalStatus}
-              />
-            </div>
-          </div>
-          <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-              Featured
-            </p>
-            <p className="mt-2 text-sm font-medium text-slate-900">
-              {product.featuredLabel ?? "Standard"}
-            </p>
-          </div>
-          <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-              Currency
-            </p>
-            <p className="mt-2 text-sm font-medium text-slate-900">
-              {product.currency ?? "—"}
-            </p>
-          </div>
-        </div>
-      </AdminSection>
+          </AdminSection>
 
-      <ProductForm
-        description="Update the live product fields supported by the admin product update contract."
-        initialValues={product}
-        isSubmitting={actions.updateAction.isSubmitting}
-        mode="update"
-        onSubmit={async (payload) => {
-          await actions.updateAction.submit({
-            payload,
-            productId,
-          });
-        }}
-        submitLabel="Update product"
-        title="Update product"
-      />
+          <AdminSection title={dict.details.metadata.title} description={dict.details.metadata.desc}>
+            <ProductMetadataSection
+              items={[
+                { label: dict.details.metadata.productId, value: product.id },
+                { label: dict.details.metadata.slug, value: product.slug },
+                {
+                  label: dict.details.metadata.pendingRevision,
+                  value: product.pendingRevision
+                    ? dict.details.metadata.pendingRevisionVal.available
+                    : dict.details.metadata.pendingRevisionVal.none,
+                },
+              ]}
+              dict={{ yes: dict.revisionPayload.yes, no: dict.revisionPayload.no }}
+            />
+          </AdminSection>
+        </TabsContent>
 
-      <AdminSection
-        title="Store information"
-        description="Store payload returned alongside the product, when available."
-      >
-        <ProductMetadataSection
-          items={[
-            { label: "Store name", value: product.storeName ?? product.store?.name },
-            { label: "Store ID", value: product.storeId ?? product.store?.id },
-            { label: "Store email", value: product.store?.email },
-            { label: "Store status", value: product.store?.status },
-          ]}
-        />
-      </AdminSection>
+        <TabsContent value="update" className="mt-0">
+          <ProductForm
+            description={dict.form.updateDesc}
+            initialValues={product}
+            isSubmitting={actions.updateAction.isSubmitting}
+            mode="update"
+            onSubmit={async (payload) => {
+              await actions.updateAction.submit({
+                payload,
+                productId,
+              });
+            }}
+            submitLabel={dict.form.updateTitle}
+            title={dict.form.updateTitle}
+            dict={dict.form}
+          />
+        </TabsContent>
 
-      <AdminSection title="Categories" description="Categories attached to this product.">
-        <ProductCategoriesList categories={product.categories} />
-      </AdminSection>
+        <TabsContent value="store" className="mt-0">
+          <AdminSection
+            title={dict.details.store.title}
+            description={dict.details.store.desc}
+          >
+            <ProductMetadataSection
+              items={[
+                { label: dict.details.store.name, value: product.storeName ?? product.store?.name },
+                { label: dict.details.store.id, value: product.storeId ?? product.store?.id },
+                { label: dict.details.store.email, value: product.store?.email },
+                { label: dict.details.store.status, value: product.store?.status },
+              ]}
+              dict={{ yes: dict.revisionPayload.yes, no: dict.revisionPayload.no }}
+            />
+          </AdminSection>
+        </TabsContent>
 
-      <AdminSection title="Images" description="Image gallery for this product.">
-        <ProductImagesGallery images={product.images} title={product.title} />
-      </AdminSection>
+        <TabsContent value="categories" className="mt-0">
+          <AdminSection title={dict.details.tabs.categories} description={dict.details.tabs.categories}>
+            <ProductCategoriesList categories={product.categories} dict={dict.revisionPayload} />
+          </AdminSection>
+        </TabsContent>
 
-      <AdminSection title="Variants" description="Variant payload returned for this product.">
-        <ProductVariantsTable variants={product.variants} />
-      </AdminSection>
+        <TabsContent value="images" className="mt-0">
+          <AdminSection title={dict.details.tabs.images} description={dict.details.tabs.images}>
+            <ProductImagesGallery images={product.images} title={product.title} dict={dict.revisionPayload} />
+          </AdminSection>
+        </TabsContent>
 
-      <AdminSection title="Offer" description="Offer payload attached to this product, when available.">
-        <ProductOfferCard offer={product.offer} />
-      </AdminSection>
+        <TabsContent value="variants" className="mt-0">
+          <AdminSection title={dict.details.tabs.variants} description={dict.details.tabs.variants}>
+            <ProductVariantsTable variants={product.variants} dict={dict.revisionPayload} />
+          </AdminSection>
+        </TabsContent>
 
-      <AdminSection title="Metadata" description="Reference metadata and identifiers for this live product.">
-        <ProductMetadataSection
-          items={[
-            { label: "Product ID", value: product.id },
-            { label: "Slug", value: product.slug },
-            { label: "SKU", value: product.sku },
-            { label: "Created", value: product.createdAt },
-            { label: "Updated", value: product.updatedAt },
-            {
-              label: "Pending revision",
-              value: product.pendingRevision ? "Available" : "None",
-            },
-          ]}
-        />
-      </AdminSection>
+        <TabsContent value="offer" className="mt-0">
+          <AdminSection title={dict.details.tabs.offer} description={dict.details.tabs.offer}>
+            <ProductOfferCard offer={product.offer} dict={dict.revisionPayload} rejectDict={dict.rejectDialog} />
+          </AdminSection>
+        </TabsContent>
+      </Tabs>
 
     </div>
   );
 }
+
 
 

@@ -330,7 +330,7 @@ export function AdminNavigation({
       <div
         className={cn(
           "flex shrink-0 flex-col items-center gap-3 bg-[#fbfbfa] px-3 py-5 transition-all duration-300 ease-in-out",
-          collapsed ? "w-full" : "w-[78px] border-r border-slate-200",
+          collapsed ? "w-full" : "w-[78px] border-e border-slate-200",
         )}
       >
         {adminNavigation.map((group) => {

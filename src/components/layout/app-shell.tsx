@@ -25,6 +25,8 @@ export function AppShell({
     };
   }, [isSidebarOpen]);
 
+  const isRtl = lang === "ar";
+
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,#f6f4ef_0%,#f3f2ee_100%)] text-slate-950">
       <div
@@ -39,13 +41,14 @@ export function AppShell({
 
       <div
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-[min(26rem,100vw)] -translate-x-full transition-transform duration-300 ease-out xl:hidden",
+          "fixed inset-y-0 z-50 w-[min(26rem,100vw)] transition-transform duration-300 ease-out xl:hidden",
+          isRtl ? "right-0 translate-x-full" : "left-0 -translate-x-full",
           isSidebarOpen && "translate-x-0",
         )}
       >
         <Sidebar
           lang={lang}
-          className="h-dvh max-w-none border-r-0 shadow-[0_24px_60px_rgba(15,23,42,0.18)]"
+          className="h-dvh max-w-none border-e-0 shadow-[0_24px_60px_rgba(15,23,42,0.18)]"
           headerAction={
             <button
               type="button"

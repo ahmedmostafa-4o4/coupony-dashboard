@@ -19,34 +19,10 @@ import { useProductRevisionActions } from "../hooks/use-product-revision-actions
 import { useProductRevisionDetails } from "../hooks/use-product-revision-details";
 import {
   productRevisionApproveActionSchema,
-  productRevisionRejectActionSchema,
   type ProductRevisionApproveActionValues,
-  type ProductRevisionRejectActionValues,
 } from "../schemas/product-revision-action.schema";
-
-const approveFields: AdminFormField<ProductRevisionApproveActionValues>[] = [
-  {
-    key: "notes",
-    label: "Notes",
-    placeholder: "Optional approval note for the audit trail.",
-    type: "textarea",
-  },
-];
-
-const rejectFields: AdminFormField<ProductRevisionRejectActionValues>[] = [
-  {
-    key: "reason",
-    label: "Reason",
-    placeholder: "Explain why this revision is being rejected.",
-    type: "textarea",
-  },
-  {
-    key: "notes",
-    label: "Notes",
-    placeholder: "Optional internal note.",
-    type: "textarea",
-  },
-];
+import { ProductRevisionRejectDialog } from "../components/product-revision-reject-dialog";
+import { getProductsDictionary } from "../utils/get-dictionary";
 
 export function ProductRevisionDetailsPage({
   revisionId,
@@ -56,7 +32,17 @@ export function ProductRevisionDetailsPage({
   lang: string;
 }) {
   const detailState = useProductRevisionDetails(revisionId);
-  void lang;
+  const dict = getProductsDictionary(lang);
+
+  const approveFields: AdminFormField<ProductRevisionApproveActionValues>[] = [
+    {
+      key: "notes",
+      label: dict.list.actions.notes,
+      placeholder: dict.list.actions.notesPlaceholder,
+      type: "textarea",
+    },
+  ];
+
   const actions = useProductRevisionActions(async () => {
     await detailState.reload();
   });
@@ -64,14 +50,14 @@ export function ProductRevisionDetailsPage({
   const actionError = actions.approveAction.error ?? actions.rejectAction.error;
 
   if (detailState.isLoading) {
-    return <PageLoading label="Loading product revision details..." />;
+    return <PageLoading label={dict.revisionDetails.loading} />;
   }
 
   if (!detailState.item) {
     return (
-      <AdminSection title="Product Revision not found">
+      <AdminSection title={dict.revisionDetails.notFound}>
         <p className="text-sm text-slate-500">
-          The backend did not return a product revision for this route.
+          {dict.revisionDetails.notFoundDesc}
         </p>
       </AdminSection>
     );
@@ -86,10 +72,11 @@ export function ProductRevisionDetailsPage({
           <div className="flex flex-wrap items-center gap-2">
             <ProductRevisionStatusBadge
               value={revision.statusLabel ?? revision.status}
+              dict={dict.status}
             />
             <AdminActionDialog
-              confirmLabel="Approve"
-              description="Optionally include review notes before approving this revision."
+              confirmLabel={dict.list.actions.approve}
+              description={dict.list.actions.approveDesc}
               fields={approveFields}
               isPending={actions.approveAction.isSubmitting}
               onSubmit={(payload) =>
@@ -99,14 +86,11 @@ export function ProductRevisionDetailsPage({
                 })
               }
               schema={productRevisionApproveActionSchema}
-              title="Approve Product Revision"
-              triggerLabel="Approve"
+              title={dict.list.actions.approveTitle}
+              triggerLabel={dict.list.actions.approve}
               variant="primary"
             />
-            <AdminActionDialog
-              confirmLabel="Reject"
-              description="Provide the required rejection reason and any optional notes."
-              fields={rejectFields}
+            <ProductRevisionRejectDialog
               isPending={actions.rejectAction.isSubmitting}
               onSubmit={(payload) =>
                 actions.rejectAction.submit({
@@ -114,58 +98,58 @@ export function ProductRevisionDetailsPage({
                   payload,
                 })
               }
-              schema={productRevisionRejectActionSchema}
-              title="Reject Product Revision"
-              triggerLabel="Reject"
-              variant="danger"
+              triggerLabel={dict.list.actions.reject}
+              revision={revision}
+              dict={dict.rejectDialog}
             />
           </div>
         }
-        description="Inspect the submitted change set before approving or rejecting it."
-        eyebrow="Admin details"
+        description={dict.revisionDetails.description}
+        eyebrow={dict.details.eyebrow}
         title={getAdminEntityTitle(revision, revisionId)}
       />
       {detailState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.list.errors.request}>
           <p className="text-sm text-rose-600">{detailState.error}</p>
         </AdminSection>
       ) : null}
       {actionError ? (
-        <AdminSection title="Action error">
+        <AdminSection title={dict.list.errors.action}>
           <p className="text-sm text-rose-600">{actionError}</p>
         </AdminSection>
       ) : null}
 
       <AdminSection
-        title="Revision overview"
-        description="High-level revision summary for quick admin review."
+        title={dict.revisionDetails.overview.title}
+        description={dict.revisionDetails.overview.desc}
       >
-        <ProductRevisionOverview revision={revision} />
+        <ProductRevisionOverview revision={revision} dict={dict.revisionOverview} />
       </AdminSection>
 
       <AdminSection
-        title="Revision status"
-        description="Moderation state and current decision context."
+        title={dict.revisionDetails.status.title}
+        description={dict.revisionDetails.status.desc}
       >
-        <ProductRevisionDecisionPanel revision={revision} />
+        <ProductRevisionDecisionPanel revision={revision} dict={dict.revisionDecision} statusDict={dict.status} />
       </AdminSection>
 
       <AdminSection
-        title="Product payload overview"
-        description="Readable breakdown of the submitted product data."
+        title={dict.revisionDetails.payload.title}
+        description={dict.revisionDetails.payload.desc}
       >
-        <ProductRevisionPayloadSections revision={revision} />
+        <ProductRevisionPayloadSections revision={revision} dict={dict.revisionPayload} rejectDict={dict.rejectDialog} />
       </AdminSection>
 
       <AdminSection
-        title="Review metadata"
-        description="Reference metadata and counts returned with the revision."
+        title={dict.revisionDetails.metadata.title}
+        description={dict.revisionDetails.metadata.desc}
       >
-        <ProductRevisionMetadataSection revision={revision} />
+        <ProductRevisionMetadataSection revision={revision} dict={dict.revisionMetadata} />
       </AdminSection>
 
     </div>
   );
 }
+
 
 

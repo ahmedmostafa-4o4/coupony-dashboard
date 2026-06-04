@@ -47,7 +47,7 @@ export interface StoreAddressDto {
 
 export type StoreCategorySummaryDto = Pick<
   CategoryDto,
-  "id" | "name" | "is_active"
+  "id" | "name" | "is_active" | "icon_url"
 >;
 
 export interface StoreOwnerDto extends UserDto {
@@ -88,6 +88,42 @@ export interface StoreRecordDto extends StoreDto {
   rating_count?: number | null;
   verified_at?: ISODateTime | null;
   verifications?: StoreVerificationRecordDto[];
+  points?: StorePointsDto | null;
+  subscription?: StoreSubscriptionDto | null;
+}
+
+export interface StorePointsDto {
+  balance?: number;
+  total_earned?: number;
+  total_redeemed?: number;
+}
+
+export interface StoreSubscriptionDto {
+  id?: string;
+  plan_id?: string;
+  status?: string;
+  billing_cycle?: string;
+  current_period_start?: ISODateTime | null;
+  current_period_end?: ISODateTime | null;
+  grace_period_end?: ISODateTime | null;
+  degraded_period_end?: ISODateTime | null;
+  trial_ends_at?: ISODateTime | null;
+  cancelled_at?: ISODateTime | null;
+  plan?: {
+    id?: string;
+    name?: string;
+    price?: number;
+    currency?: string;
+  } | null;
+}
+
+export interface StoreReviewDto {
+  id: string;
+  user_id: string;
+  content: string;
+  rating: number;
+  created_at: ISODateTime;
+  user?: StoreOwnerDto | null;
 }
 
 export type AdminStoresListResponseDto = ApiSuccessResponse<StoreRecordDto[]> & {

@@ -55,7 +55,7 @@ export function AdminDataTable<TData>({
                 <th
                   key={column.id}
                   className={cn(
-                    "px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.16em] text-slate-500",
+                    "px-4 py-3 text-start text-xs font-semibold uppercase tracking-[0.16em] text-slate-500",
                     column.className
                   )}
                 >
@@ -63,7 +63,7 @@ export function AdminDataTable<TData>({
                 </th>
               ))}
               {renderRowActions ? (
-                <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                <th className="px-4 py-3 text-end text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                   Actions
                 </th>
               ) : null}
@@ -83,7 +83,7 @@ export function AdminDataTable<TData>({
                   </td>
                 ))}
                 {renderRowActions ? (
-                  <td className="px-4 py-4 text-right text-sm text-slate-600">
+                  <td className="px-4 py-4 text-end text-sm text-slate-600">
                     {renderRowActions(item)}
                   </td>
                 ) : null}

@@ -1,10 +1,10 @@
-function renderValue(value: unknown) {
+function renderValue(value: unknown, yesLabel = "Yes", noLabel = "No") {
   if (value === null || value === undefined || value === "") {
     return "—";
   }
 
   if (typeof value === "boolean") {
-    return value ? "Yes" : "No";
+    return value ? yesLabel : noLabel;
   }
 
   return String(value);
@@ -12,8 +12,10 @@ function renderValue(value: unknown) {
 
 export function ProductMetadataSection({
   items,
+  dict,
 }: {
   items: Array<{ label: string; value: unknown }>;
+  dict?: { yes: string; no: string };
 }) {
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -26,10 +28,11 @@ export function ProductMetadataSection({
             {item.label}
           </p>
           <p className="mt-2 text-sm font-medium text-slate-900">
-            {renderValue(item.value)}
+            {renderValue(item.value, dict?.yes, dict?.no)}
           </p>
         </div>
       ))}
     </div>
   );
 }
+

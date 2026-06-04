@@ -42,7 +42,7 @@ function DialogField<TValues extends AdminFormValues>({
   const error = errors[field.key];
 
   return (
-    <label className="space-y-2" key={field.key}>
+    <div className="space-y-2" key={field.key}>
       <span className="text-sm font-medium text-slate-700">{field.label}</span>
       {field.type === "textarea" ? (
         <Textarea
@@ -67,6 +67,15 @@ function DialogField<TValues extends AdminFormValues>({
             ))}
           </SelectContent>
         </Select>
+      ) : field.type === "checkbox" ? (
+        <div className="flex items-center gap-3 rounded-xl border border-slate-200 px-3 py-3 text-sm text-slate-700">
+          <input
+            checked={Boolean(value)}
+            type="checkbox"
+            onChange={(event) => onChange(field.key, event.target.checked)}
+          />
+          <span>{field.placeholder ?? field.label}</span>
+        </div>
       ) : (
         <Input
           placeholder={field.placeholder}
@@ -76,7 +85,7 @@ function DialogField<TValues extends AdminFormValues>({
         />
       )}
       {error ? <p className="text-sm font-medium text-rose-600">{error}</p> : null}
-    </label>
+    </div>
   );
 }
 
@@ -164,8 +173,8 @@ export function AdminActionDialog<
       </Button>
       {isOpen ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 p-4">
-          <Card className="w-full max-w-lg">
-            <CardHeader>
+          <Card className="flex w-full max-w-lg flex-col max-h-[90vh]">
+            <CardHeader className="shrink-0">
               <div>
                 <CardTitle>{title}</CardTitle>
                 <p className="mt-2 text-sm leading-6 text-slate-500">
@@ -173,7 +182,7 @@ export function AdminActionDialog<
                 </p>
               </div>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 overflow-y-auto min-h-0">
               {fields.map((field) => (
                 <DialogField
                   errors={errors}
@@ -187,7 +196,7 @@ export function AdminActionDialog<
                 <p className="text-sm font-medium text-rose-600">{formError}</p>
               ) : null}
             </CardContent>
-            <CardFooter>
+            <CardFooter className="shrink-0 pt-4">
               <Button variant="ghost" onClick={() => setIsOpen(false)}>
                 Cancel
               </Button>

@@ -18,37 +18,24 @@ import { useProductRevisionActions } from "../hooks/use-product-revision-actions
 import { useProductRevisionsList } from "../hooks/use-product-revisions-list";
 import {
   productRevisionApproveActionSchema,
-  productRevisionRejectActionSchema,
   type ProductRevisionApproveActionValues,
-  type ProductRevisionRejectActionValues,
 } from "../schemas/product-revision-action.schema";
-
-const approveFields: AdminFormField<ProductRevisionApproveActionValues>[] = [
-  {
-    key: "notes",
-    label: "Notes",
-    placeholder: "Optional approval note for the seller or audit trail.",
-    type: "textarea",
-  },
-];
-
-const rejectFields: AdminFormField<ProductRevisionRejectActionValues>[] = [
-  {
-    key: "reason",
-    label: "Reason",
-    placeholder: "Explain why this revision cannot be approved.",
-    type: "textarea",
-  },
-  {
-    key: "notes",
-    label: "Notes",
-    placeholder: "Optional internal note.",
-    type: "textarea",
-  },
-];
+import { ProductRevisionRejectDialog } from "../components/product-revision-reject-dialog";
+import { getProductsDictionary } from "../utils/get-dictionary";
 
 export function ProductRevisionsListPage({ lang }: { lang: string }) {
   const listState = useProductRevisionsList();
+  const dict = getProductsDictionary(lang);
+
+  const approveFields: AdminFormField<ProductRevisionApproveActionValues>[] = [
+    {
+      key: "notes",
+      label: dict.list.actions.notes,
+      placeholder: dict.list.actions.notesListPlaceholder,
+      type: "textarea",
+    },
+  ];
+
   const actions = useProductRevisionActions(async () => {
     await listState.reload();
   });
@@ -56,7 +43,7 @@ export function ProductRevisionsListPage({ lang }: { lang: string }) {
   const actionError = actions.approveAction.error ?? actions.rejectAction.error;
 
   if (listState.isLoading && !listState.items.length && !listState.error) {
-    return <PageLoading label="Loading pending product revisions..." />;
+    return <PageLoading label={dict.revisionsList.loading} />;
   }
 
   return (
@@ -64,33 +51,35 @@ export function ProductRevisionsListPage({ lang }: { lang: string }) {
       <AdminPageHeader
         actions={
           <Button variant="secondary" onClick={() => void listState.reload()}>
-            Reload
+            {dict.list.reload}
           </Button>
         }
-        description="Review seller-submitted product changes that are waiting for an admin decision."
-        eyebrow="Admin"
-        title="Product Revisions"
+        description={dict.revisionsList.description}
+        eyebrow={dict.list.eyebrow}
+        title={dict.revisionsList.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
         <AdminStatCard
-          hint="Pending revisions currently loaded from the API response."
-          label="Pending"
+          hint={dict.revisionsList.stats.pendingHint}
+          label={dict.revisionsList.stats.pending}
           value={listState.total}
         />
       </div>
       {listState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.list.errors.request}>
           <p className="text-sm text-rose-600">{listState.error}</p>
         </AdminSection>
       ) : null}
       {actionError ? (
-        <AdminSection title="Action error">
+        <AdminSection title={dict.list.errors.action}>
           <p className="text-sm text-rose-600">{actionError}</p>
         </AdminSection>
       ) : null}
 
       <ProductRevisionsTable
         items={listState.items}
+        dict={dict.revisionsTable}
+        statusDict={dict.status}
         renderActions={(item) => (
           <div className="flex flex-wrap justify-end gap-2">
             <Link
@@ -101,11 +90,11 @@ export function ProductRevisionsListPage({ lang }: { lang: string }) {
                 String(item.revisionId || item.id || "")
               )}
             >
-              View
+              {dict.list.actions.view}
             </Link>
             <AdminActionDialog
-              confirmLabel="Approve"
-              description="Optionally add review notes before approving this product revision."
+              confirmLabel={dict.list.actions.approve}
+              description={dict.list.actions.approveDesc}
               fields={approveFields}
               isPending={actions.approveAction.isSubmitting}
               onSubmit={(payload) =>
@@ -115,14 +104,11 @@ export function ProductRevisionsListPage({ lang }: { lang: string }) {
                 })
               }
               schema={productRevisionApproveActionSchema}
-              title="Approve Product Revision"
-              triggerLabel="Approve"
+              title={dict.list.actions.approveTitle}
+              triggerLabel={dict.list.actions.approve}
               variant="primary"
             />
-            <AdminActionDialog
-              confirmLabel="Reject"
-              description="Provide the required rejection reason before sending the decision."
-              fields={rejectFields}
+            <ProductRevisionRejectDialog
               isPending={actions.rejectAction.isSubmitting}
               onSubmit={(payload) =>
                 actions.rejectAction.submit({
@@ -130,10 +116,9 @@ export function ProductRevisionsListPage({ lang }: { lang: string }) {
                   payload,
                 })
               }
-              schema={productRevisionRejectActionSchema}
-              title="Reject Product Revision"
-              triggerLabel="Reject"
-              variant="danger"
+              triggerLabel={dict.list.actions.reject}
+              revision={item}
+              dict={dict.rejectDialog}
             />
           </div>
         )}
@@ -141,3 +126,4 @@ export function ProductRevisionsListPage({ lang }: { lang: string }) {
     </div>
   );
 }
+

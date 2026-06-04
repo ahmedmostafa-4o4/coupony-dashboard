@@ -11,24 +11,27 @@ import {
 import { ProductForm } from "../components/product-form";
 import { useProductActions } from "../hooks/use-product-actions";
 
+import { getProductsDictionary } from "../utils/get-dictionary";
+
 export function ProductCreatePage({ lang }: { lang: string }) {
   const router = useRouter();
   const actions = useProductActions();
+  const dict = getProductsDictionary(lang);
 
   return (
     <div className="space-y-6">
       <AdminPageHeader
-        description="Create a live product using the admin product CRUD endpoint."
-        eyebrow="Admin create"
-        title="Create Product"
+        description={dict.form.createDesc}
+        eyebrow={dict.details.eyebrow}
+        title={dict.form.createTitle}
       />
       {actions.createAction.error ? (
-        <AdminSection title="Create error">
+        <AdminSection title={dict.list.errors.createErr}>
           <p className="text-sm text-rose-600">{actions.createAction.error}</p>
         </AdminSection>
       ) : null}
       <ProductForm
-        description="Provide the product fields supported by the admin create contract."
+        description={dict.form.createDesc}
         isSubmitting={actions.createAction.isSubmitting}
         mode="create"
         onSubmit={async (payload) => {
@@ -38,9 +41,11 @@ export function ProductCreatePage({ lang }: { lang: string }) {
             router.replace(createAdminHref(lang, "products"));
           }
         }}
-        submitLabel="Create product"
-        title="Create product"
+        submitLabel={dict.form.createTitle}
+        title={dict.form.createTitle}
+        dict={dict.form}
       />
     </div>
   );
 }
+

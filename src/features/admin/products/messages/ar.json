@@ -1,0 +1,381 @@
+{
+  "status": {
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "draft": "مسودة",
+    "archived": "مؤرشف",
+    "pending": "معلق",
+    "approved": "مقبول",
+    "rejected": "مرفوض"
+  },
+  "list": {
+    "eyebrow": "المسؤول",
+    "title": "المنتجات",
+    "description": "إدارة منتجات الكتالوج المباشرة من لوحة تحكم المسؤول.",
+    "create": "إنشاء منتج",
+    "reload": "إعادة التحميل",
+    "stats": {
+      "total": "الصفوف",
+      "totalHint": "المنتجات المحملة حاليًا من نقطة نهاية منتجات المسؤول."
+    },
+    "errors": {
+      "request": "خطأ في الطلب",
+      "action": "خطأ في الإجراء",
+      "update": "خطأ في التحديث",
+      "delete": "خطأ في الحذف",
+      "createErr": "خطأ في الإنشاء"
+    },
+    "actions": {
+      "view": "عرض",
+      "delete": "حذف",
+      "deleteTitle": "حذف المنتج",
+      "deleteDesc": "سيؤدي هذا إلى إزالة المنتج نهائيًا، ثم إعادتك إلى قائمة المنتجات.",
+      "approve": "موافقة",
+      "reject": "رفض",
+      "approveTitle": "الموافقة على مراجعة المنتج",
+      "approveDesc": "اختياريًا، قم بتضمين ملاحظات المراجعة قبل الموافقة على هذه المراجعة.",
+      "notes": "الملاحظات",
+      "notesPlaceholder": "ملاحظة موافقة اختيارية لسجل المراجعة.",
+      "notesListPlaceholder": "ملاحظة موافقة اختيارية للبائع أو لسجل المراجعة."
+    }
+  },
+  "revisionsList": {
+    "title": "مراجعات المنتجات",
+    "description": "مراجعة تغييرات المنتجات المقدمة من البائع والتي تنتظر قرار المسؤول.",
+    "loading": "جاري تحميل مراجعات المنتجات المعلقة...",
+    "stats": {
+      "pending": "معلق",
+      "pendingHint": "المراجعات المعلقة المحملة حاليًا من استجابة واجهة البرمجيات."
+    }
+  },
+  "details": {
+    "loading": "جاري تحميل تفاصيل المنتج...",
+    "notFound": "المنتج غير موجود",
+    "notFoundDesc": "لم يقم النظام الخلفي بإرجاع منتج لهذا المسار.",
+    "eyebrow": "تفاصيل المسؤول",
+    "tabs": {
+      "overview": "نظرة عامة",
+      "update": "تحديث المنتج",
+      "store": "معلومات المتجر",
+      "categories": "الفئات",
+      "images": "الصور",
+      "variants": "المتغيرات",
+      "offer": "العرض"
+    },
+    "overview": {
+      "title": "نظرة عامة",
+      "desc": "ملخص منتج عالي المستوى لمراجعة المسؤول السريعة.",
+      "status": "حالة المنتج",
+      "statusDesc": "دورة الحياة وحالة الاعتدال لهذا المنتج المباشر.",
+      "approval": "الموافقة",
+      "featured": "مميز",
+      "currency": "العملة"
+    },
+    "metadata": {
+      "title": "البيانات الوصفية",
+      "desc": "البيانات الوصفية المرجعية والمعرفات لهذا المنتج المباشر.",
+      "productId": "معرف المنتج",
+      "slug": "الاسم اللطيف (Slug)",
+      "pendingRevision": "مراجعة معلقة",
+      "pendingRevisionVal": {
+        "available": "متاحة",
+        "none": "لا يوجد"
+      }
+    },
+    "store": {
+      "title": "معلومات المتجر",
+      "desc": "حمولة بيانات المتجر المسترجعة مع المنتج، عند توفرها.",
+      "name": "اسم المتجر",
+      "id": "معرف المتجر",
+      "email": "البريد الإلكتروني للمتجر",
+      "status": "حالة المتجر"
+    }
+  },
+  "revisionDetails": {
+    "loading": "جاري تحميل تفاصيل مراجعة المنتج...",
+    "notFound": "مراجعة المنتج غير موجودة",
+    "notFoundDesc": "لم يقم النظام الخلفي بإرجاع مراجعة المنتج لهذا المسار.",
+    "description": "افحص مجموعة التغييرات المقدمة قبل الموافقة عليها أو رفضها.",
+    "overview": {
+      "title": "نظرة عامة على المراجعة",
+      "desc": "ملخص مراجعة عالي المستوى لمراجعة المسؤول السريعة."
+    },
+    "status": {
+      "title": "حالة المراجعة",
+      "desc": "حالة الاعتدال وسياق القرار الحالي."
+    },
+    "payload": {
+      "title": "نظرة عامة على بيانات المنتج",
+      "desc": "تفصيل مقروء لبيانات المنتج المقدمة."
+    },
+    "metadata": {
+      "title": "بيانات المراجعة الوصفية",
+      "desc": "البيانات الوصفية المرجعية والأعداد المسترجعة مع المراجعة."
+    }
+  },
+  "revisionsTable": {
+    "revisionId": "معرف المراجعة",
+    "product": "المنتج",
+    "unknownStore": "متجر غير معروف",
+    "action": "الإجراء",
+    "status": "الحالة",
+    "submitted": "تم التقديم",
+    "submittedBy": "مقدم الطلب",
+    "emptyTitle": "لا توجد مراجعات منتجات معلقة",
+    "emptyDesc": "لا توجد مراجعات منتجات معلقة مسترجعة من نقطة نهاية المسؤول حالياً."
+  },
+  "productsTable": {
+    "product": "المنتج",
+    "untitledProduct": "منتج بدون عنوان",
+    "noIdentifier": "بلا معرف",
+    "store": "المتجر",
+    "unknownStore": "متجر غير معروف",
+    "status": "الحالة",
+    "approval": "الموافقة",
+    "featured": "مميز",
+    "featuredVal": {
+      "featured": "مميز",
+      "standard": "قياسي"
+    },
+    "emptyTitle": "لم يتم العثور على منتجات",
+    "emptyDesc": "لم يقم النظام الخلفي بإرجاع أي منتجات بعد."
+  },
+  "filters": {
+    "search": "بحث",
+    "searchPlaceholder": "البحث عن المنتجات بالعنوان أو SKU",
+    "status": "الحالة",
+    "statusPlaceholder": "كل الحالات",
+    "approvalStatus": "حالة الموافقة",
+    "approvalStatusPlaceholder": "كل حالات الموافقة",
+    "storeId": "معرف المتجر",
+    "storeIdPlaceholder": "تصفية حسب معرف المتجر"
+  },
+  "form": {
+    "updateTitle": "تحديث المنتج",
+    "updateDesc": "تحديث حقول المنتج المباشر التي يدعمها عقد تحديث منتج المسؤول.",
+    "createTitle": "إنشاء منتج",
+    "createDesc": "تقديم حقول المنتج التي يدعمها عقد إنشاء المسؤول.",
+    "working": "جاري العمل...",
+    "tabs": {
+      "base": "المعلومات الأساسية",
+      "variants": "المتغيرات",
+      "images": "الصور",
+      "offer": "تكوين العرض"
+    },
+    "base": {
+      "title": "المعلومات الأساسية",
+      "storeId": "معرف المتجر",
+      "storeIdPlaceholder": "Store UUID",
+      "titleLabel": "العنوان",
+      "titlePlaceholder": "عنوان المنتج",
+      "slug": "الاسم اللطيف (Slug)",
+      "slugPlaceholder": "product-slug",
+      "sku": "SKU",
+      "skuPlaceholder": "SKU-123",
+      "currency": "العملة",
+      "currencyPlaceholder": "USD",
+      "shortDesc": "الوصف القصير",
+      "shortDescPlaceholder": "ملخص قصير",
+      "desc": "الوصف",
+      "descPlaceholder": "الوصف التفصيلي",
+      "categories": "الفئات",
+      "categoriesPlaceholder": "اختر الفئات...",
+      "categoriesSearchPlaceholder": "ابحث عن الفئات...",
+      "categoriesEmpty": "لم يتم العثور على فئة.",
+      "categoriesLoading": "جاري التحميل...",
+      "featured": "منتج مميز"
+    },
+    "variants": {
+      "title": "المتغيرات",
+      "desc": "أضف متغيرات المنتج والتسعير.",
+      "addBtn": "إضافة متغير",
+      "variantTitle": "عنوان المتغير",
+      "variantTitlePlaceholder": "المقاس L",
+      "sku": "SKU",
+      "skuPlaceholder": "SKU-L",
+      "originalPrice": "السعر الأصلي",
+      "currency": "العملة",
+      "currencyPlaceholder": "USD",
+      "inventoryMode": "وضع المخزون",
+      "inventoryModePlaceholder": "الوضع",
+      "inventoryModes": {
+        "unlimited": "غير محدود",
+        "tracked": "تتبع الكمية"
+      },
+      "stockQty": "كمية المخزون (إذا كانت متتبعة)",
+      "isDefault": "افتراضي",
+      "isActive": "نشط",
+      "attributes": "الصفات",
+      "addAttribute": "إضافة صفة",
+      "noAttributes": "لم يتم إضافة أي صفات لهذا المتغير.",
+      "attributeNamePlaceholder": "الاسم (مثال: اللون)",
+      "attributeValuePlaceholder": "القيمة (مثال: أحمر)",
+      "noVariants": "لم يتم إضافة متغيرات."
+    },
+    "images": {
+      "title": "الصور",
+      "desc": "رفع وترتيب صور المنتج.",
+      "uploader": {
+        "dragDrop": "اسحب الصور وأسقطها هنا",
+        "clickSelect": "أو انقر لتحديد الملفات",
+        "primary": "الرئيسية",
+        "remove": "إزالة",
+        "makePrimary": "اجعلها رئيسية"
+      }
+    },
+    "offer": {
+      "title": "تكوين العرض",
+      "desc": "تكوين خصومات المنتج والعروض المتاحة.",
+      "type": "نوع العرض",
+      "typePlaceholder": "اختر نوع العرض",
+      "types": {
+        "none": "بلا عرض",
+        "fixed": "مبلغ ثابت",
+        "percentage": "نسبة مئوية",
+        "buy_x_get_y": "اشترِ X واحصل على Y"
+      },
+      "fixedAmount": "المبلغ الثابت",
+      "fixedAmountPlaceholder": "مثال: 10.00",
+      "percentageValue": "قيمة النسبة المئوية",
+      "percentageValuePlaceholder": "مثال: 20",
+      "buyQty": "كمية الشراء",
+      "getQty": "كمية المكافأة",
+      "buyVariantSkus": "متغيرات الشراء (SKU)",
+      "buyVariantSkusPlaceholder": "اختر متغيرات الشراء (SKUs)...",
+      "buyVariantSkusSearch": "ابحث عن المتغيرات...",
+      "buyVariantSkusEmpty": "لم يتم العثور على متغيرات صالحة (يجب أن تحتوي على SKU).",
+      "rewardVariantSkus": "متغيرات المكافأة (SKU)",
+      "rewardVariantSkusPlaceholder": "اختر متغيرات المكافأة (SKUs)...",
+      "mixBuy": "السماح بخلط متغيرات الشراء",
+      "mixReward": "السماح بخلط متغيرات المكافأة",
+      "startsAt": "يبدأ في",
+      "startsAtPlaceholder": "اختر تاريخ البدء",
+      "endsAt": "ينتهي في",
+      "endsAtPlaceholder": "اختر تاريخ الانتهاء"
+    }
+  },
+  "revisionOverview": {
+    "revision": "المراجعة",
+    "revisionHint": "معرف المراجعة المسترجع من نقطة نهاية مراجعة المسؤول.",
+    "product": "المنتج",
+    "productHint": "عنوان المنتج المرتبط بهذه المراجعة.",
+    "unknown": "غير معروف",
+    "store": "المتجر",
+    "storeHint": "المتجر المرتبط بهذه المراجعة، عند توفره.",
+    "submitted": "تم التقديم",
+    "submittedHint": "طابع وقت التقديم المنسق لعرض لوحة القيادة.",
+    "images": "الصور",
+    "imagesHint": "الصور المرفقة حالياً بحمولة المنتج.",
+    "variants": "المتغيرات",
+    "variantsHint": "المتغيرات المرفقة حالياً بحمولة المنتج."
+  },
+  "revisionDecision": {
+    "status": "الحالة",
+    "action": "الإجراء",
+    "submittedBy": "مقدم الطلب",
+    "notes": "الملاحظات",
+    "noNotes": "لا توجد ملاحظات اعتدال بعد."
+  },
+  "revisionMetadata": {
+    "revisionId": "معرف المراجعة",
+    "productId": "معرف المنتج",
+    "store": "المتجر",
+    "submitted": "تم التقديم",
+    "images": "الصور",
+    "variants": "المتغيرات"
+  },
+  "revisionImages": {
+    "title": "الصور",
+    "desc": "أصول الصور المستخرجة من حمولة المراجعة عند توفر الروابط.",
+    "imgAlt": "صورة مراجعة المنتج"
+  },
+  "revisionPayload": {
+    "yes": "نعم",
+    "no": "لا",
+    "productPayload": "بيانات المنتج",
+    "noProductPayload": "لم يتم إرجاع نظرة عامة على بيانات المنتج.",
+    "categories": "الفئات",
+    "noCategories": "لم يتم إرجاع أي فئات.",
+    "unnamedCategory": "فئة بدون اسم",
+    "images": "الصور",
+    "noImages": "لم يتم إرجاع أي صور",
+    "imgAlt": "صورة المنتج",
+    "noAltText": "بلا نص بديل",
+    "noUrl": "بلا رابط URL",
+    "variants": "المتغيرات",
+    "variantTable": {
+      "title": "العنوان",
+      "sku": "SKU",
+      "price": "السعر",
+      "stock": "المخزون",
+      "unnamedVariant": "متغير بدون اسم"
+    },
+    "noVariants": "لا توجد متغيرات مدرجة في هذه المراجعة.",
+    "offer": "العرض",
+    "noOffer": "لم يتم إرجاع حمولة العرض."
+  },
+  "rejectDialog": {
+    "triggerLabel": "رفض",
+    "working": "جاري العمل...",
+    "title": "رفض المراجعة",
+    "description": "يرجى تقديم سبب لرفض هذه المراجعة. يمكنك أيضًا تحديد الحقول المحددة التي يجب على البائع إصلاحها.",
+    "reason": "السبب",
+    "reasonPlaceholder": "مثال: تسعير المتغير مفقود",
+    "internalNotes": "ملاحظات داخلية (اختياري)",
+    "internalNotesPlaceholder": "ملاحظات للمسؤولين الآخرين",
+    "requestedChanges": "التغييرات المطلوبة",
+    "addChange": "إضافة تغيير",
+    "noChanges": "لم يتم تحديد أي تغييرات مطلوبة.",
+    "cancel": "إلغاء",
+    "rejectBtn": "رفض المراجعة",
+    "section": "القسم *",
+    "selectSection": "اختر القسم",
+    "field": "الحقل *",
+    "selectField": "اختر الحقل",
+    "variantSku": "SKU المتغير *",
+    "selectSku": "اختر SKU",
+    "skuPlaceholder": "مثال: SKU-123",
+    "imageId": "معرف أو رابط الصورة *",
+    "selectImage": "اختر الصورة",
+    "imagePlaceholder": "مثال: img_abc123",
+    "attributeName": "اسم الصفة *",
+    "selectAttribute": "اختر الصفة",
+    "attributePlaceholder": "مثال: اللون",
+    "message": "الرسالة (اختياري)",
+    "messagePlaceholder": "ما الذي يجب إصلاحه بالضبط؟",
+    "sections": {
+      "short_description": "الوصف القصير",
+      "currency": "العملة",
+      "sku": "SKU",
+      "category_ids": "الفئات",
+      "images": "الصور",
+      "variants": "المتغيرات",
+      "variant_attributes": "صفات المتغيرات",
+      "offer": "العرض"
+    },
+    "fields": {
+      "value": "القيمة",
+      "file": "الملف",
+      "option_summary": "ملخص الخيارات",
+      "sku": "SKU",
+      "original_price": "السعر الأصلي",
+      "currency": "العملة",
+      "attribute_name": "اسم الصفة",
+      "attribute_value": "قيمة الصفة",
+      "sort_order": "ترتيب الفرز",
+      "type": "النوع",
+      "status": "الحالة",
+      "label": "التسمية",
+      "claim_expiration_minutes": "دقائق صلاحية المطالبة",
+      "fixed_amount": "المبلغ الثابت",
+      "percentage_value": "قيمة النسبة المئوية",
+      "max_discount": "الحد الأقصى للخصم",
+      "buy_qty": "كمية الشراء",
+      "get_qty": "كمية الحصول",
+      "allow_mix_buy_variants": "السماح بخلط متغيرات الشراء",
+      "allow_mix_reward_variants": "السماح بخلط متغيرات المكافأة",
+      "buy_variant_skus": "متغيرات الشراء (SKU)",
+      "reward_variant_skus": "متغيرات المكافأة (SKU)"
+    }
+  }
+}

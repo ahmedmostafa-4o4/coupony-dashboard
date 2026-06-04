@@ -27,9 +27,12 @@ const defaultFilters: ProductsListFilters = {
   perPage: 15,
 };
 
+import { getProductsDictionary } from "../utils/get-dictionary";
+
 export function ProductsListPage({ lang }: { lang: string }) {
   const [filters, setFilters] = useState<ProductsListFilters>(defaultFilters);
   const listState = useProducts(filters);
+  const dict = getProductsDictionary(lang);
 
   return (
     <div className="space-y-6">
@@ -40,21 +43,21 @@ export function ProductsListPage({ lang }: { lang: string }) {
               className="inline-flex items-center rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
               href={`${createAdminHref(lang, "products")}/create`}
             >
-              Create product
+              {dict.list.create}
             </Link>
             <Button variant="secondary" onClick={() => void listState.reload()}>
-              Reload
+              {dict.list.reload}
             </Button>
           </>
         }
-        description="Manage live catalog products from the admin dashboard."
-        eyebrow="Admin"
-        title="Products"
+        description={dict.list.description}
+        eyebrow={dict.list.eyebrow}
+        title={dict.list.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
         <AdminStatCard
-          hint="Products currently loaded from the admin products endpoint."
-          label="Rows"
+          hint={dict.list.stats.totalHint}
+          label={dict.list.stats.total}
           value={listState.total}
         />
       </div>
@@ -62,22 +65,27 @@ export function ProductsListPage({ lang }: { lang: string }) {
         onChange={(newFilters) => setFilters({ ...newFilters, page: 1 })}
         onReset={() => setFilters(defaultFilters)}
         values={filters}
+        dict={dict.filters}
+        statusDict={dict.status}
       />
       {listState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.list.errors.request}>
           <p className="text-sm text-rose-600">{listState.error}</p>
         </AdminSection>
       ) : null}
 
       <ProductsTable
         items={listState.items}
+        dict={dict.productsTable}
+        statusDict={dict.status}
+        approvalDict={dict.status}
         renderActions={(item) => (
           <div className="flex flex-wrap justify-end gap-2">
             <Link
               className="inline-flex items-center rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
               href={createAdminDetailHref(lang, "products", String(item.id ?? ""))}
             >
-              View
+              {dict.list.actions.view}
             </Link>
           </div>
         )}
@@ -95,3 +103,4 @@ export function ProductsListPage({ lang }: { lang: string }) {
     </div>
   );
 }
+

@@ -1,6 +1,6 @@
 import type { AdminItemResult, AdminListResult } from "@/lib/api/admin-contract";
 import type { Camelized } from "@/types";
-
+import type { ProductRevision } from "./product-revision.types";
 import type {
   AdminCreateProductDto,
   AdminProductsQueryDto,
@@ -10,10 +10,17 @@ import type {
   ProductImageDto,
   ProductStatus,
   ProductVariantDto,
+  ProductRevisionDto,
+  ProductRevisionAction,
+  ProductRevisionStatus,
+  AdminPendingProductRevisionsQueryDto,
+  AdminApproveProductRevisionDto,
+  AdminRejectProductRevisionDto,
 } from "./products.dto";
 
 export type ProductImage = Camelized<ProductImageDto>;
 export type ProductVariant = Camelized<ProductVariantDto>;
+
 export type ProductStore = {
   id?: string;
   name?: string;
@@ -75,3 +82,9 @@ export type ProductsListResult = AdminListResult<Product>;
 export type ProductDetailsResult = AdminItemResult<Product>;
 export type CreateProductRequest = AdminCreateProductDto;
 export type UpdateProductRequest = AdminUpdateProductDto;
+
+export type PendingRevisionsFilters = Camelized<AdminPendingProductRevisionsQueryDto>;
+export type PendingRevisionsListResult = AdminListResult<ProductRevision>;
+export type RevisionDetailsResult = AdminItemResult<ProductRevision>;
+export type ApproveRevisionPayload = Camelized<AdminApproveProductRevisionDto>;
+export type RejectRevisionPayload = Camelized<AdminRejectProductRevisionDto>;

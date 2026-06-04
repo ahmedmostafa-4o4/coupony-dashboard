@@ -34,7 +34,7 @@ export const storeApproveActionSchema: AdminFormSchema<
   },
   transform(values) {
     return {
-      admin_notes: trimOptional(values.adminNotes),
+      notes: trimOptional(values.adminNotes),
     };
   },
   validate() {

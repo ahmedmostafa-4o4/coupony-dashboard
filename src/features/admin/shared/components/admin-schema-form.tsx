@@ -131,12 +131,12 @@ function renderField<TValues extends AdminFormValues>({
             <Button
               variant="secondary"
               className={cn(
-                "w-full justify-start text-left font-normal bg-white h-10 border border-slate-200",
+                "w-full justify-start text-start font-normal bg-white h-10 border border-slate-200",
                 !value && "text-slate-500",
               )}
             >
               <CalendarIcon
-                className={cn("h-4 w-4", lang === "ar" ? "ml-2" : "mr-2")}
+                className="h-4 w-4 me-2"
               />
               {value ? (
                 format(parse(String(value), "yyyy-MM-dd", new Date()), "PP", {
@@ -161,10 +161,10 @@ function renderField<TValues extends AdminFormValues>({
               onSelect={(date) => {
                 onChange(field.key, date ? format(date, "yyyy-MM-dd") : "");
               }}
-              initialFocus
+
               captionLayout="dropdown"
-              fromYear={1900}
-              toYear={new Date().getFullYear() + 10}
+              startMonth={new Date(1900, 0)}
+              endMonth={new Date(new Date().getFullYear() + 10, 11)}
               locale={locale}
               dir={lang === "ar" ? "rtl" : "ltr"}
             />

@@ -20,7 +20,8 @@ function SidebarLogo() {
   );
 }
 
-function ToggleIcon({ collapsed }: { collapsed: boolean }) {
+function ToggleIcon({ collapsed, isRtl }: { collapsed: boolean; isRtl: boolean }) {
+  const showExpand = isRtl ? !collapsed : collapsed;
   return (
     <svg
       aria-hidden="true"
@@ -32,7 +33,7 @@ function ToggleIcon({ collapsed }: { collapsed: boolean }) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      {collapsed ? <path d="m9 6 6 6-6 6" /> : <path d="m15 6-6 6 6 6" />}
+      {showExpand ? <path d="m9 6 6 6-6 6" /> : <path d="m15 6-6 6 6 6" />}
     </svg>
   );
 }
@@ -51,11 +52,12 @@ export function Sidebar({
   onToggleCollapse?: () => void;
 }) {
   const dict = getGlobalDictionary(lang);
+  const isRtl = lang === "ar";
 
   return (
     <aside
       className={cn(
-        "sticky top-0 flex h-screen w-full flex-col gap-4 overflow-hidden border-r border-slate-200 bg-[#f7f6f3] px-3 py-4 transition-[max-width,padding] duration-300 ease-in-out",
+        "sticky top-0 flex h-screen w-full flex-col gap-4 overflow-hidden border-e border-slate-200 bg-[#f7f6f3] px-3 py-4 transition-[max-width,padding] duration-300 ease-in-out",
         collapsed ? "max-w-[96px]" : "max-w-[420px] px-4",
         className,
       )}
@@ -87,7 +89,7 @@ export function Sidebar({
               className={cn(
                 "overflow-hidden transition-all duration-200 ease-in-out",
                 collapsed
-                  ? "max-w-0 translate-x-[-8px] opacity-0"
+                  ? cn("max-w-0 opacity-0", isRtl ? "translate-x-[8px]" : "translate-x-[-8px]")
                   : "max-w-[220px] translate-x-0 opacity-100",
               )}
             >
@@ -122,14 +124,14 @@ export function Sidebar({
                 aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
                 title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
               >
-                <ToggleIcon collapsed={collapsed} />
+                <ToggleIcon collapsed={collapsed} isRtl={isRtl} />
               </button>
             ) : null}
             <div
               className={cn(
                 "overflow-hidden transition-all duration-200 ease-in-out",
                 collapsed
-                  ? "max-w-0 translate-x-2 opacity-0"
+                  ? cn("max-w-0 opacity-0", isRtl ? "-translate-x-2" : "translate-x-2")
                   : "max-w-[64px] translate-x-0 opacity-100",
               )}
             >

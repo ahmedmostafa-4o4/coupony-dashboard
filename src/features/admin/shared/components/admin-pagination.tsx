@@ -52,7 +52,7 @@ export function AdminPagination({
       </div>
 
       <div className="flex items-center gap-2">
-        <span className="text-sm text-slate-600 mr-2">
+        <span className="text-sm text-slate-600 me-2">
           Page {lastPage > 0 ? currentPage : 0} of {lastPage}
         </span>
         <Button
@@ -61,7 +61,7 @@ export function AdminPagination({
           disabled={isFirstPage}
           className="h-9 w-9 p-0"
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="h-4 w-4 rtl:rotate-180" />
           <span className="sr-only">Previous page</span>
         </Button>
         <Button
@@ -70,7 +70,7 @@ export function AdminPagination({
           disabled={isLastPage}
           className="h-9 w-9 p-0"
         >
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-4 w-4 rtl:rotate-180" />
           <span className="sr-only">Next page</span>
         </Button>
       </div>

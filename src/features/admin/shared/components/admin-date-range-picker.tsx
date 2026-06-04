@@ -41,11 +41,11 @@ export function AdminDateRangePicker({
           <Button
             variant="secondary"
             className={cn(
-              "w-full sm:w-[150px] justify-start text-left font-normal bg-white h-10",
+              "w-full sm:w-[150px] justify-start text-start font-normal bg-white h-10",
               !fromDate && "text-slate-500"
             )}
           >
-            <CalendarIcon className={cn("h-4 w-4", lang === "ar" ? "ml-2" : "mr-2")} />
+            <CalendarIcon className="h-4 w-4 me-2" />
             {fromDate ? format(fromDate, "PP", { locale }) : <span>{lang === "ar" ? "من تاريخ" : "From"}</span>}
           </Button>
         </PopoverTrigger>
@@ -56,7 +56,7 @@ export function AdminDateRangePicker({
             onSelect={(date) => {
               onFromChange(date ? format(date, "yyyy-MM-dd") : "");
             }}
-            initialFocus
+
             locale={locale}
             dir={lang === "ar" ? "rtl" : "ltr"}
           />
@@ -70,11 +70,11 @@ export function AdminDateRangePicker({
           <Button
             variant="secondary"
             className={cn(
-              "w-full sm:w-[150px] justify-start text-left font-normal bg-white h-10",
+              "w-full sm:w-[150px] justify-start text-start font-normal bg-white h-10",
               !toDate && "text-slate-500"
             )}
           >
-            <CalendarIcon className={cn("h-4 w-4", lang === "ar" ? "ml-2" : "mr-2")} />
+            <CalendarIcon className="h-4 w-4 me-2" />
             {toDate ? format(toDate, "PP", { locale }) : <span>{lang === "ar" ? "إلى تاريخ" : "To"}</span>}
           </Button>
         </PopoverTrigger>
@@ -85,7 +85,7 @@ export function AdminDateRangePicker({
             onSelect={(date) => {
               onToChange(date ? format(date, "yyyy-MM-dd") : "");
             }}
-            initialFocus
+
             locale={locale}
             dir={lang === "ar" ? "rtl" : "ltr"}
           />

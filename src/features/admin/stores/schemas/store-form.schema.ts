@@ -11,14 +11,11 @@ import type {
 } from "../types/store.types";
 
 export interface StoreFormValues {
-  adminNotes: string;
   commissionRate: string;
   description: string;
   email: string;
-  isVerified: boolean;
   name: string;
   phone: string;
-  status: string;
   subscriptionTier: string;
   taxId: string;
 }
@@ -35,29 +32,23 @@ export interface StoreBillingProfileFormValues {
 
 export const storeFormSchema: AdminFormSchema<StoreFormValues, UpdateStoreRequest> = {
   defaultValues: {
-    adminNotes: "",
     commissionRate: "",
     description: "",
     email: "",
-    isVerified: false,
     name: "",
     phone: "",
-    status: "",
     subscriptionTier: "",
     taxId: "",
   },
   transform(values) {
     return {
-      admin_notes: trimOptional(values.adminNotes),
       commission_rate: toOptionalNumber(values.commissionRate),
-      description: trimOptional(values.description),
+      description: trimOptional(values.description) ?? null,
       email: trimOptional(values.email),
-      is_verified: values.isVerified,
       name: trimOptional(values.name),
       phone: trimOptional(values.phone),
-      status: trimOptional(values.status),
       subscription_tier: trimOptional(values.subscriptionTier),
-      tax_id: trimOptional(values.taxId),
+      tax_id: trimOptional(values.taxId) ?? null,
     };
   },
   validate(values) {
@@ -112,17 +103,14 @@ export const storeBillingProfileFormSchema: AdminFormSchema<
 
 export function toStoreFormValues(store?: Store | null): StoreFormValues {
   return {
-    adminNotes: String(store?.adminNotes ?? ""),
     commissionRate:
       store?.commissionRate !== undefined && store?.commissionRate !== null
         ? String(store.commissionRate)
         : "",
     description: String(store?.description ?? ""),
     email: String(store?.email ?? ""),
-    isVerified: Boolean(store?.isVerified ?? false),
     name: String(store?.name ?? ""),
     phone: String(store?.phone ?? ""),
-    status: String(store?.status ?? ""),
     subscriptionTier: String(store?.subscriptionTier ?? ""),
     taxId: String(store?.taxId ?? ""),
   };

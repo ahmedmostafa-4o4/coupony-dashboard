@@ -1,56 +1,59 @@
-"use client";
-
 import { AdminFilterBar } from "@/features/admin/shared";
 
 import type { ProductsListFilters } from "../types/product.types";
-
-const fields = [
-  {
-    key: "search",
-    label: "Search",
-    placeholder: "Search products by title or SKU",
-    type: "search" as const,
-  },
-  {
-    key: "status",
-    label: "Status",
-    type: "select" as const,
-    options: [
-      { label: "All statuses", value: "all" },
-      { label: "active", value: "active" },
-      { label: "inactive", value: "inactive" },
-      { label: "draft", value: "draft" },
-      { label: "archived", value: "archived" },
-    ],
-  },
-  {
-    key: "approvalStatus",
-    label: "Approval Status",
-    type: "select" as const,
-    options: [
-      { label: "All approval states", value: "all" },
-      { label: "pending", value: "pending" },
-      { label: "approved", value: "approved" },
-      { label: "rejected", value: "rejected" },
-    ],
-  },
-  {
-    key: "storeId",
-    label: "Store ID",
-    placeholder: "Filter by store ID",
-    type: "text" as const,
-  },
-];
+import type { ProductsDictionary } from "../utils/get-dictionary";
 
 export function ProductsFilters({
   onChange,
   onReset,
   values,
+  dict,
+  statusDict,
 }: {
   onChange: (nextValues: ProductsListFilters) => void;
   onReset: () => void;
   values: ProductsListFilters;
+  dict: ProductsDictionary["filters"];
+  statusDict?: Record<string, string>;
 }) {
+  const fields = [
+    {
+      key: "search",
+      label: dict.search,
+      placeholder: dict.searchPlaceholder,
+      type: "search" as const,
+    },
+    {
+      key: "status",
+      label: dict.status,
+      type: "select" as const,
+      options: [
+        { label: dict.statusPlaceholder, value: "all" },
+        { label: statusDict?.active || "active", value: "active" },
+        { label: statusDict?.inactive || "inactive", value: "inactive" },
+        { label: statusDict?.draft || "draft", value: "draft" },
+        { label: statusDict?.archived || "archived", value: "archived" },
+      ],
+    },
+    {
+      key: "approvalStatus",
+      label: dict.approvalStatus,
+      type: "select" as const,
+      options: [
+        { label: dict.approvalStatusPlaceholder, value: "all" },
+        { label: statusDict?.pending || "pending", value: "pending" },
+        { label: statusDict?.approved || "approved", value: "approved" },
+        { label: statusDict?.rejected || "rejected", value: "rejected" },
+      ],
+    },
+    {
+      key: "storeId",
+      label: dict.storeId,
+      placeholder: dict.storeIdPlaceholder,
+      type: "text" as const,
+    },
+  ];
+
   return (
     <AdminFilterBar
       fields={fields}
@@ -60,3 +63,4 @@ export function ProductsFilters({
     />
   );
 }
+

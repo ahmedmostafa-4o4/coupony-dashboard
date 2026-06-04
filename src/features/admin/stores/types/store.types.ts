@@ -16,6 +16,9 @@ import type {
   StoreOwnerDto,
   StoreRecordDto,
   StoreVerificationRecordDto,
+  StorePointsDto,
+  StoreSubscriptionDto,
+  StoreReviewDto,
 } from "./stores.dto";
 
 export type StoreOwner = Camelized<StoreOwnerDto>;
@@ -24,6 +27,9 @@ export type StoreVerificationRecord = Camelized<StoreVerificationRecordDto>;
 export type StoreAddress = Camelized<StoreAddressDto>;
 export type StoreCategorySummary = Camelized<StoreCategorySummaryDto>;
 export type StoreHours = Camelized<StoreHoursDto>;
+export type StorePoints = Camelized<StorePointsDto>;
+export type StoreSubscription = Camelized<StoreSubscriptionDto>;
+export type StoreReview = Camelized<StoreReviewDto>;
 export type Store = Camelized<StoreRecordDto> & {
   addresses?: StoreAddress[];
   categories?: StoreCategorySummary[];
@@ -38,6 +44,8 @@ export type Store = Camelized<StoreRecordDto> & {
   verificationSummary?: string;
   verifications?: StoreVerificationRecord[];
   followersCount?: number;
+  points?: StorePoints | null;
+  subscription?: StoreSubscription | null;
 };
 
 export type StoresListFilters = Camelized<AdminStoresQueryDto> & {

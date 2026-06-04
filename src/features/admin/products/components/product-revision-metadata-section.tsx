@@ -1,17 +1,20 @@
+import type { ProductsDictionary } from "../utils/get-dictionary";
 import type { ProductRevision } from "../types/product-revision.types";
 
 export function ProductRevisionMetadataSection({
   revision,
+  dict,
 }: {
   revision: ProductRevision;
+  dict: ProductsDictionary["revisionMetadata"];
 }) {
   const items = [
-    { label: "Revision ID", value: revision.revisionId },
-    { label: "Product ID", value: revision.productId },
-    { label: "Store", value: revision.storeName },
-    { label: "Submitted", value: revision.submittedAtLabel },
-    { label: "Images", value: revision.imagesCount ?? 0 },
-    { label: "Variants", value: revision.variantsCount ?? 0 },
+    { label: dict.revisionId, value: revision.revisionId },
+    { label: dict.productId, value: revision.productId },
+    { label: dict.store, value: revision.storeName },
+    { label: dict.submitted, value: revision.submittedAtLabel },
+    { label: dict.images, value: revision.imagesCount ?? 0 },
+    { label: dict.variants, value: revision.variantsCount ?? 0 },
   ];
 
   return (
@@ -32,3 +35,4 @@ export function ProductRevisionMetadataSection({
     </div>
   );
 }
+

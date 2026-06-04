@@ -829,12 +829,12 @@ export interface AdminStoresQueryDto extends BaseListQueryDto {
 
 export interface AdminUpdateStoreDto {
   name?: string;
-  description?: string;
+  description?: string | null;
   logo_url?: string;
   banner_url?: string;
   email?: string;
   phone?: string;
-  tax_id?: string;
+  tax_id?: string | null;
   commission_rate?: number;
   status?: StoreStatus;
   subscription_tier?: string;
@@ -843,7 +843,7 @@ export interface AdminUpdateStoreDto {
 }
 
 export interface AdminApproveStoreDto {
-  admin_notes?: string;
+  notes?: string;
 }
 
 export interface AdminRejectStoreDto {
@@ -966,7 +966,7 @@ export interface AdminStoreVerificationsQueryDto extends BaseListQueryDto {
 export type AdminApproveStoreVerificationDto = Record<string, never>;
 
 export interface AdminRejectStoreVerificationDto {
-  rejection_reason: string;
+  reason: string;
 }
 
 export type AdminStoreVerificationsListResponseDto = ApiSuccessResponse<
@@ -993,9 +993,21 @@ export interface AdminApproveProductRevisionDto {
   notes?: string;
 }
 
+export interface ProductRequestedChangeDto {
+  section: string;
+  field?: string;
+  path?: string;
+  selector?: { uid?: string; sku?: string; index?: number; id?: number; image_url?: string };
+  variant_selector?: { uid?: string; sku?: string; index?: number; id?: number };
+  attribute_selector?: { uid?: string; name?: string; index?: number };
+  label?: string;
+  message?: string;
+}
+
 export interface AdminRejectProductRevisionDto {
   reason: string;
   notes?: string;
+  requested_changes?: ProductRequestedChangeDto[];
 }
 
 export type AdminPendingProductRevisionsListResponseDto = ApiSuccessResponse<

@@ -1,3 +1,5 @@
+import { humanizeKey } from "@/features/admin/shared/utils/admin-formatters";
+import type { ProductsDictionary } from "../utils/get-dictionary";
 import { ProductCategoriesList } from "./product-categories-list";
 import { ProductImagesGallery } from "./product-images-gallery";
 import { ProductOfferCard } from "./product-offer-card";
@@ -43,7 +45,7 @@ function toVariants(value: unknown) {
   }>;
 }
 
-function summarizeValue(value: unknown) {
+function summarizeValue(value: unknown, yesLabel = "Yes", noLabel = "No") {
   if (value === null || value === undefined || value === "") {
     return "—";
   }
@@ -57,7 +59,7 @@ function summarizeValue(value: unknown) {
   }
 
   if (typeof value === "boolean") {
-    return value ? "Yes" : "No";
+    return value ? yesLabel : noLabel;
   }
 
   return String(value);
@@ -65,8 +67,12 @@ function summarizeValue(value: unknown) {
 
 export function ProductRevisionPayloadSections({
   revision,
+  dict,
+  rejectDict,
 }: {
   revision: ProductRevision;
+  dict: ProductsDictionary["revisionPayload"];
+  rejectDict?: ProductsDictionary["rejectDialog"];
 }) {
   const productEntries =
     revision.product && isRecord(revision.product)
@@ -77,60 +83,64 @@ export function ProductRevisionPayloadSections({
   return (
     <div className="space-y-6">
       <div>
-        <p className="mb-3 text-sm font-medium text-slate-700">Product payload</p>
+        <p className="mb-3 text-sm font-medium text-slate-700">{dict.productPayload}</p>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {productEntries.length ? (
-            productEntries.map(([key, value]) => (
-              <div
-                key={key}
-                className="rounded-2xl border border-slate-100 bg-slate-50 p-4"
-              >
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-                  {key}
-                </p>
-                <p className="mt-2 text-sm text-slate-700">{summarizeValue(value)}</p>
-              </div>
-            ))
+            productEntries.map(([key, value]) => {
+              const translatedLabel = rejectDict?.fields[key as keyof typeof rejectDict.fields] || humanizeKey(key);
+              return (
+                <div
+                  key={key}
+                  className="rounded-2xl border border-slate-100 bg-slate-50 p-4"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                    {translatedLabel}
+                  </p>
+                  <p className="mt-2 text-sm text-slate-700">{summarizeValue(value, dict.yes, dict.no)}</p>
+                </div>
+              );
+            })
           ) : (
             <p className="text-sm text-slate-500">
-              No product payload overview returned.
+              {dict.noProductPayload}
             </p>
           )}
         </div>
       </div>
 
       <div>
-        <p className="mb-3 text-sm font-medium text-slate-700">Categories</p>
-        <ProductCategoriesList categories={toCategories(revision.categories)} />
+        <p className="mb-3 text-sm font-medium text-slate-700">{dict.categories}</p>
+        <ProductCategoriesList categories={toCategories(revision.categories)} dict={dict} />
       </div>
 
       <div>
-        <p className="mb-3 text-sm font-medium text-slate-700">Images</p>
+        <p className="mb-3 text-sm font-medium text-slate-700">{dict.images}</p>
         <ProductImagesGallery
           images={toImages(revision.images)}
           title={revision.productTitle}
+          dict={dict}
         />
       </div>
 
       <div>
-        <p className="mb-3 text-sm font-medium text-slate-700">Variants</p>
+        <p className="mb-3 text-sm font-medium text-slate-700">{dict.variants}</p>
         {variants.length ? (
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-slate-200">
                 <thead className="bg-slate-50">
                   <tr>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                      Title
+                    <th className="px-4 py-3 text-start text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                      {dict.variantTable.title}
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                      SKU
+                    <th className="px-4 py-3 text-start text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                      {dict.variantTable.sku}
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                      Price
+                    <th className="px-4 py-3 text-start text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                      {dict.variantTable.price}
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                      Stock
+                    <th className="px-4 py-3 text-start text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                      {dict.variantTable.stock}
                     </th>
                   </tr>
                 </thead>
@@ -138,7 +148,7 @@ export function ProductRevisionPayloadSections({
                   {variants.map((variant, index) => (
                     <tr key={`${variant.id ?? variant.sku ?? index}`}>
                       <td className="px-4 py-4 text-sm text-slate-700">
-                        {variant.title ?? "Unnamed variant"}
+                        {variant.title ?? dict.variantTable.unnamedVariant}
                       </td>
                       <td className="px-4 py-4 text-sm text-slate-600">
                         {variant.sku ?? "—"}
@@ -157,15 +167,16 @@ export function ProductRevisionPayloadSections({
           </div>
         ) : (
           <p className="text-sm text-slate-500">
-            No variants included in this revision.
+            {dict.noVariants}
           </p>
         )}
       </div>
 
       <div>
-        <p className="mb-3 text-sm font-medium text-slate-700">Offer</p>
-        <ProductOfferCard offer={isRecord(revision.offer) ? revision.offer : null} />
+        <p className="mb-3 text-sm font-medium text-slate-700">{dict.offer}</p>
+        <ProductOfferCard offer={isRecord(revision.offer) ? revision.offer : null} dict={dict} rejectDict={rejectDict} />
       </div>
     </div>
   );
 }
+

@@ -1,31 +1,39 @@
 import { CardGrid } from "@/components/ui/card";
 import { AdminStatCard } from "@/features/admin/shared";
+import type { ProductsDictionary } from "../utils/get-dictionary";
 
 import type { Product } from "../types/product.types";
 
-export function ProductSummaryCards({ product }: { product: Product }) {
+export function ProductSummaryCards({
+  product,
+  dict,
+}: {
+  product: Product;
+  dict: ProductsDictionary["revisionOverview"];
+}) {
   return (
     <CardGrid>
       <AdminStatCard
-        hint="Product title returned by the admin products endpoint."
-        label="Title"
-        value={product.title ?? "Untitled"}
+        hint={dict.productHint}
+        label={dict.product}
+        value={product.title ?? dict.unknown}
       />
       <AdminStatCard
-        hint="Store linked to this live product."
-        label="Store"
-        value={product.storeName ?? product.storeId ?? "Unknown"}
+        hint={dict.storeHint}
+        label={dict.store}
+        value={product.storeName ?? product.storeId ?? dict.unknown}
       />
       <AdminStatCard
-        hint="Images currently attached to the product payload."
-        label="Images"
+        hint={dict.imagesHint}
+        label={dict.images}
         value={product.imagesCount ?? 0}
       />
       <AdminStatCard
-        hint="Variants currently attached to the product payload."
-        label="Variants"
+        hint={dict.variantsHint}
+        label={dict.variants}
         value={product.variantsCount ?? 0}
       />
     </CardGrid>
   );
 }
+

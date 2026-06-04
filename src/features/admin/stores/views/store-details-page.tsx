@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { PageLoading } from "@/components/shared/page-loading";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   AdminActionDialog,
   AdminPageHeader,
@@ -23,6 +24,14 @@ import {
   type StoreSuspendActionValues,
 } from "../schemas/store-action.schema";
 import { useStoreDetails } from "../hooks/use-store-details";
+import { StoreReviewsTable } from "../components/store-reviews-table";
+import { StoreBillingInfo } from "../components/store-billing-info";
+import { StoreAddressesTab } from "../components/store-addresses-tab";
+import { StoreCategoriesTab } from "../components/store-categories-tab";
+import { StoreVerificationsTab } from "../components/store-verifications-tab";
+import { StoreHoursTab } from "../components/store-hours-tab";
+import { StoreOwnerCard } from "../components/store-owner-card";
+import { StorePointsCard } from "../components/store-points-card";
 
 const approveFields: AdminFormField<StoreApproveActionValues>[] = [
   {
@@ -97,12 +106,6 @@ export function StoreDetailsPage({
         actions={
           <div className="flex flex-wrap items-center gap-2">
             <StoreStatusBadge value={detailState.item.status} />
-            <Link
-              className="inline-flex items-center rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
-              href={createAdminDetailHref(lang, "stores", storeId, "billing")}
-            >
-              Store billing profile
-            </Link>
             <AdminActionDialog
               confirmLabel="Approve"
               description="Optionally record moderator notes when approving this store."
@@ -178,59 +181,74 @@ export function StoreDetailsPage({
           <p className="text-sm text-rose-600">{detailState.error}</p>
         </AdminSection>
       ) : null}
-      <StoreForm
-        description="Update merchant moderation, billing, and contact fields."
-        initialValues={detailState.item}
-        isSubmitting={actions.updateAction.isSubmitting}
-        onSubmit={async (payload) => {
-          await actions.updateAction.submit({
-            storeId,
-            payload,
-          });
-        }}
-        submitLabel="Update store"
-        title="Update store"
-      />
-      <AdminSection description="Linked seller account returned by the API." title="Owner">
-        <AdminRecordGrid value={detailState.item.owner ?? { message: "No owner payload returned." }} />
-      </AdminSection>
-      <AdminSection description="Store categories attached to this merchant." title="Categories">
-        <AdminRecordGrid
-          value={
-            detailState.item.categories?.length
-              ? detailState.item.categories
-              : [{ message: "No categories attached." }]
-          }
-        />
-      </AdminSection>
-      <AdminSection description="Known store addresses and branch locations." title="Addresses">
-        <AdminRecordGrid
-          value={
-            detailState.item.addresses?.length
-              ? detailState.item.addresses
-              : [{ message: "No addresses returned." }]
-          }
-        />
-      </AdminSection>
-      <AdminSection description="Verification documents and moderation statuses." title="Verifications">
-        <AdminRecordGrid
-          value={
-            detailState.item.verifications?.length
-              ? detailState.item.verifications
-              : [{ message: "No verifications returned." }]
-          }
-        />
-      </AdminSection>
-      <AdminSection description="Store opening hours returned by the API." title="Hours">
-        <AdminRecordGrid
-          value={
-            detailState.item.hours?.length
-              ? detailState.item.hours
-              : [{ message: "No hours returned." }]
-          }
-        />
-      </AdminSection>
-      </div>
+
+      <Tabs defaultValue="overview" className="w-full">
+        <div className="overflow-x-auto pb-2">
+          <TabsList className="inline-flex h-10 items-center justify-center rounded-md bg-slate-100 p-1 text-slate-500">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="owner">Owner</TabsTrigger>
+            <TabsTrigger value="points">Points</TabsTrigger>
+            <TabsTrigger value="addresses">Addresses</TabsTrigger>
+            <TabsTrigger value="categories">Categories</TabsTrigger>
+            <TabsTrigger value="verifications">Verifications</TabsTrigger>
+            <TabsTrigger value="hours">Hours</TabsTrigger>
+            <TabsTrigger value="reviews">Reviews</TabsTrigger>
+            <TabsTrigger value="billing">Billing Profile</TabsTrigger>
+          </TabsList>
+        </div>
+
+        <TabsContent value="overview" className="mt-6 space-y-6">
+          <StoreForm
+            description="Update merchant moderation, billing, and contact fields."
+            initialValues={detailState.item}
+            isSubmitting={actions.updateAction.isSubmitting}
+            onSubmit={async (payload) => {
+              await actions.updateAction.submit({
+                storeId,
+                payload,
+              });
+            }}
+            submitLabel="Update store"
+            title="Update store profile"
+          />
+        </TabsContent>
+
+        <TabsContent value="owner" className="mt-6">
+          <StoreOwnerCard owner={detailState.item.owner} />
+        </TabsContent>
+
+        <TabsContent value="points" className="mt-6">
+          <StorePointsCard points={detailState.item.points} />
+        </TabsContent>
+
+        <TabsContent value="addresses" className="mt-6">
+          <StoreAddressesTab storeId={detailState.item.id as string} />
+        </TabsContent>
+
+        <TabsContent value="categories" className="mt-6">
+          <StoreCategoriesTab
+            storeId={detailState.item.id as string}
+            categories={detailState.item.categories}
+            onReload={async () => { await detailState.reload(); }}
+          />
+        </TabsContent>
+
+        <TabsContent value="verifications" className="mt-6">
+          <StoreVerificationsTab storeId={detailState.item.id as string} />
+        </TabsContent>
+
+        <TabsContent value="hours" className="mt-6">
+          <StoreHoursTab hours={detailState.item.hours} />
+        </TabsContent>
+
+        <TabsContent value="reviews" className="mt-6">
+          <StoreReviewsTable storeId={storeId} />
+        </TabsContent>
+
+        <TabsContent value="billing" className="mt-6">
+          <StoreBillingInfo storeId={storeId} />
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 }
-

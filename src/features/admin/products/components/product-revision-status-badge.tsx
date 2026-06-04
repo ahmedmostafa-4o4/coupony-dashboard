@@ -1,5 +1,33 @@
-import { AdminStatusBadge } from "@/features/admin/shared";
+import { cn } from "@/lib/utils/cn";
+import { getStatusTone } from "@/features/admin/shared/utils/admin-formatters";
 
-export function ProductRevisionStatusBadge({ value }: { value: unknown }) {
-  return <AdminStatusBadge value={value} />;
+const toneClasses = {
+  neutral: "bg-slate-100 text-slate-600",
+  success: "bg-emerald-100 text-emerald-700",
+  warning: "bg-amber-100 text-amber-700",
+  danger: "bg-rose-100 text-rose-700",
+  info: "bg-sky-100 text-sky-700",
+};
+
+export function ProductRevisionStatusBadge({
+  value,
+  dict,
+}: {
+  value: unknown;
+  dict?: Record<string, string>;
+}) {
+  const tone = getStatusTone(value);
+  const key = String(value ?? "").toLowerCase();
+  const label = dict?.[key] || String(value || "Unknown");
+
+  return (
+    <span
+      className={cn(
+        "inline-flex rounded-full px-2.5 py-1 text-xs font-semibold",
+        toneClasses[tone]
+      )}
+    >
+      {label}
+    </span>
+  );
 }

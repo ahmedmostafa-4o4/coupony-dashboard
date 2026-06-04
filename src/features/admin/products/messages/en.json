@@ -1,0 +1,381 @@
+{
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "draft": "Draft",
+    "archived": "Archived",
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected"
+  },
+  "list": {
+    "eyebrow": "Admin",
+    "title": "Products",
+    "description": "Manage live catalog products from the admin dashboard.",
+    "create": "Create product",
+    "reload": "Reload",
+    "stats": {
+      "total": "Rows",
+      "totalHint": "Products currently loaded from the admin products endpoint."
+    },
+    "errors": {
+      "request": "Request error",
+      "action": "Action error",
+      "update": "Update error",
+      "delete": "Delete error",
+      "createErr": "Create error"
+    },
+    "actions": {
+      "view": "View",
+      "delete": "Delete",
+      "deleteTitle": "Delete Product",
+      "deleteDesc": "This will permanently remove the product, then return you to the products list.",
+      "approve": "Approve",
+      "reject": "Reject",
+      "approveTitle": "Approve Product Revision",
+      "approveDesc": "Optionally include review notes before approving this revision.",
+      "notes": "Notes",
+      "notesPlaceholder": "Optional approval note for the audit trail.",
+      "notesListPlaceholder": "Optional approval note for the seller or audit trail."
+    }
+  },
+  "revisionsList": {
+    "title": "Product Revisions",
+    "description": "Review seller-submitted product changes that are waiting for an admin decision.",
+    "loading": "Loading pending product revisions...",
+    "stats": {
+      "pending": "Pending",
+      "pendingHint": "Pending revisions currently loaded from the API response."
+    }
+  },
+  "details": {
+    "loading": "Loading product details...",
+    "notFound": "Product not found",
+    "notFoundDesc": "The backend did not return a product for this route.",
+    "eyebrow": "Admin details",
+    "tabs": {
+      "overview": "Overview",
+      "update": "Update Product",
+      "store": "Store Information",
+      "categories": "Categories",
+      "images": "Images",
+      "variants": "Variants",
+      "offer": "Offer"
+    },
+    "overview": {
+      "title": "Overview",
+      "desc": "High-level product summary for quick admin review.",
+      "status": "Product status",
+      "statusDesc": "Lifecycle and moderation state for this live product.",
+      "approval": "Approval",
+      "featured": "Featured",
+      "currency": "Currency"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "desc": "Reference metadata and identifiers for this live product.",
+      "productId": "Product ID",
+      "slug": "Slug",
+      "pendingRevision": "Pending revision",
+      "pendingRevisionVal": {
+        "available": "Available",
+        "none": "None"
+      }
+    },
+    "store": {
+      "title": "Store information",
+      "desc": "Store payload returned alongside the product, when available.",
+      "name": "Store name",
+      "id": "Store ID",
+      "email": "Store email",
+      "status": "Store status"
+    }
+  },
+  "revisionDetails": {
+    "loading": "Loading product revision details...",
+    "notFound": "Product Revision not found",
+    "notFoundDesc": "The backend did not return a product revision for this route.",
+    "description": "Inspect the submitted change set before approving or rejecting it.",
+    "overview": {
+      "title": "Revision overview",
+      "desc": "High-level revision summary for quick admin review."
+    },
+    "status": {
+      "title": "Revision status",
+      "desc": "Moderation state and current decision context."
+    },
+    "payload": {
+      "title": "Product payload overview",
+      "desc": "Readable breakdown of the submitted product data."
+    },
+    "metadata": {
+      "title": "Review metadata",
+      "desc": "Reference metadata and counts returned with the revision."
+    }
+  },
+  "revisionsTable": {
+    "revisionId": "Revision ID",
+    "product": "Product",
+    "unknownStore": "Unknown store",
+    "action": "Action",
+    "status": "Status",
+    "submitted": "Submitted",
+    "submittedBy": "Submitted By",
+    "emptyTitle": "No pending product revisions",
+    "emptyDesc": "There are no pending product revisions returned by the admin endpoint right now."
+  },
+  "productsTable": {
+    "product": "Product",
+    "untitledProduct": "Untitled product",
+    "noIdentifier": "No identifier",
+    "store": "Store",
+    "unknownStore": "Unknown store",
+    "status": "Status",
+    "approval": "Approval",
+    "featured": "Featured",
+    "featuredVal": {
+      "featured": "Featured",
+      "standard": "Standard"
+    },
+    "emptyTitle": "No products found",
+    "emptyDesc": "The backend has not returned any products yet."
+  },
+  "filters": {
+    "search": "Search",
+    "searchPlaceholder": "Search products by title or SKU",
+    "status": "Status",
+    "statusPlaceholder": "All statuses",
+    "approvalStatus": "Approval Status",
+    "approvalStatusPlaceholder": "All approval states",
+    "storeId": "Store ID",
+    "storeIdPlaceholder": "Filter by store ID"
+  },
+  "form": {
+    "updateTitle": "Update product",
+    "updateDesc": "Update the live product fields supported by the admin product update contract.",
+    "createTitle": "Create product",
+    "createDesc": "Provide the product fields supported by the admin create contract.",
+    "working": "Working...",
+    "tabs": {
+      "base": "Base Information",
+      "variants": "Variants",
+      "images": "Images",
+      "offer": "Offer Configuration"
+    },
+    "base": {
+      "title": "Base Information",
+      "storeId": "Store ID",
+      "storeIdPlaceholder": "Store UUID",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Product Title",
+      "slug": "Slug",
+      "slugPlaceholder": "product-slug",
+      "sku": "SKU",
+      "skuPlaceholder": "SKU-123",
+      "currency": "Currency",
+      "currencyPlaceholder": "USD",
+      "shortDesc": "Short Description",
+      "shortDescPlaceholder": "Short summary",
+      "desc": "Description",
+      "descPlaceholder": "Detailed description",
+      "categories": "Categories",
+      "categoriesPlaceholder": "Select categories...",
+      "categoriesSearchPlaceholder": "Search categories...",
+      "categoriesEmpty": "No category found.",
+      "categoriesLoading": "Loading...",
+      "featured": "Featured Product"
+    },
+    "variants": {
+      "title": "Variants",
+      "desc": "Add product variants and pricing.",
+      "addBtn": "Add Variant",
+      "variantTitle": "Variant Title",
+      "variantTitlePlaceholder": "Size L",
+      "sku": "SKU",
+      "skuPlaceholder": "SKU-L",
+      "originalPrice": "Original Price",
+      "currency": "Currency",
+      "currencyPlaceholder": "USD",
+      "inventoryMode": "Inventory Mode",
+      "inventoryModePlaceholder": "Mode",
+      "inventoryModes": {
+        "unlimited": "Unlimited",
+        "tracked": "Tracked"
+      },
+      "stockQty": "Stock Qty (If tracked)",
+      "isDefault": "Is Default",
+      "isActive": "Is Active",
+      "attributes": "Attributes",
+      "addAttribute": "Add Attribute",
+      "noAttributes": "No attributes added for this variant.",
+      "attributeNamePlaceholder": "Name (e.g., Color)",
+      "attributeValuePlaceholder": "Value (e.g., Red)",
+      "noVariants": "No variants added."
+    },
+    "images": {
+      "title": "Images",
+      "desc": "Upload and arrange product images.",
+      "uploader": {
+        "dragDrop": "Drag and drop images here",
+        "clickSelect": "or click to select files",
+        "primary": "PRIMARY",
+        "remove": "Remove",
+        "makePrimary": "Make Primary"
+      }
+    },
+    "offer": {
+      "title": "Offer Configuration",
+      "desc": "Configure product discounts and offers.",
+      "type": "Offer Type",
+      "typePlaceholder": "Select offer type",
+      "types": {
+        "none": "None",
+        "fixed": "Fixed Amount",
+        "percentage": "Percentage",
+        "buy_x_get_y": "Buy X Get Y"
+      },
+      "fixedAmount": "Fixed Amount",
+      "fixedAmountPlaceholder": "e.g. 10.00",
+      "percentageValue": "Percentage Value",
+      "percentageValuePlaceholder": "e.g. 20",
+      "buyQty": "Buy Qty",
+      "getQty": "Get Qty",
+      "buyVariantSkus": "Buy Variant SKUs",
+      "buyVariantSkusPlaceholder": "Select variant SKUs...",
+      "buyVariantSkusSearch": "Search variants...",
+      "buyVariantSkusEmpty": "No valid variants found (must have an SKU).",
+      "rewardVariantSkus": "Reward Variant SKUs",
+      "rewardVariantSkusPlaceholder": "Select variant SKUs...",
+      "mixBuy": "Allow Mix Buy Variants",
+      "mixReward": "Allow Mix Reward Variants",
+      "startsAt": "Starts At",
+      "startsAtPlaceholder": "Pick a start date",
+      "endsAt": "Ends At",
+      "endsAtPlaceholder": "Pick an end date"
+    }
+  },
+  "revisionOverview": {
+    "revision": "Revision",
+    "revisionHint": "Revision identifier returned by the admin review endpoint.",
+    "product": "Product",
+    "productHint": "Product title linked to this revision.",
+    "unknown": "Unknown",
+    "store": "Store",
+    "storeHint": "Store associated with this revision, when available.",
+    "submitted": "Submitted",
+    "submittedHint": "Submitted timestamp formatted for dashboard display.",
+    "images": "Images",
+    "imagesHint": "Images currently attached to the product payload.",
+    "variants": "Variants",
+    "variantsHint": "Variants currently attached to the product payload."
+  },
+  "revisionDecision": {
+    "status": "Status",
+    "action": "Action",
+    "submittedBy": "Submitted By",
+    "notes": "Notes",
+    "noNotes": "No moderation notes yet."
+  },
+  "revisionMetadata": {
+    "revisionId": "Revision ID",
+    "productId": "Product ID",
+    "store": "Store",
+    "submitted": "Submitted",
+    "images": "Images",
+    "variants": "Variants"
+  },
+  "revisionImages": {
+    "title": "Images",
+    "desc": "Image assets extracted from the revision payload when URLs are present.",
+    "imgAlt": "Product revision image"
+  },
+  "revisionPayload": {
+    "yes": "Yes",
+    "no": "No",
+    "productPayload": "Product payload",
+    "noProductPayload": "No product payload overview returned.",
+    "categories": "Categories",
+    "noCategories": "No categories returned.",
+    "unnamedCategory": "Unnamed category",
+    "images": "Images",
+    "noImages": "No images returned",
+    "imgAlt": "Product image",
+    "noAltText": "No alt text",
+    "noUrl": "No URL",
+    "variants": "Variants",
+    "variantTable": {
+      "title": "Title",
+      "sku": "SKU",
+      "price": "Price",
+      "stock": "Stock",
+      "unnamedVariant": "Unnamed variant"
+    },
+    "noVariants": "No variants included in this revision.",
+    "offer": "Offer",
+    "noOffer": "No offer payload returned."
+  },
+  "rejectDialog": {
+    "triggerLabel": "Reject",
+    "working": "Working...",
+    "title": "Reject Revision",
+    "description": "Provide a reason for rejecting this revision. You can also specify exact fields the seller needs to fix.",
+    "reason": "Reason",
+    "reasonPlaceholder": "E.g., Missing variant pricing",
+    "internalNotes": "Internal Notes (Optional)",
+    "internalNotesPlaceholder": "Notes for other admins",
+    "requestedChanges": "Requested Changes",
+    "addChange": "Add Change",
+    "noChanges": "No specific changes requested.",
+    "cancel": "Cancel",
+    "rejectBtn": "Reject Revision",
+    "section": "Section *",
+    "selectSection": "Select section",
+    "field": "Field *",
+    "selectField": "Select field",
+    "variantSku": "Variant SKU *",
+    "selectSku": "Select SKU",
+    "skuPlaceholder": "E.g., SKU-123",
+    "imageId": "Image ID/URL *",
+    "selectImage": "Select Image",
+    "imagePlaceholder": "E.g., img_abc123",
+    "attributeName": "Attribute Name *",
+    "selectAttribute": "Select Attribute",
+    "attributePlaceholder": "E.g., Color",
+    "message": "Message (Optional)",
+    "messagePlaceholder": "What exactly needs to be fixed?",
+    "sections": {
+      "short_description": "Short Description",
+      "currency": "Currency",
+      "sku": "SKU",
+      "category_ids": "Categories",
+      "images": "Images",
+      "variants": "Variants",
+      "variant_attributes": "Variant Attributes",
+      "offer": "Offer"
+    },
+    "fields": {
+      "value": "Value",
+      "file": "File",
+      "option_summary": "Option Summary",
+      "sku": "SKU",
+      "original_price": "Original Price",
+      "currency": "Currency",
+      "attribute_name": "Attribute Name",
+      "attribute_value": "Attribute Value",
+      "sort_order": "Sort Order",
+      "type": "Type",
+      "status": "Status",
+      "label": "Label",
+      "claim_expiration_minutes": "Claim Expiration Minutes",
+      "fixed_amount": "Fixed Amount",
+      "percentage_value": "Percentage Value",
+      "max_discount": "Max Discount",
+      "buy_qty": "Buy Qty",
+      "get_qty": "Get Qty",
+      "allow_mix_buy_variants": "Allow Mix Buy Variants",
+      "allow_mix_reward_variants": "Allow Mix Reward Variants",
+      "buy_variant_skus": "Buy Variant SKUs",
+      "reward_variant_skus": "Reward Variant SKUs"
+    }
+  }
+}

@@ -12,7 +12,6 @@ import type { Store, UpdateStoreRequest } from "../types/store.types";
 
 const fields: AdminFormField<StoreFormValues>[] = [
   { key: "name", label: "Store name", placeholder: "Fresh Mart" },
-  { key: "status", label: "Status", placeholder: "active" },
   {
     key: "email",
     label: "Email",
@@ -37,18 +36,6 @@ const fields: AdminFormField<StoreFormValues>[] = [
     label: "Description",
     placeholder: "Operational notes about this merchant.",
     type: "textarea",
-  },
-  {
-    key: "adminNotes",
-    label: "Admin notes",
-    placeholder: "Moderation or billing notes.",
-    type: "textarea",
-  },
-  {
-    key: "isVerified",
-    label: "Verified",
-    placeholder: "Store is verified",
-    type: "checkbox",
   },
 ];
 

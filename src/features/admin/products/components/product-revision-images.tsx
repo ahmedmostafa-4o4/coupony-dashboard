@@ -1,4 +1,5 @@
 import { AdminImagePreview, AdminSection } from "@/features/admin/shared";
+import type { ProductsDictionary } from "../utils/get-dictionary";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -34,8 +35,10 @@ function collectImageUrls(value: unknown): string[] {
 
 export function ProductRevisionImages({
   value,
+  dict,
 }: {
   value: unknown;
+  dict: ProductsDictionary["revisionImages"];
 }) {
   const imageUrls = Array.from(new Set(collectImageUrls(value)));
 
@@ -45,14 +48,14 @@ export function ProductRevisionImages({
 
   return (
     <AdminSection
-      title="Images"
-      description="Image assets extracted from the revision payload when URLs are present."
+      title={dict.title}
+      description={dict.desc}
     >
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {imageUrls.map((url, index) => (
           <AdminImagePreview
             key={`${url}-${index}`}
-            alt={`Product revision image ${index + 1}`}
+            alt={`${dict.imgAlt} ${index + 1}`}
             className="h-48 w-full"
             src={url}
           />
@@ -61,3 +64,4 @@ export function ProductRevisionImages({
     </AdminSection>
   );
 }
+

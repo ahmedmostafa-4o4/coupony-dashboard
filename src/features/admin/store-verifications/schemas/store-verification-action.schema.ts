@@ -15,7 +15,7 @@ export const storeVerificationRejectActionSchema: AdminFormSchema<
   },
   transform(values) {
     return {
-      rejection_reason: values.rejectionReason.trim(),
+      reason: values.rejectionReason.trim(),
     };
   },
   validate(values) {
