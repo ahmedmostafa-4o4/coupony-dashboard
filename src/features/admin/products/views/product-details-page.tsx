@@ -237,7 +237,7 @@ export function ProductDetailsPage({
 
         <TabsContent value="offer" className="mt-0">
           <AdminSection title={dict.details.tabs.offer} description={dict.details.tabs.offer}>
-            <ProductOfferCard offer={product.offer} dict={dict.revisionPayload} rejectDict={dict.rejectDialog} />
+            <ProductOfferCard offer={product.offer} dict={dict.revisionPayload} />
           </AdminSection>
         </TabsContent>
       </Tabs>

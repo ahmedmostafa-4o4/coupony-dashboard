@@ -174,9 +174,8 @@ export function ProductRevisionPayloadSections({
 
       <div>
         <p className="mb-3 text-sm font-medium text-slate-700">{dict.offer}</p>
-        <ProductOfferCard offer={isRecord(revision.offer) ? revision.offer : null} dict={dict} rejectDict={rejectDict} />
+        <ProductOfferCard offer={isRecord(revision.offer) ? revision.offer : null} dict={dict} />
       </div>
     </div>
   );
 }
-
