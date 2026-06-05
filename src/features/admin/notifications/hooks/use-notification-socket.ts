@@ -74,8 +74,34 @@ export function useNotificationSocket({
 
         echo
           .private("admin.notifications")
-          .notification((notification: AdminNotification) => {
-            onNotificationRef.current(notification);
+          .notification((rawPayload: any) => {
+            // Laravel's BroadcastNotificationCreated wraps the toBroadcast array inside 'notification' or raw array
+            const dataObj = rawPayload.notification || rawPayload;
+            const now = new Date().toISOString();
+
+            const normalized: AdminNotification = {
+              id: rawPayload.id || dataObj.id || Date.now(), // Fallback to timestamp if backend UUID string
+              user_id: dataObj.user_id || "",
+              type: rawPayload.type || dataObj.type || "notification",
+              title: dataObj.title || rawPayload.title || "New Notification",
+              message: dataObj.message || rawPayload.message || "",
+              data: dataObj.data || rawPayload.data || {},
+              image_url: dataObj.image_url || rawPayload.image_url || null,
+              badge_status: dataObj.badge_status || rawPayload.badge_status || null,
+              channel: dataObj.channel || rawPayload.channel || "database",
+              status: dataObj.status || rawPayload.status || "sent",
+              reference_type: dataObj.reference_type || rawPayload.reference_type || null,
+              reference_id: dataObj.reference_id || rawPayload.reference_id || null,
+              sent_at: dataObj.sent_at || rawPayload.sent_at || now,
+              read_at: null,
+              created_at: dataObj.created_at || rawPayload.created_at || now,
+              updated_at: dataObj.updated_at || rawPayload.updated_at || now,
+              is_read: false,
+              is_sent: true,
+              time_ago: "Just now",
+            };
+
+            onNotificationRef.current(normalized);
           });
       } catch (err) {
         console.warn("[useNotificationSocket] Failed to connect:", err);
