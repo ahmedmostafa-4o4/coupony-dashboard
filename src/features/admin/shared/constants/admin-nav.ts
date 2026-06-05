@@ -186,6 +186,12 @@ export const adminNavigation: AdminNavigationGroup[] = [
         href: (lang) => createAdminHref(lang, "notifyMe"),
       },
       {
+        key: "notificationCenter",
+        label: "Notification Center",
+        description: "View and manage admin notifications.",
+        href: (lang) => createAdminHref(lang, "notificationCenter"),
+      },
+      {
         key: "notificationsBroadcast",
         label: "Notifications / Broadcast",
         description: "Send broadcast notifications across the platform.",

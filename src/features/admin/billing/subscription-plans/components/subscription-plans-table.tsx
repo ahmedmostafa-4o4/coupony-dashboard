@@ -26,11 +26,33 @@ const columns: AdminColumn<SubscriptionPlan>[] = [
     ),
   },
   {
-    id: "price",
-    header: "Price",
+    id: "priceMonthly",
+    header: "Monthly Price",
     cell: (item) => formatAdminCurrency(
-      typeof item.price === "number" ? item.price : Number(item.price),
+      typeof item.prices?.monthly === "number" ? item.prices.monthly : Number(item.prices?.monthly),
     ),
+  },
+  {
+    id: "priceYearly",
+    header: "Yearly Price",
+    cell: (item) => formatAdminCurrency(
+      typeof item.prices?.yearly === "number" ? item.prices.yearly : Number(item.prices?.yearly),
+    ),
+  },
+  {
+    id: "maxProducts",
+    header: "Max Products",
+    cell: (item) => item.entitlements?.maxProducts ?? "Unlimited",
+  },
+  {
+    id: "maxBranches",
+    header: "Max Branches",
+    cell: (item) => item.entitlements?.maxBranches ?? "Unlimited",
+  },
+  {
+    id: "maxEmployees",
+    header: "Max Employees",
+    cell: (item) => item.entitlements?.maxEmployees ?? "Unlimited",
   },
   {
     id: "updatedAt",

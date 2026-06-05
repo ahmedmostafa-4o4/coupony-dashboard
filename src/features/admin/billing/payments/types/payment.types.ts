@@ -1,4 +1,4 @@
-import type { AdminListResult } from "@/lib/api/admin-contract";
+import type { AdminListResult, AdminItemResult } from "@/lib/api/admin-contract";
 import type { Camelized } from "@/types";
 
 import type { AdminPaymentsQueryDto, PaymentDto } from "./payments.dto";
@@ -9,3 +9,4 @@ export type PaymentsListFilters = Camelized<AdminPaymentsQueryDto> & {
   status?: string;
 };
 export type PaymentsListResult = AdminListResult<Payment>;
+export type PaymentDetailsResult = AdminItemResult<Payment>;

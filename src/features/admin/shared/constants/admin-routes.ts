@@ -24,6 +24,7 @@ export const adminRouteSegments = {
   contactCustomer: "/contact/customer",
   contactSeller: "/contact/seller",
   notificationsBroadcast: "/notifications/broadcast",
+  notificationCenter: "/notifications",
   notifyMe: "/notify-me",
   chatbotSessions: "/chatbot/sessions",
 } as const;

@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { AdminPageHeader, AdminSection, AdminStatCard, createAdminDetailHref } from "@/features/admin/shared";
 import { SubscriptionsFilters } from "../components/subscriptions-filters";
 import { SubscriptionsTable } from "../components/subscriptions-table";
+import { SubscriptionAnalyticsWidget } from "../components/subscription-analytics-widget";
+import { SuspendSubscriptionDialog, CancelSubscriptionDialog } from "../components/subscription-action-dialogs";
 import { useSubscriptionsList } from "../hooks/use-subscriptions-list";
 import type { SubscriptionsListFilters } from "../types/subscription.types";
 
@@ -12,9 +14,9 @@ const defaultFilters: SubscriptionsListFilters = { search: "", status: "all" };
 
 export function SubscriptionsListPage({ lang }: { lang: string }) {
   const [filters, setFilters] = useState<SubscriptionsListFilters>(defaultFilters);
-  
-  
-  
+  const [suspendId, setSuspendId] = useState<string | null>(null);
+  const [cancelId, setCancelId] = useState<string | null>(null);
+
   const listState = useSubscriptionsList(filters);
   
 
@@ -39,6 +41,9 @@ export function SubscriptionsListPage({ lang }: { lang: string }) {
           value={listState.total}
         />
       </div>
+
+      <SubscriptionAnalyticsWidget />
+
       <SubscriptionsFilters
         onChange={setFilters}
         onReset={() => setFilters(defaultFilters)}
@@ -64,10 +69,33 @@ export function SubscriptionsListPage({ lang }: { lang: string }) {
             >
               View
             </Link>
-
+            {item.status === "active" && (
+              <>
+                <Button variant="outline" onClick={() => setSuspendId(item.id)}>Suspend</Button>
+                <Button variant="danger" onClick={() => setCancelId(item.id)}>Cancel</Button>
+              </>
+            )}
           </div>
         )}
       />
+
+      {suspendId && (
+        <SuspendSubscriptionDialog
+          subscriptionId={suspendId}
+          open={!!suspendId}
+          onOpenChange={(open) => !open && setSuspendId(null)}
+          onSuccess={() => void listState.reload()}
+        />
+      )}
+
+      {cancelId && (
+        <CancelSubscriptionDialog
+          subscriptionId={cancelId}
+          open={!!cancelId}
+          onOpenChange={(open) => !open && setCancelId(null)}
+          onSuccess={() => void listState.reload()}
+        />
+      )}
     </div>
   );
 }

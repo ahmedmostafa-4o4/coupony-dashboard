@@ -1,3 +1,4 @@
+import { decamelizeKeys } from "@/lib/utils/case";
 import { apiClient } from "@/lib/api/client";
 import { apiEndpoints } from "@/lib/api/endpoints";
 
@@ -10,5 +11,5 @@ export async function createSubscriptionPlan(
   return apiClient.post<
     AdminCreateSubscriptionPlanResponseDto,
     CreateSubscriptionPlanRequest
-  >(apiEndpoints.admin.billing.subscriptionPlans.list, payload);
+  >(apiEndpoints.admin.billing.subscriptionPlans.list, decamelizeKeys(payload));
 }

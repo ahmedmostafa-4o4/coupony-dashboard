@@ -12,17 +12,19 @@ import type {
 } from "../types/subscription-plan.types";
 
 export interface SubscriptionPlanFormValues {
-  billingCycle: string;
-  code: string;
-  currency: string;
-  description: string;
-  isActive: boolean;
-  maxActiveOffers: string;
-  maxBranchesPerStore: string;
-  maxStaffPerStore: string;
-  maxStores: string;
   name: string;
-  price: string;
+  slug: string;
+  description: string;
+  priceMonthly: string;
+  priceYearly: string;
+  currency: string;
+  maxProducts: string;
+  maxEmployees: string;
+  maxBranches: string;
+  gracePeriodDays: string;
+  degradedPeriodDays: string;
+  isActive: boolean;
+  sortOrder: string;
 }
 
 export function createSubscriptionPlanFormSchema(
@@ -39,38 +41,40 @@ export function createSubscriptionPlanFormSchema(
 > {
   return {
     defaultValues: {
-      billingCycle: "monthly",
-      code: "",
-      currency: "USD",
-      description: "",
-      isActive: true,
-      maxActiveOffers: "",
-      maxBranchesPerStore: "",
-      maxStaffPerStore: "",
-      maxStores: "",
       name: "",
-      price: "",
+      slug: "",
+      description: "",
+      priceMonthly: "",
+      priceYearly: "",
+      currency: "EGP",
+      maxProducts: "",
+      maxEmployees: "",
+      maxBranches: "",
+      gracePeriodDays: "3",
+      degradedPeriodDays: "7",
+      isActive: true,
+      sortOrder: "0",
     },
     transform(values) {
       const base = {
-        billing_cycle: values.billingCycle,
-        currency: trimOptional(values.currency),
+        name: values.name.trim(),
         description: trimOptional(values.description),
-        is_active: values.isActive,
-        max_active_offers: toOptionalNumber(values.maxActiveOffers),
-        max_branches_per_store: toOptionalNumber(values.maxBranchesPerStore),
-        max_staff_per_store: toOptionalNumber(values.maxStaffPerStore),
-        max_stores: toOptionalNumber(values.maxStores),
-        name: trimOptional(values.name),
-        price: toRequiredNumber(values.price),
+        priceMonthly: toRequiredNumber(values.priceMonthly),
+        priceYearly: toRequiredNumber(values.priceYearly),
+        currency: values.currency || "EGP",
+        maxProducts: toOptionalNumber(values.maxProducts),
+        maxEmployees: toOptionalNumber(values.maxEmployees),
+        maxBranches: toOptionalNumber(values.maxBranches),
+        gracePeriodDays: toRequiredNumber(values.gracePeriodDays),
+        degradedPeriodDays: toRequiredNumber(values.degradedPeriodDays),
+        isActive: values.isActive,
+        sortOrder: toOptionalNumber(values.sortOrder),
       };
 
       if (mode === "create") {
         return {
           ...base,
-          code: values.code.trim(),
-          name: values.name.trim(),
-          price: toRequiredNumber(values.price) ?? 0,
+          slug: values.slug.trim(),
         };
       }
 
@@ -78,14 +82,26 @@ export function createSubscriptionPlanFormSchema(
     },
     validate(values) {
       return {
-        code:
-          mode === "create" && !values.code.trim()
-            ? "Plan code is required."
+        slug:
+          mode === "create" && !values.slug.trim()
+            ? "Slug is required."
             : undefined,
         name: values.name.trim() ? undefined : "Plan name is required.",
-        price:
-          toRequiredNumber(values.price) === undefined
-            ? "Price must be a number."
+        priceMonthly:
+          toRequiredNumber(values.priceMonthly) === undefined
+            ? "Monthly price must be a number."
+            : undefined,
+        priceYearly:
+          toRequiredNumber(values.priceYearly) === undefined
+            ? "Yearly price must be a number."
+            : undefined,
+        gracePeriodDays:
+          toRequiredNumber(values.gracePeriodDays) === undefined
+            ? "Grace period days is required."
+            : undefined,
+        degradedPeriodDays:
+          toRequiredNumber(values.degradedPeriodDays) === undefined
+            ? "Degraded period days is required."
             : undefined,
       };
     },
@@ -96,30 +112,27 @@ export function toSubscriptionPlanFormValues(
   plan?: SubscriptionPlan | null
 ): SubscriptionPlanFormValues {
   return {
-    billingCycle: String(plan?.billingCycle ?? "monthly"),
-    code: String(plan?.code ?? ""),
-    currency: String(plan?.currency ?? "USD"),
-    description: String(plan?.description ?? ""),
-    isActive: Boolean(plan?.isActive ?? true),
-    maxActiveOffers:
-      plan?.maxActiveOffers !== undefined && plan?.maxActiveOffers !== null
-        ? String(plan.maxActiveOffers)
-        : "",
-    maxBranchesPerStore:
-      plan?.maxBranchesPerStore !== undefined &&
-      plan?.maxBranchesPerStore !== null
-        ? String(plan.maxBranchesPerStore)
-        : "",
-    maxStaffPerStore:
-      plan?.maxStaffPerStore !== undefined && plan?.maxStaffPerStore !== null
-        ? String(plan.maxStaffPerStore)
-        : "",
-    maxStores:
-      plan?.maxStores !== undefined && plan?.maxStores !== null
-        ? String(plan.maxStores)
-        : "",
     name: String(plan?.name ?? ""),
-    price:
-      plan?.price !== undefined && plan?.price !== null ? String(plan.price) : "",
+    slug: String(plan?.slug ?? ""),
+    description: String(plan?.description ?? ""),
+    priceMonthly: plan?.prices?.monthly !== undefined && plan?.prices?.monthly !== null ? String(plan.prices.monthly) : "",
+    priceYearly: plan?.prices?.yearly !== undefined && plan?.prices?.yearly !== null ? String(plan.prices.yearly) : "",
+    currency: String(plan?.prices?.currency ?? "EGP"),
+    maxProducts:
+      plan?.entitlements?.maxProducts !== undefined && plan?.entitlements?.maxProducts !== null
+        ? String(plan.entitlements.maxProducts)
+        : "",
+    maxEmployees:
+      plan?.entitlements?.maxEmployees !== undefined && plan?.entitlements?.maxEmployees !== null
+        ? String(plan.entitlements.maxEmployees)
+        : "",
+    maxBranches:
+      plan?.entitlements?.maxBranches !== undefined && plan?.entitlements?.maxBranches !== null
+        ? String(plan.entitlements.maxBranches)
+        : "",
+    gracePeriodDays: "3", // Not present in the GET response
+    degradedPeriodDays: "7", // Not present in the GET response
+    isActive: Boolean(plan?.isActive ?? true),
+    sortOrder: plan?.sortOrder !== undefined && plan?.sortOrder !== null ? String(plan.sortOrder) : "0",
   };
 }

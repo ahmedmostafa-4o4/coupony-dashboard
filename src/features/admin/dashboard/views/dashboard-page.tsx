@@ -14,6 +14,7 @@ import { LoyaltyPointsWidget } from "../components/loyalty-points-widget";
 import { DashboardChartsGrid } from "../components/dashboard-charts-grid";
 import { useDashboardOverview } from "../hooks/use-dashboard-overview";
 import { getDashboardDictionary } from "../utils/get-dictionary";
+import { SubscriptionAnalyticsWidget } from "@/features/admin/billing/subscriptions/components/subscription-analytics-widget";
 
 export function DashboardPage({ lang }: { lang: string }) {
   const dashboardState = useDashboardOverview();
@@ -47,6 +48,8 @@ export function DashboardPage({ lang }: { lang: string }) {
         </AdminSection>
       ) : null}
       
+      <SubscriptionAnalyticsWidget />
+
       <ActionRequiredBanner operational={dashboardState.item?.operational} dict={dict.dashboard.actionRequired} />
       <DashboardOverviewGrid overview={dashboardState.item} dict={dict.dashboard.overview} />
       <LoyaltyPointsWidget pointsEconomy={dashboardState.item?.pointsEconomy} dict={dict.dashboard.loyalty} />

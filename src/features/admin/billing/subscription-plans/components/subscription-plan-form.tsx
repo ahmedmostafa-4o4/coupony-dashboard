@@ -16,53 +16,21 @@ import type {
 
 const baseFields: AdminFormField<SubscriptionPlanFormValues>[] = [
   { key: "name", label: "Plan name", placeholder: "Growth" },
-  {
-    key: "billingCycle",
-    label: "Billing cycle",
-    options: [
-      { label: "Monthly", value: "monthly" },
-      { label: "Quarterly", value: "quarterly" },
-      { label: "Yearly", value: "yearly" },
-    ],
-    type: "select",
-  },
-  { key: "price", label: "Price", placeholder: "49.99", type: "number" },
-  { key: "currency", label: "Currency", placeholder: "USD" },
-  { key: "maxStores", label: "Max stores", placeholder: "10", type: "number" },
-  {
-    key: "maxBranchesPerStore",
-    label: "Max branches / store",
-    placeholder: "20",
-    type: "number",
-  },
-  {
-    key: "maxStaffPerStore",
-    label: "Max staff / store",
-    placeholder: "50",
-    type: "number",
-  },
-  {
-    key: "maxActiveOffers",
-    label: "Max active offers",
-    placeholder: "200",
-    type: "number",
-  },
-  {
-    key: "description",
-    label: "Description",
-    placeholder: "What this plan unlocks.",
-    type: "textarea",
-  },
-  {
-    key: "isActive",
-    label: "Active",
-    placeholder: "Plan is active",
-    type: "checkbox",
-  },
+  { key: "description", label: "Description", placeholder: "What this plan unlocks.", type: "textarea" },
+  { key: "priceMonthly", label: "Monthly Price", placeholder: "49.99", type: "number" },
+  { key: "priceYearly", label: "Yearly Price", placeholder: "499.99", type: "number" },
+  { key: "currency", label: "Currency", placeholder: "EGP" },
+  { key: "maxProducts", label: "Max Products", placeholder: "100", type: "number" },
+  { key: "maxEmployees", label: "Max Employees", placeholder: "5", type: "number" },
+  { key: "maxBranches", label: "Max Branches", placeholder: "2", type: "number" },
+  { key: "gracePeriodDays", label: "Grace Period (Days)", placeholder: "3", type: "number" },
+  { key: "degradedPeriodDays", label: "Degraded Period (Days)", placeholder: "7", type: "number" },
+  { key: "sortOrder", label: "Sort Order", placeholder: "0", type: "number" },
+  { key: "isActive", label: "Active", placeholder: "Plan is active", type: "checkbox" },
 ];
 
 const createFields: AdminFormField<SubscriptionPlanFormValues>[] = [
-  { key: "code", label: "Plan code", placeholder: "growth" },
+  { key: "slug", label: "Plan slug", placeholder: "growth" },
   ...baseFields,
 ];
 

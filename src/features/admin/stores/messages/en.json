@@ -21,6 +21,17 @@
       "inactive": "Inactive",
       "suspended": "Suspended"
     },
+    "verificationPlaceholder": "Verification",
+    "verificationOptions": {
+      "all": "All verifications",
+      "verified": "Verified",
+      "unverified": "Unverified"
+    },
+    "subscriptionPlaceholder": "Subscription",
+    "subscriptionOptions": {
+      "all": "All plans"
+    },
+    "registrationDate": "Registration Date",
     "reset": "Reset Filters"
   },
   "table": {
@@ -62,10 +73,22 @@
       "status": "Status",
       "billingCycle": "Billing Cycle",
       "nextBillingDate": "Next Billing Date",
-      "noBilling": "No Billing Profile Found",
+      "noBilling": "No Active Subscription",
       "noBillingDesc": "This store has not set up a billing profile yet.",
       "manage": "Manage Billing Configuration",
-      "updateBtn": "Update Billing Data"
+      "updateBtn": "Update Billing Data",
+      "overridePlan": "Admin Override: Assign Plan",
+      "currentPeriod": "Current Period",
+      "daysRemaining": "days remaining",
+      "entitlements": "Plan Entitlements",
+      "entitlementsDesc": "Features and limits included in this plan",
+      "maxProducts": "Max Products",
+      "maxProductsDesc": "Products allowed in store",
+      "maxBranches": "Max Branches",
+      "maxBranchesDesc": "Store locations",
+      "maxEmployees": "Max Employees",
+      "maxEmployeesDesc": "Staff members per store",
+      "unlimited": "Unlimited"
     },
     "owner": {
       "title": "Store Owner",

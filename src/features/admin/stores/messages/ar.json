@@ -21,6 +21,17 @@
       "inactive": "غير نشط",
       "suspended": "موقوف"
     },
+    "verificationPlaceholder": "التحقق",
+    "verificationOptions": {
+      "all": "جميع التحققات",
+      "verified": "تم التحقق",
+      "unverified": "غير متحقق"
+    },
+    "subscriptionPlaceholder": "الاشتراك",
+    "subscriptionOptions": {
+      "all": "جميع الخطط"
+    },
+    "registrationDate": "تاريخ التسجيل",
     "reset": "إعادة ضبط الفلاتر"
   },
   "table": {
@@ -62,10 +73,22 @@
       "status": "الحالة",
       "billingCycle": "دورة الفوترة",
       "nextBillingDate": "تاريخ الفوترة القادم",
-      "noBilling": "لم يتم العثور على ملف فواتير",
-      "noBillingDesc": "هذا المتجر لم يقم بإعداد ملف فواتير بعد.",
-      "manage": "إدارة إعدادات الفواتير",
-      "updateBtn": "تحديث بيانات الفواتير"
+      "noBilling": "لا يوجد اشتراك نشط",
+      "noBillingDesc": "لم يقم هذا المتجر بإعداد ملف تعريف الفوترة بعد.",
+      "manage": "إدارة إعدادات الفوترة",
+      "updateBtn": "تحديث بيانات الفوترة",
+      "overridePlan": "تجاوز المشرف: تعيين خطة",
+      "currentPeriod": "الفترة الحالية",
+      "daysRemaining": "أيام متبقية",
+      "entitlements": "ميزات الخطة",
+      "entitlementsDesc": "الميزات والحدود المضمنة في هذه الخطة",
+      "maxProducts": "الحد الأقصى للمنتجات",
+      "maxProductsDesc": "المنتجات المسموح بها في المتجر",
+      "maxBranches": "الحد الأقصى للفروع",
+      "maxBranchesDesc": "مواقع المتجر",
+      "maxEmployees": "الحد الأقصى للموظفين",
+      "maxEmployeesDesc": "الموظفين لكل متجر",
+      "unlimited": "غير محدود"
     },
     "owner": {
       "title": "مالك المتجر",

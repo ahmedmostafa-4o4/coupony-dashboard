@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AdminPageHeader, AdminSection, AdminStatCard, AdminConfirmDialog, createAdminDetailHref } from "@/features/admin/shared";
+import { AdminPageHeader, AdminSection, AdminStatCard, AdminConfirmDialog, createAdminDetailHref, AdminPagination } from "@/features/admin/shared";
 import { StoresFilters } from "../components/stores-filters";
 import { StoresTable } from "../components/stores-table";
 import { useStoreActions } from "../hooks/use-store-actions";
@@ -20,6 +20,8 @@ export function StoresListPage({ lang }: { lang: string }) {
   
   const listState = useStoresList(filters);
   const actions = useStoreActions(async () => { await listState.reload(); });
+
+  const meta = listState.meta as { currentPage?: number; lastPage?: number; perPage?: number } | undefined;
 
   return (
     <div className="space-y-6">
@@ -84,6 +86,14 @@ export function StoresListPage({ lang }: { lang: string }) {
             />
           </div>
         )}
+      />
+
+      <AdminPagination
+        currentPage={meta?.currentPage ?? 1}
+        lastPage={meta?.lastPage ?? 1}
+        perPage={meta?.perPage ?? 15}
+        onPageChange={(page) => setFilters((prev) => ({ ...prev, page }))}
+        onPerPageChange={(perPage) => setFilters((prev) => ({ ...prev, perPage, page: 1 }))}
       />
     </div>
   );

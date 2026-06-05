@@ -288,6 +288,14 @@ function ItemIcon({ itemKey }: { itemKey: string }) {
           <path d="M10 18a2 2 0 0 0 4 0" />
         </Glyph>
       );
+    case "notificationCenter":
+      return (
+        <Glyph>
+          <path d="M12 5v4" />
+          <path d="M17 10a5 5 0 1 0-10 0c0 2.4-1 3.4-2 4.5h14c-1-1.1-2-2.1-2-4.5Z" />
+          <path d="M10 18a2 2 0 0 0 4 0" />
+        </Glyph>
+      );
     case "notificationsBroadcast":
       return (
         <Glyph>

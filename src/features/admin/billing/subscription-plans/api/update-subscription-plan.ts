@@ -1,3 +1,4 @@
+import { decamelizeKeys } from "@/lib/utils/case";
 import { apiClient } from "@/lib/api/client";
 import { apiEndpoints } from "@/lib/api/endpoints";
 
@@ -11,5 +12,5 @@ export async function updateSubscriptionPlan(
   return apiClient.patch<
     AdminUpdateSubscriptionPlanResponseDto,
     UpdateSubscriptionPlanRequest
-  >(apiEndpoints.admin.billing.subscriptionPlans.detail(planId), payload);
+  >(apiEndpoints.admin.billing.subscriptionPlans.detail(planId), decamelizeKeys(payload));
 }

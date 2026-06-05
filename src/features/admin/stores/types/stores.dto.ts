@@ -5,6 +5,7 @@ import type {
   StoreDto,
   StoreVerificationDto,
   UserDto,
+  SubscriptionPlanDto,
 } from "@/types/admin-api.dto";
 
 export type {
@@ -21,9 +22,9 @@ export type {
   AdminUpdateStoreBillingProfileResponseDto,
   AdminUpdateStoreDto,
   AdminUpdateStoreResponseDto,
-  BillingProfileDto,
   StoreStatus,
-  UserDto,
+  BillingProfileDto,
+  SubscriptionPlanDto,
 } from "@/types/admin-api.dto";
 
 export interface StoreAddressDto {
@@ -112,8 +113,15 @@ export interface StoreSubscriptionDto {
   plan?: {
     id?: string;
     name?: string;
-    price?: number;
+    slug?: string;
+    price_monthly?: number;
+    price_yearly?: number;
     currency?: string;
+    max_products?: number;
+    max_employees?: number;
+    max_branches?: number;
+    grace_period_days?: number;
+    degraded_period_days?: number;
   } | null;
 }
 

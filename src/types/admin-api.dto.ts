@@ -311,19 +311,28 @@ export interface RedemptionDto {
 
 export interface SubscriptionPlanDto {
   id: UUID;
-  code: string;
+  slug: string;
   name: string;
   description?: string | null;
-  billing_cycle: BillingCycle;
-  price: number;
-  currency?: CurrencyCode;
-  max_stores?: number | null;
-  max_branches_per_store?: number | null;
-  max_staff_per_store?: number | null;
-  max_active_offers?: number | null;
-  is_active?: boolean;
+  is_active: boolean;
+  sort_order: number;
   created_at?: ISODateTime;
   updated_at?: ISODateTime;
+  prices: {
+    monthly: string;
+    yearly: string;
+    currency: CurrencyCode;
+  };
+  entitlements: {
+    max_products?: number | null;
+    max_employees?: number | null;
+    max_branches?: number | null;
+  };
+  features?: string[] | null;
+  payment_config?: {
+    is_review_mode: boolean;
+    supported_payment_methods: string[];
+  };
 }
 
 export interface BillingProfileDto {
@@ -349,12 +358,28 @@ export interface SubscriptionDto {
   collection_method?: CollectionMethod;
   current_period_start?: ISODateTime | null;
   current_period_end?: ISODateTime | null;
+  grace_period_end?: ISODateTime | null;
+  degraded_period_end?: ISODateTime | null;
+  trial_ends_at?: ISODateTime | null;
   trial_start?: ISODateTime | null;
   trial_end?: ISODateTime | null;
   cancel_at_period_end?: boolean;
   cancelled_at?: ISODateTime | null;
   created_at?: ISODateTime;
   updated_at?: ISODateTime;
+  plan?: {
+    id: string;
+    name: string;
+    slug: string;
+    description?: string;
+    price_monthly: string;
+    price_yearly: string;
+    currency: string;
+    max_products: number;
+    max_employees: number;
+    max_branches: number;
+    features: string[];
+  } | null;
 }
 
 export interface InvoiceDto {
@@ -463,14 +488,23 @@ export interface RecommendationDto {
 
 export interface PaymentDto {
   id: UUID;
-  status?: string;
-  reference_type?: string | null;
-  reference_id?: UUID | null;
   store_id?: UUID | null;
-  amount?: number | null;
+  plan_id?: UUID | null;
+  billing_cycle?: string | null;
+  amount?: string | number | null;
   currency?: CurrencyCode;
+  status?: string;
+  paymob_order_id?: string | null;
+  paymob_transaction_id?: string | null;
+  payment_url?: string | null;
+  expires_at?: ISODateTime | null;
   paid_at?: ISODateTime | null;
+  failed_at?: ISODateTime | null;
+  failure_reason?: string | null;
   created_at?: ISODateTime;
+  updated_at?: ISODateTime;
+  store?: StoreDto | null;
+  plan?: SubscriptionPlanDto | null;
 }
 
 export interface InventoryTransactionDto {
@@ -819,7 +853,7 @@ export type AdminDeleteStoreCategoryResponseDto = ApiSuccessResponse<{
    Stores
    ========================================================= */
 
-export interface AdminStoresQueryDto extends BaseListQueryDto {
+export interface AdminStoresQueryDto extends BaseListQueryDto, DateRangeQueryDto {
   q?: string;
   status?: StoreStatus;
   owner_user_id?: UUID;
@@ -1154,30 +1188,36 @@ export interface AdminSubscriptionPlansQueryDto extends BaseListQueryDto {
 }
 
 export interface AdminCreateSubscriptionPlanDto {
-  code: string;
+  slug: string;
   name: string;
   description?: string;
-  billing_cycle: BillingCycle;
-  price: number;
-  currency?: CurrencyCode;
-  max_stores?: number;
-  max_branches_per_store?: number;
-  max_staff_per_store?: number;
-  max_active_offers?: number;
+  price_monthly: number;
+  price_yearly: number;
+  currency: CurrencyCode;
+  max_products?: number;
+  max_employees?: number;
+  max_branches?: number;
+  features?: string[];
+  grace_period_days: number;
+  degraded_period_days: number;
   is_active?: boolean;
+  sort_order?: number;
 }
 
 export interface AdminUpdateSubscriptionPlanDto {
   name?: string;
   description?: string;
-  billing_cycle?: BillingCycle;
-  price?: number;
+  price_monthly?: number;
+  price_yearly?: number;
   currency?: CurrencyCode;
-  max_stores?: number;
-  max_branches_per_store?: number;
-  max_staff_per_store?: number;
-  max_active_offers?: number;
+  max_products?: number;
+  max_employees?: number;
+  max_branches?: number;
+  features?: string[];
+  grace_period_days?: number;
+  degraded_period_days?: number;
   is_active?: boolean;
+  sort_order?: number;
 }
 
 export type AdminSubscriptionPlansListResponseDto = ApiSuccessResponse<

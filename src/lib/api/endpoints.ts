@@ -127,8 +127,20 @@ export const apiEndpoints = {
       },
       subscriptions: {
         list: "/admin/subscriptions",
+        analytics: "/admin/subscription-analytics",
         detail: (subscriptionId: string) =>
           `/admin/subscriptions/${segment(subscriptionId)}`,
+        assign: (storeId: string) =>
+          `/admin/subscriptions/${segment(storeId)}/assign`,
+      },
+      paymentSessions: {
+        list: "/admin/payment-sessions",
+        detail: (sessionId: string) =>
+          `/admin/payment-sessions/${segment(sessionId)}`,
+        approve: (sessionId: string) =>
+          `/admin/payment-sessions/${segment(sessionId)}/approve`,
+        fail: (sessionId: string) =>
+          `/admin/payment-sessions/${segment(sessionId)}/fail`,
       },
       subscriptionPlans: {
         list: "/admin/subscription-plans",
@@ -159,6 +171,8 @@ export const apiEndpoints = {
     },
     notifications: {
       broadcast: "/admin/notifications/broadcast",
+      list: "/admin/notifications",
+      markAsRead: "/admin/notifications/mark-as-read",
     },
     notifyMe: {
       list: "/admin/notify-me",

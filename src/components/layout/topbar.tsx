@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { LogoutButton } from "@/components/layout/logout-button";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
+import { NotificationBell } from "@/features/admin/notifications/components/notification-bell";
 import { siteConfig } from "@/config/site";
 import { createAdminHref } from "@/features/admin/shared";
 import { getGlobalDictionary } from "@/messages/get-dictionary";
@@ -52,6 +53,7 @@ export function Topbar({
         </div>
         <div className="flex items-center gap-3">
           <LanguageSwitcher currentLang={lang} />
+          <NotificationBell lang={lang} />
           <Link
             href={createAdminHref(lang, "dashboard")}
             className="rounded-2xl bg-slate-950 px-4 py-2 text-sm font-medium text-white! transition hover:bg-slate-800"

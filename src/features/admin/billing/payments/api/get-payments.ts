@@ -8,7 +8,7 @@ import type { PaymentsListFilters } from "../types/payment.types";
 
 export async function getPayments(filters: PaymentsListFilters = {}) {
   const response = await apiClient.get<AdminPaymentsListResponseDto>(
-    apiEndpoints.admin.billing.payments.list,
+    apiEndpoints.admin.billing.paymentSessions.list,
     {
       query: buildAdminQuery(filters),
     }
