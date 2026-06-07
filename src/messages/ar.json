@@ -8,7 +8,16 @@
     "workspace": "مساحة عمل المسؤول",
     "session": "الجلسة",
     "quickAccess": "تم تفعيل الوصول السريع",
-    "search": "البحث عن مستخدمين، متاجر، عروض..."
+    "search": "البحث عن مستخدمين، متاجر، عروض...",
+    "globalSearch": {
+      "placeholder": "اكتب أمراً أو ابحث...",
+      "noResults": "لم يتم العثور على نتائج.",
+      "loading": "جاري البحث...",
+      "users": "المستخدمين",
+      "stores": "المتاجر",
+      "products": "المنتجات",
+      "navigation": "التنقل"
+    }
   },
   "nav": {
     "dashboard": "لوحة القيادة",
@@ -27,32 +36,180 @@
     "Support": "الدعم"
   },
   "items": {
-    "dashboard": { "label": "لوحة القيادة", "description": "مؤشرات الأداء ونبض العمليات." },
-    "users": { "label": "المستخدمين", "description": "إدارة حسابات المسؤولين والمستخدمين." },
-    "roles": { "label": "الأدوار", "description": "التحكم في تعريفات الأدوار وصلاحياتها." },
-    "permissions": { "label": "الصلاحيات", "description": "مراجعة الصلاحيات المتاحة." },
-    "auditLogs": { "label": "سجلات التدقيق", "description": "تتبع الإجراءات الحساسة والتغييرات." },
-    "categories": { "label": "الفئات", "description": "تنظيم فئات العروض." },
-    "storeCategories": { "label": "فئات المتاجر", "description": "إدارة تصنيفات المتاجر." },
-    "offers": { "label": "العروض", "description": "مراجعة حالات الموافقة والنشر." },
-    "products": { "label": "المنتجات", "description": "إنشاء وتحديث منتجات الكتالوج." },
-    "productRevisions": { "label": "مراجعات المنتجات", "description": "مراجعة تغييرات المنتجات." },
-    "coupons": { "label": "الكوبونات", "description": "فحص وتعديل إعدادات الكوبونات." },
-    "recommendations": { "label": "التوصيات", "description": "تنظيم المحتوى المروج." },
-    "stores": { "label": "المتاجر", "description": "الموافقة، التعليق، وفوترة المتاجر." },
-    "storeVerifications": { "label": "توثيق المتاجر", "description": "معالجة مراجعات توثيق المتاجر." },
-    "redemptions": { "label": "الاستردادات", "description": "التحقيق في نشاط الاسترداد." },
-    "inventory": { "label": "المخزون", "description": "مراجعة حركات المخزون." },
-    "payments": { "label": "المدفوعات", "description": "مراقبة نشاط المدفوعات." },
-    "billingProfiles": { "label": "ملفات الفوترة", "description": "مرجع بيانات فوترة المتاجر." },
-    "invoices": { "label": "الفواتير", "description": "إصدار وتسوية الفواتير." },
-    "commissions": { "label": "العمولات", "description": "تتبع حالة الدفع والفوترة." },
-    "subscriptions": { "label": "الاشتراكات", "description": "إدارة حالة اشتراكات المتاجر." },
-    "subscriptionPlans": { "label": "خطط الاشتراك", "description": "صيانة كتالوج الخطط والتسعير." },
-    "contactCustomer": { "label": "اتصال / عميل", "description": "التعامل مع تذاكر دعم العملاء." },
-    "contactSeller": { "label": "اتصال / بائع", "description": "التعامل مع تذاكر دعم البائعين." },
-    "notifyMe": { "label": "أعلمني", "description": "مراجعة طلبات التنبيه والمتابعة." },
-    "notificationsBroadcast": { "label": "إشعارات / بث", "description": "إرسال إشعارات البث عبر المنصة." },
-    "chatbotSessions": { "label": "جلسات الشات بوت", "description": "فحص محادثات الدعم." }
+    "dashboard": {
+      "label": "لوحة القيادة",
+      "description": "مؤشرات الأداء ونبض العمليات."
+    },
+    "users": {
+      "label": "المستخدمين",
+      "description": "إدارة حسابات المسؤولين والمستخدمين."
+    },
+    "roles": {
+      "label": "الأدوار",
+      "description": "التحكم في تعريفات الأدوار وصلاحياتها."
+    },
+    "permissions": {
+      "label": "الصلاحيات",
+      "description": "مراجعة الصلاحيات المتاحة."
+    },
+    "auditLogs": {
+      "label": "سجلات التدقيق",
+      "description": "تتبع الإجراءات الحساسة والتغييرات."
+    },
+    "categories": {
+      "label": "الفئات",
+      "description": "تنظيم فئات العروض."
+    },
+    "storeCategories": {
+      "label": "فئات المتاجر",
+      "description": "إدارة تصنيفات المتاجر."
+    },
+    "offers": {
+      "label": "العروض",
+      "description": "مراجعة حالات الموافقة والنشر."
+    },
+    "banners": {
+      "label": "اللافتات",
+      "description": "إدارة لافتات المتاجر والموافقة عليها."
+    },
+    "products": {
+      "label": "المنتجات",
+      "description": "إنشاء وتحديث منتجات الكتالوج."
+    },
+    "productRevisions": {
+      "label": "مراجعات المنتجات",
+      "description": "مراجعة تغييرات المنتجات."
+    },
+    "coupons": {
+      "label": "الكوبونات",
+      "description": "فحص وتعديل إعدادات الكوبونات."
+    },
+    "stores": {
+      "label": "المتاجر",
+      "description": "الموافقة، التعليق، وفوترة المتاجر."
+    },
+    "storeVerifications": {
+      "label": "توثيق المتاجر",
+      "description": "معالجة مراجعات توثيق المتاجر."
+    },
+    "redemptions": {
+      "label": "الاستردادات",
+      "description": "التحقيق في نشاط الاسترداد."
+    },
+    "inventory": {
+      "label": "المخزون",
+      "description": "مراجعة حركات المخزون."
+    },
+    "payments": {
+      "label": "المدفوعات",
+      "description": "مراقبة نشاط المدفوعات."
+    },
+    "billingProfiles": {
+      "label": "ملفات الفوترة",
+      "description": "مرجع بيانات فوترة المتاجر."
+    },
+
+    "commissions": {
+      "label": "العمولات",
+      "description": "تتبع حالة الدفع والفوترة."
+    },
+    "subscriptions": {
+      "label": "الاشتراكات",
+      "description": "إدارة حالة اشتراكات المتاجر."
+    },
+    "subscriptionPlans": {
+      "label": "خطط الاشتراك",
+      "description": "صيانة كتالوج الخطط والتسعير."
+    },
+    "contactCustomer": {
+      "label": "اتصال / عميل",
+      "description": "التعامل مع تذاكر دعم العملاء."
+    },
+    "contactSeller": {
+      "label": "اتصال / بائع",
+      "description": "التعامل مع تذاكر دعم البائعين."
+    },
+    "notificationsBroadcast": {
+      "label": "إشعارات / بث",
+      "description": "إرسال إشعارات البث عبر المنصة."
+    },
+    "chatbotSessions": {
+      "label": "جلسات الشات بوت",
+      "description": "فحص محادثات الدعم."
+    }
+  },
+  "adminTravelBanners": {
+    "title": "بانرات السفر",
+    "description": "إدارة بانرات المنتجات السياحية.",
+    "list": {
+      "title": "بانرات السفر",
+      "description": "قائمة شاملة من بانرات السفر.",
+      "eyebrow": "الكتالوج",
+      "rows": "البانرات المدرجة",
+      "rowsHint": "إجمالي النشط والتاريخي",
+      "emptyState": "لا توجد بانرات سفر.",
+      "emptyStateDesc": "يمكنك إنشاء بانر سفر جديد.",
+      "errorState": "فشل تحميل بانرات السفر.",
+      "searchPlaceholder": "بحث بالدعوة لاتخاذ إجراء...",
+      "create": "إنشاء بانر"
+    },
+    "form": {
+      "product": "المنتج المحدد",
+      "selectProduct": "تحديد منتج",
+      "changeProduct": "تغيير المنتج",
+      "image": "صورة البانر (600x400)",
+      "ctaText": "نص الدعوة لاتخاذ إجراء",
+      "ctaTextPlaceholder": "مثال: احجز الآن",
+      "savePercent": "نسبة التوفير",
+      "savePercentPlaceholder": "مثال: خصم 20%",
+      "priority": "أولوية العرض",
+      "priorityPlaceholder": "0",
+      "startDate": "تاريخ البدء",
+      "endDate": "تاريخ الانتهاء",
+      "isActive": "حالة التنشيط",
+      "submit": "حفظ البانر",
+      "submitting": "جاري الحفظ..."
+    },
+    "details": {
+      "title": "تفاصيل البانر",
+      "description": "عرض وإدارة خصائص هذا البانر.",
+      "eyebrow": "بانر السفر",
+      "edit": "تعديل التفاصيل",
+      "delete": "حذف البانر",
+      "productInfo": "معلومات المنتج المرتبط"
+    },
+    "table": {
+      "columns": {
+        "banner": "البانر",
+        "product": "المنتج",
+        "status": "الحالة",
+        "dates": "المدة"
+      },
+      "actions": {
+        "view": "عرض",
+        "delete": "حذف"
+      }
+    },
+    "filters": {
+      "search": "بحث",
+      "status": "الحالة",
+      "statusOptions": {
+        "all": "الكل",
+        "active": "نشط",
+        "inactive": "غير نشط"
+      }
+    },
+    "modal": {
+      "title": "اختيار منتج",
+      "description": "اختر منتج سياحي لربطه بالبانر الجديد.",
+      "columns": {
+        "product": "المنتج",
+        "price": "السعر",
+        "rating": "التقييم"
+      },
+      "actions": {
+        "select": "تحديد"
+      }
+    }
   }
 }

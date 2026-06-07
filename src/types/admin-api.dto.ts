@@ -1006,10 +1006,9 @@ export interface AdminRejectStoreVerificationDto {
 export type AdminStoreVerificationsListResponseDto = ApiSuccessResponse<
   PaginatedResultDto<StoreVerificationDto>
 >;
-export type AdminStoreVerificationDetailsResponseDto = ApiSuccessResponse<{
-  store_verification: StoreVerificationDto;
-  store: StoreDto;
-}>;
+export type AdminStoreVerificationDetailsResponseDto = ApiSuccessResponse<
+  StoreVerificationDto & { store?: StoreDto }
+>;
 export type AdminApproveStoreVerificationResponseDto = ApiSuccessResponse<{
   store_verification: StoreVerificationDto;
 }>;
@@ -1360,21 +1359,14 @@ export type AdminWaiveCommissionResponseDto = ApiSuccessResponse<{
    Notifications
    ========================================================= */
 
-export interface AdminBroadcastRecipientFilterDto {
-  role?: string[];
-  user_ids?: UUID[];
-  store_ids?: UUID[];
-}
+
 
 export interface AdminBroadcastNotificationDto {
   title: string;
   message: string;
-  type: string;
-  channel: BroadcastChannel;
-  recipient_filter: AdminBroadcastRecipientFilterDto;
-  data?: JsonObject;
-  reference_type?: string;
-  reference_id?: UUID;
+  channels: string[];
+  target_roles: string[];
+  target_user_ids: string[];
 }
 
 export type AdminBroadcastNotificationResponseDto = ApiSuccessResponse<{

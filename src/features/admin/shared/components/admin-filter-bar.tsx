@@ -86,6 +86,13 @@ export function AdminFilterBar<TFilters extends AdminFilterValues>({
                   } as TFilters)
                 }
               />
+            ) : field.type === "custom" && field.render ? (
+              field.render(values[field.key], (val) =>
+                onChange({
+                  ...values,
+                  [field.key]: val,
+                } as TFilters)
+              )
             ) : (
               <Input
                 type={field.type === "search" ? "search" : "text"}

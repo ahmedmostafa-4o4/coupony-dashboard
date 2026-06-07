@@ -1,0 +1,80 @@
+{
+  "title": "Banners",
+  "description": "Manage and approve store promotional banners.",
+  "list": {
+    "columns": {
+      "banner": "Banner",
+      "store": "Store",
+      "labels": "Labels",
+      "priority": "Priority",
+      "status": "Status",
+      "active": "Active",
+      "actions": "Actions"
+    },
+    "emptyState": "No banners found.",
+    "emptyStateDesc": "There are no banners matching your current filters.",
+    "errorState": "Error loading banners. Please try again."
+  },
+  "status": {
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected"
+  },
+  "details": {
+    "eyebrow": "Banner",
+    "description": "Review banner image and configurations.",
+    "bannerPreview": "Banner Preview",
+    "storeContext": "Store Context",
+    "bannerDetails": "Banner Details",
+    "relationships": "Linked Records",
+    "storeName": "Store Name",
+    "storeId": "Store ID",
+    "discountLabel": "Discount Label",
+    "ctaLabel": "CTA Label",
+    "dateRange": "Date Range",
+    "termsOfUse": "Terms of Use",
+    "endTime": "End Time",
+    "priority": "Priority",
+    "isActive": "Is Active",
+    "statusLabel": "Approval Status",
+    "rejectionReason": "Rejection Reason",
+    "submittedAt": "Submitted At",
+    "offers": "Linked Offers",
+    "branches": "Linked Branches",
+    "notFound": "Banner Not Found",
+    "notFoundDesc": "The requested banner could not be found or has been deleted.",
+    "viewBtn": "View Details",
+    "approveBtn": "Approve Banner",
+    "rejectBtn": "Reject Banner",
+    "deleteBtn": "Delete Banner",
+    "updateBtn": "Update Status",
+    "quickUpdate": "Quick Update"
+  },
+  "actions": {
+    "approve": {
+      "title": "Approve Banner",
+      "description": "Are you sure you want to approve this banner? It will become active automatically.",
+      "success": "Banner approved successfully."
+    },
+    "reject": {
+      "title": "Reject Banner",
+      "description": "Please provide a reason for rejecting this banner. This will be visible to the merchant.",
+      "fields": {
+        "rejectionReason": {
+          "label": "Rejection Reason",
+          "placeholder": "e.g., Image quality is too low..."
+        }
+      },
+      "success": "Banner rejected successfully."
+    },
+    "update": {
+      "title": "Update Banner",
+      "success": "Banner updated successfully."
+    },
+    "delete": {
+      "title": "Delete Banner",
+      "description": "Are you sure you want to permanently delete this banner? This action cannot be undone.",
+      "success": "Banner deleted successfully."
+    }
+  }
+}

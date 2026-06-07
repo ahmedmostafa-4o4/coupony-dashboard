@@ -57,11 +57,18 @@ export const adminNavigation: AdminNavigationGroup[] = [
         description: "Manage merchant store classification.",
         href: (lang) => createAdminHref(lang, "storeCategories"),
       },
+
       {
-        key: "offers",
-        label: "Offers",
-        description: "Review approval, publish, and archival states.",
-        href: (lang) => createAdminHref(lang, "offers"),
+        key: "banners",
+        label: "Banners",
+        description: "Manage and approve store promotional banners.",
+        href: (lang) => createAdminHref(lang, "banners"),
+      },
+      {
+        key: "travelBanners",
+        label: "Travel Banners",
+        description: "Manage and create banners for travel products.",
+        href: (lang) => createAdminHref(lang, "travelBanners"),
       },
       {
         key: "products",
@@ -72,20 +79,9 @@ export const adminNavigation: AdminNavigationGroup[] = [
       {
         key: "productRevisions",
         label: "Product Revisions",
-        description: "Review seller-submitted product changes awaiting approval.",
+        description:
+          "Review seller-submitted product changes awaiting approval.",
         href: (lang) => createAdminHref(lang, "productRevisions"),
-      },
-      {
-        key: "coupons",
-        label: "Coupons",
-        description: "Inspect and patch coupon-level configuration.",
-        href: (lang) => createAdminHref(lang, "coupons"),
-      },
-      {
-        key: "recommendations",
-        label: "Recommendations",
-        description: "Curate promoted content and placements.",
-        href: (lang) => createAdminHref(lang, "recommendations"),
       },
     ],
   },
@@ -116,6 +112,18 @@ export const adminNavigation: AdminNavigationGroup[] = [
         href: (lang) => createAdminHref(lang, "redemptions"),
       },
       {
+        key: "offerClaims",
+        label: "Offer Claims",
+        description: "Manage and audit customer offer claims.",
+        href: (lang) => createAdminHref(lang, "offerClaims"),
+      },
+      {
+        key: "bannerClaims",
+        label: "Banner Claims",
+        description: "Manage and audit store banner claims.",
+        href: (lang) => createAdminHref(lang, "bannerClaims"),
+      },
+      {
         key: "inventory",
         label: "Inventory",
         description: "Review inventory transaction movements.",
@@ -138,18 +146,8 @@ export const adminNavigation: AdminNavigationGroup[] = [
         description: "Reference store billing profile data.",
         href: (lang) => createAdminHref(lang, "billingProfiles"),
       },
-      {
-        key: "invoices",
-        label: "Invoices",
-        description: "Issue, void, and reconcile invoices.",
-        href: (lang) => createAdminHref(lang, "invoices"),
-      },
-      {
-        key: "commissions",
-        label: "Commissions",
-        description: "Track payout status and invoicing workflow.",
-        href: (lang) => createAdminHref(lang, "commissions"),
-      },
+
+
       {
         key: "subscriptions",
         label: "Subscriptions",
@@ -179,12 +177,7 @@ export const adminNavigation: AdminNavigationGroup[] = [
         description: "Handle seller support tickets.",
         href: (lang) => createAdminHref(lang, "contactSeller"),
       },
-      {
-        key: "notifyMe",
-        label: "Notify Me",
-        description: "Review notify-me requests and follow-ups.",
-        href: (lang) => createAdminHref(lang, "notifyMe"),
-      },
+
       {
         key: "notificationCenter",
         label: "Notification Center",

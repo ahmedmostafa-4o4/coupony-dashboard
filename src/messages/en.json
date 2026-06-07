@@ -8,7 +8,16 @@
     "workspace": "Admin workspace",
     "session": "Session",
     "quickAccess": "Quick access enabled",
-    "search": "Search users, stores, offers..."
+    "search": "Search users, stores, offers...",
+    "globalSearch": {
+      "placeholder": "Type a command or search...",
+      "noResults": "No results found.",
+      "loading": "Searching...",
+      "users": "Users",
+      "stores": "Stores",
+      "products": "Products",
+      "navigation": "Navigation"
+    }
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -27,32 +36,182 @@
     "Support": "Support"
   },
   "items": {
-    "dashboard": { "label": "Dashboard", "description": "High-level KPIs and operational pulse." },
-    "users": { "label": "Users", "description": "Manage admin and platform user accounts." },
-    "roles": { "label": "Roles", "description": "Control role definitions and permission bundles." },
-    "permissions": { "label": "Permissions", "description": "Review the available authorization surface." },
-    "auditLogs": { "label": "Audit Logs", "description": "Trace sensitive actions and change history." },
-    "categories": { "label": "Categories", "description": "Organize customer-facing offer categories." },
-    "storeCategories": { "label": "Store Categories", "description": "Manage merchant store classification." },
-    "offers": { "label": "Offers", "description": "Review approval, publish, and archival states." },
-    "products": { "label": "Products", "description": "Create, update, and inspect live catalog products." },
-    "productRevisions": { "label": "Product Revisions", "description": "Review seller-submitted product changes awaiting approval." },
-    "coupons": { "label": "Coupons", "description": "Inspect and patch coupon-level configuration." },
-    "recommendations": { "label": "Recommendations", "description": "Curate promoted content and placements." },
-    "stores": { "label": "Stores", "description": "Approve, suspend, and bill merchants." },
-    "storeVerifications": { "label": "Store Verifications", "description": "Process merchant verification reviews." },
-    "redemptions": { "label": "Redemptions", "description": "Investigate redemption activity and fraud flags." },
-    "inventory": { "label": "Inventory", "description": "Review inventory transaction movements." },
-    "payments": { "label": "Payments", "description": "Monitor payment activity and anomalies." },
-    "billingProfiles": { "label": "Billing Profiles", "description": "Reference store billing profile data." },
-    "invoices": { "label": "Invoices", "description": "Issue, void, and reconcile invoices." },
-    "commissions": { "label": "Commissions", "description": "Track payout status and invoicing workflow." },
-    "subscriptions": { "label": "Subscriptions", "description": "Manage merchant subscription lifecycle state." },
-    "subscriptionPlans": { "label": "Subscription Plans", "description": "Maintain plan catalog and pricing definitions." },
-    "contactCustomer": { "label": "Contact / Customer", "description": "Handle customer support tickets." },
-    "contactSeller": { "label": "Contact / Seller", "description": "Handle seller support tickets." },
-    "notifyMe": { "label": "Notify Me", "description": "Review notify-me requests and follow-ups." },
-    "notificationsBroadcast": { "label": "Notifications / Broadcast", "description": "Send broadcast notifications across the platform." },
-    "chatbotSessions": { "label": "Chatbot Sessions", "description": "Inspect support chatbot conversations." }
+    "dashboard": {
+      "label": "Dashboard",
+      "description": "High-level KPIs and operational pulse."
+    },
+    "users": {
+      "label": "Users",
+      "description": "Manage admin and platform user accounts."
+    },
+    "roles": {
+      "label": "Roles",
+      "description": "Control role definitions and permission bundles."
+    },
+    "permissions": {
+      "label": "Permissions",
+      "description": "Review the available authorization surface."
+    },
+    "auditLogs": {
+      "label": "Audit Logs",
+      "description": "Trace sensitive actions and change history."
+    },
+    "categories": {
+      "label": "Categories",
+      "description": "Organize customer-facing offer categories."
+    },
+    "storeCategories": {
+      "label": "Store Categories",
+      "description": "Manage merchant store classification."
+    },
+    "offers": {
+      "label": "Offers",
+      "description": "Review approval, publish, and archival states."
+    },
+    "banners": {
+      "label": "Banners",
+      "description": "Manage and approve store promotional banners."
+    },
+    "products": {
+      "label": "Products",
+      "description": "Create, update, and inspect live catalog products."
+    },
+    "productRevisions": {
+      "label": "Product Revisions",
+      "description": "Review seller-submitted product changes awaiting approval."
+    },
+    "coupons": {
+      "label": "Coupons",
+      "description": "Inspect and patch coupon-level configuration."
+    },
+
+    "stores": {
+      "label": "Stores",
+      "description": "Approve, suspend, and bill merchants."
+    },
+    "storeVerifications": {
+      "label": "Store Verifications",
+      "description": "Process merchant verification reviews."
+    },
+    "redemptions": {
+      "label": "Redemptions",
+      "description": "Investigate redemption activity and fraud flags."
+    },
+    "inventory": {
+      "label": "Inventory",
+      "description": "Review inventory transaction movements."
+    },
+    "payments": {
+      "label": "Payments",
+      "description": "Monitor payment activity and anomalies."
+    },
+    "billingProfiles": {
+      "label": "Billing Profiles",
+      "description": "Reference store billing profile data."
+    },
+
+    "commissions": {
+      "label": "Commissions",
+      "description": "Track payout status and invoicing workflow."
+    },
+    "subscriptions": {
+      "label": "Subscriptions",
+      "description": "Manage merchant subscription lifecycle state."
+    },
+    "subscriptionPlans": {
+      "label": "Subscription Plans",
+      "description": "Maintain plan catalog and pricing definitions."
+    },
+    "contactCustomer": {
+      "label": "Contact / Customer",
+      "description": "Handle customer support tickets."
+    },
+    "contactSeller": {
+      "label": "Contact / Seller",
+      "description": "Handle seller support tickets."
+    },
+
+    "notificationsBroadcast": {
+      "label": "Notifications / Broadcast",
+      "description": "Send broadcast notifications across the platform."
+    },
+    "chatbotSessions": {
+      "label": "Chatbot Sessions",
+      "description": "Inspect support chatbot conversations."
+    }
+  },
+  "adminTravelBanners": {
+    "title": "Travel Banners",
+    "description": "Manage banners tailored for travel items.",
+    "list": {
+      "title": "Travel Banners",
+      "description": "A comprehensive list of travel promotional banners.",
+      "eyebrow": "Catalog",
+      "rows": "Banners listed",
+      "rowsHint": "Total active and historical",
+      "emptyState": "No travel banners found.",
+      "emptyStateDesc": "You can create a new travel banner by selecting a product.",
+      "errorState": "Failed to load travel banners.",
+      "searchPlaceholder": "Search by CTA...",
+      "create": "Create Banner"
+    },
+    "form": {
+      "product": "Selected Product",
+      "selectProduct": "Select a Product",
+      "changeProduct": "Change Product",
+      "image": "Banner Image (600x400)",
+      "ctaText": "Call to Action Text",
+      "ctaTextPlaceholder": "e.g., Book Now",
+      "savePercent": "Save Percent",
+      "savePercentPlaceholder": "e.g., 20% OFF",
+      "priority": "Display Priority",
+      "priorityPlaceholder": "0",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "isActive": "Active Status",
+      "submit": "Save Banner",
+      "submitting": "Saving..."
+    },
+    "details": {
+      "title": "Banner Details",
+      "description": "View and manage properties of this travel banner.",
+      "eyebrow": "Travel Banner",
+      "edit": "Edit Details",
+      "delete": "Delete Banner",
+      "productInfo": "Linked Product Information"
+    },
+    "table": {
+      "columns": {
+        "banner": "Banner",
+        "product": "Product",
+        "status": "Status",
+        "dates": "Duration"
+      },
+      "actions": {
+        "view": "View",
+        "delete": "Delete"
+      }
+    },
+    "filters": {
+      "search": "Search",
+      "status": "Status",
+      "statusOptions": {
+        "all": "All",
+        "active": "Active",
+        "inactive": "Inactive"
+      }
+    },
+    "modal": {
+      "title": "Select Product",
+      "description": "Choose a travel product to link to the new banner.",
+      "columns": {
+        "product": "Product",
+        "price": "Price",
+        "rating": "Rating"
+      },
+      "actions": {
+        "select": "Select"
+      }
+    }
   }
 }

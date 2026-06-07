@@ -12,9 +12,11 @@ import { getGlobalDictionary } from "@/messages/get-dictionary";
 export function Topbar({
   lang,
   onOpenSidebar,
+  onOpenSearch,
 }: {
   lang: string;
   onOpenSidebar: () => void;
+  onOpenSearch: () => void;
 }) {
   const dict = getGlobalDictionary(lang);
 
@@ -51,8 +53,29 @@ export function Topbar({
             </h1>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <LanguageSwitcher currentLang={lang} />
+          <button
+            type="button"
+            onClick={onOpenSearch}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:bg-slate-50"
+            aria-label="Open global search"
+            title="Search (Ctrl+K)"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="6" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+          </button>
           <NotificationBell lang={lang} />
           <Link
             href={createAdminHref(lang, "dashboard")}
@@ -61,32 +84,6 @@ export function Topbar({
             {dict.nav.dashboard}
           </Link>
           <LogoutButton className="rounded-2xl" dict={dict.nav} />
-        </div>
-      </div>
-      <div className="mt-4 flex flex-wrap items-center gap-3">
-        <div className="flex min-w-[16rem] flex-1 items-center gap-3 rounded-[22px] border border-slate-200 bg-white px-4 py-3 shadow-sm">
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            className="h-4 w-4 text-slate-400"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="11" cy="11" r="6" />
-            <path d="m20 20-3.5-3.5" />
-          </svg>
-          <input
-            aria-label={dict.admin.search}
-            className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
-            placeholder={dict.admin.search}
-            type="search"
-          />
-        </div>
-        <div className="rounded-[22px] border border-slate-200 bg-white px-4 py-3 text-sm text-slate-500 shadow-sm">
-          {dict.admin.quickAccess}
         </div>
       </div>
     </header>

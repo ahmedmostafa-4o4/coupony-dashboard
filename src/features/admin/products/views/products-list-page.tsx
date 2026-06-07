@@ -14,6 +14,7 @@ import {
 } from "@/features/admin/shared";
 
 import { ProductsFilters } from "../components/products-filters";
+import { ImportProductsDialog } from "../components/import-products-dialog";
 import { ProductsTable } from "../components/products-table";
 import { useProducts } from "../hooks/use-products";
 import type { ProductsListFilters } from "../types/product.types";
@@ -39,6 +40,7 @@ export function ProductsListPage({ lang }: { lang: string }) {
       <AdminPageHeader
         actions={
           <>
+            <ImportProductsDialog dict={dict.list.import} />
             <Link
               className="inline-flex items-center rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
               href={`${createAdminHref(lang, "products")}/create`}

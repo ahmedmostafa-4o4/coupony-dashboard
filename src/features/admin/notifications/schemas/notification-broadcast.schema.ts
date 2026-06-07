@@ -1,23 +1,13 @@
 import type { AdminFormSchema } from "@/features/admin/shared/types/admin-form.types";
-import {
-  parseJsonObject,
-  splitList,
-  trimOptional,
-} from "@/features/admin/shared/utils/admin-form-schema";
 
 import type { BroadcastNotificationRequest } from "../types/notification-broadcast.types";
 
 export interface NotificationBroadcastFormValues {
-  channel: string;
-  dataJson: string;
-  message: string;
-  referenceId: string;
-  referenceType: string;
-  roleNames: string;
-  storeIds: string;
   title: string;
-  type: string;
-  userIds: string;
+  message: string;
+  channels: string[];
+  targetRoles: string[];
+  targetUserIds: string[];
 }
 
 export const notificationBroadcastFormSchema: AdminFormSchema<
@@ -25,38 +15,26 @@ export const notificationBroadcastFormSchema: AdminFormSchema<
   BroadcastNotificationRequest
 > = {
   defaultValues: {
-    channel: "push",
-    dataJson: "",
-    message: "",
-    referenceId: "",
-    referenceType: "",
-    roleNames: "",
-    storeIds: "",
     title: "",
-    type: "admin_broadcast",
-    userIds: "",
+    message: "",
+    channels: [],
+    targetRoles: [],
+    targetUserIds: [],
   },
   transform(values) {
     return {
-      channel: values.channel as BroadcastNotificationRequest["channel"],
-      data: parseJsonObject(values.dataJson),
-      message: values.message.trim(),
-      recipient_filter: {
-        role: splitList(values.roleNames),
-        store_ids: splitList(values.storeIds),
-        user_ids: splitList(values.userIds),
-      },
-      reference_id: trimOptional(values.referenceId),
-      reference_type: trimOptional(values.referenceType),
       title: values.title.trim(),
-      type: values.type.trim(),
+      message: values.message.trim(),
+      channels: values.channels,
+      target_roles: values.targetRoles,
+      target_user_ids: values.targetUserIds,
     };
   },
   validate(values) {
     return {
-      message: values.message.trim() ? undefined : "Message is required.",
       title: values.title.trim() ? undefined : "Title is required.",
-      type: values.type.trim() ? undefined : "Type is required.",
+      message: values.message.trim() ? undefined : "Message is required.",
+      channels: values.channels.length > 0 ? undefined : "At least one channel is required.",
     };
   },
 };

@@ -37,6 +37,16 @@
       "notes": "الملاحظات",
       "notesPlaceholder": "ملاحظة موافقة اختيارية لسجل المراجعة.",
       "notesListPlaceholder": "ملاحظة موافقة اختيارية للبائع أو لسجل المراجعة."
+    },
+    "import": {
+      "title": "استيراد المنتجات",
+      "description": "قم برفع ملف ZIP يحتوي على data.xlsx ومجلد صور اختياري.",
+      "storeLabel": "اختر المتجر",
+      "uploadBtn": "رفع واستيراد",
+      "downloadTemplate": "تحميل القالب",
+      "successMessage": "تمت إضافة الاستيراد إلى قائمة الانتظار.",
+      "fileLabel": "ملف ZIP",
+      "uploading": "جاري الرفع..."
     }
   },
   "revisionsList": {

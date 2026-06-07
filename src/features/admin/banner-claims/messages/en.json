@@ -1,0 +1,70 @@
+{
+  "title": "Banner Claims",
+  "description": "Manage and cancel banner claims.",
+  "list": {
+    "columns": {
+      "id": "Claim ID",
+      "user": "User",
+      "store": "Store",
+      "status": "Status",
+      "dates": "Dates",
+      "actions": "Actions"
+    },
+    "emptyState": "No banner claims found.",
+    "emptyStateDesc": "There are no banner claims matching your current filters.",
+    "errorState": "Error loading banner claims. Please try again."
+  },
+  "status": {
+    "active": "Active",
+    "redeemed": "Redeemed",
+    "cancelled": "Cancelled",
+    "expired": "Expired"
+  },
+  "stats": {
+    "total": "Total Claims",
+    "active": "Active",
+    "cancelled": "Cancelled"
+  },
+  "filters": {
+    "status": "Status",
+    "statusOptions": {
+      "all": "All",
+      "active": "Active",
+      "redeemed": "Redeemed",
+      "cancelled": "Cancelled",
+      "expired": "Expired"
+    },
+    "userId": "User ID",
+    "storeId": "Store ID",
+    "dateRange": "Date Range",
+    "search": "Search"
+  },
+  "details": {
+    "title": "Banner Claim Details",
+    "description": "Review claim information and status.",
+    "eyebrow": "Summary",
+    "userProfile": "User Profile",
+    "storeInfo": "Store Info",
+    "bannerInfo": "Banner Info",
+    "claimToken": "Claim Token",
+    "qrToken": "QR Token",
+    "expiresAt": "Expires At",
+    "redeemedAt": "Redeemed At",
+    "createdAt": "Claimed At",
+    "cancellationReason": "Cancellation Reason",
+    "cancelBtn": "Cancel Claim"
+  },
+  "actions": {
+    "cancel": {
+      "title": "Cancel Banner Claim",
+      "description": "Please provide a reason for cancelling this claim.",
+      "fields": {
+        "reason": {
+          "label": "Cancellation Reason",
+          "placeholder": "e.g., Duplicate claim detected..."
+        }
+      },
+      "success": "Banner claim cancelled successfully."
+    }
+  }
+}

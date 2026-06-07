@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { AdminPageHeader, AdminSection, AdminStatCard, AdminConfirmDialog, createAdminDetailHref, AdminPagination } from "@/features/admin/shared";
 import { StoresFilters } from "../components/stores-filters";
+import { ImportStoresDialog } from "../components/import-stores-dialog";
 import { StoresTable } from "../components/stores-table";
 import { useStoreActions } from "../hooks/use-store-actions";
 import { useStoresList } from "../hooks/use-stores-list";
@@ -28,6 +29,7 @@ export function StoresListPage({ lang }: { lang: string }) {
       <AdminPageHeader
         actions={
           <>
+            <ImportStoresDialog dict={dict.list.import} />
             <Button variant="secondary" onClick={() => void listState.reload()}>
               {dict.list.reload}
             </Button>

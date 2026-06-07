@@ -6,6 +6,7 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { Topbar } from "@/components/layout/topbar";
 import { cn } from "@/lib/utils/cn";
 import { AdminNotificationProvider } from "@/features/admin/notifications";
+import { GlobalSearchMenu } from "@/features/admin/shared/components/global-search-menu";
 
 export function AppShell({
   children,
@@ -17,6 +18,7 @@ export function AppShell({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDesktopSidebarCollapsed, setIsDesktopSidebarCollapsed] =
     useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = isSidebarOpen ? "hidden" : "";
@@ -86,7 +88,7 @@ export function AppShell({
             />
           </div>
           <div className="flex min-h-screen min-w-0 flex-1 flex-col">
-            <Topbar lang={lang} onOpenSidebar={() => setIsSidebarOpen(true)} />
+            <Topbar lang={lang} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSearch={() => setIsSearchOpen(true)} />
             <main className="flex-1 xl:p-5 p-3">
               <div className="min-h-full rounded-[32px] border border-slate-200 bg-[#fcfcfb] p-4 shadow-[0_24px_60px_rgba(15,23,42,0.05)] xl:p-6">
                 {children}
@@ -94,6 +96,7 @@ export function AppShell({
             </main>
           </div>
         </div>
+        <GlobalSearchMenu lang={lang} open={isSearchOpen} onOpenChange={setIsSearchOpen} />
       </div>
     </AdminNotificationProvider>
   );

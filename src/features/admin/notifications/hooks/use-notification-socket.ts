@@ -72,9 +72,7 @@ export function useNotificationSocket({
 
         echoInstance = echo;
 
-        echo
-          .private("admin.notifications")
-          .notification((rawPayload: any) => {
+        const handleNotification = (rawPayload: any) => {
             // Laravel's BroadcastNotificationCreated wraps the toBroadcast array inside 'notification' or raw array
             const dataObj = rawPayload.notification || rawPayload;
             const now = new Date().toISOString();
@@ -102,7 +100,12 @@ export function useNotificationSocket({
             };
 
             onNotificationRef.current(normalized);
-          });
+        };
+
+        echo
+          .private("admin.notifications")
+          .notification(handleNotification)
+          .listen(".notification.sent", handleNotification);
       } catch (err) {
         console.warn("[useNotificationSocket] Failed to connect:", err);
       }

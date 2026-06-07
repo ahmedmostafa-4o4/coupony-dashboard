@@ -104,16 +104,7 @@ export const apiEndpoints = {
       profiles: {
         list: "/admin/billing/profiles",
       },
-      invoices: {
-        list: "/admin/invoices",
-        detail: (invoiceId: string) => `/admin/invoices/${segment(invoiceId)}`,
-        issue: (invoiceId: string) =>
-          `/admin/invoices/${segment(invoiceId)}/issue`,
-        markPaid: (invoiceId: string) =>
-          `/admin/invoices/${segment(invoiceId)}/mark-paid`,
-        void: (invoiceId: string) =>
-          `/admin/invoices/${segment(invoiceId)}/void`,
-      },
+
       commissions: {
         list: "/admin/commissions",
         detail: (commissionId: string) =>
@@ -154,9 +145,7 @@ export const apiEndpoints = {
         list: "/admin/inventory/transactions",
       },
     },
-    recommendations: {
-      list: "/admin/recommendations",
-    },
+
     contact: {
       customer: {
         list: "/admin/contact/customer",
@@ -171,12 +160,11 @@ export const apiEndpoints = {
     },
     notifications: {
       broadcast: "/admin/notifications/broadcast",
+      broadcasts: "/admin/notifications/broadcasts",
       list: "/admin/notifications",
       markAsRead: "/admin/notifications/mark-as-read",
     },
-    notifyMe: {
-      list: "/admin/notify-me",
-    },
+
     chatbot: {
       sessions: {
         list: "/admin/chatbot/sessions",

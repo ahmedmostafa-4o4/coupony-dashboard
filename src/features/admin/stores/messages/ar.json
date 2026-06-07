@@ -10,6 +10,15 @@
       "request": "خطأ في الطلب",
       "action": "خطأ في الإجراء",
       "notLoaded": "لم يتم تحميل المتجر"
+    },
+    "import": {
+      "title": "استيراد المتاجر",
+      "description": "قم برفع ملف ZIP يحتوي على data.xlsx ومجلد صور اختياري.",
+      "uploadBtn": "رفع واستيراد",
+      "downloadTemplate": "تحميل القالب",
+      "successMessage": "تمت إضافة الاستيراد إلى قائمة الانتظار.",
+      "fileLabel": "ملف ZIP",
+      "uploading": "جاري الرفع..."
     }
   },
   "filters": {

@@ -66,6 +66,31 @@ async function parseApiResponse<T>(response: Response) {
   return (await response.text()) as T;
 }
 
+async function requestBlob(path: string, options: ApiRequestOptions = {}) {
+  const { auth = "include", query, headers, _retry = false, body, ...rest } = options;
+  const accessToken = auth === "include" ? getAccessToken() : null;
+  const resolvedHeaders = {
+    Accept: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/octet-stream, */*;q=0.8",
+    "Accept-Language": typeof document !== "undefined" ? document.documentElement.lang || "en" : "en",
+    ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+    ...headers,
+  };
+
+  const response = await fetch(resolveUrl(path, query), {
+    ...rest,
+    headers: resolvedHeaders,
+  });
+
+  if (!response.ok) {
+    throw new ApiError({
+      message: response.statusText || "Failed to fetch file",
+      status: response.status,
+    });
+  }
+
+  return response.blob();
+}
+
 function isFormDataBody(body: unknown): body is FormData {
   return typeof FormData !== "undefined" && body instanceof FormData;
 }
@@ -204,6 +229,12 @@ export const apiClient = {
     return request<T>(path, {
       ...options,
       method: "DELETE",
+    });
+  },
+  getBlob(path: string, options?: ApiRequestOptions) {
+    return requestBlob(path, {
+      ...options,
+      method: "GET",
     });
   },
 };

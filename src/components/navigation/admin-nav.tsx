@@ -190,12 +190,7 @@ function ItemIcon({ itemKey }: { itemKey: string }) {
           <path d="M12 7v10" />
         </Glyph>
       );
-    case "recommendations":
-      return (
-        <Glyph>
-          <path d="m12 5 2.2 4.5 4.8.7-3.5 3.4.8 4.9-4.3-2.3-4.3 2.3.8-4.9-3.5-3.4 4.8-.7L12 5Z" />
-        </Glyph>
-      );
+
     case "stores":
       return (
         <Glyph>
@@ -242,14 +237,7 @@ function ItemIcon({ itemKey }: { itemKey: string }) {
           <path d="M5 10h14" />
         </Glyph>
       );
-    case "invoices":
-      return (
-        <Glyph>
-          <path d="M8 4h8v16l-2-1.5L12 20l-2-1.5L8 20V4Z" />
-          <path d="M10 9h4" />
-          <path d="M10 12h4" />
-        </Glyph>
-      );
+
     case "commissions":
       return (
         <Glyph>
@@ -280,14 +268,7 @@ function ItemIcon({ itemKey }: { itemKey: string }) {
           <path d="M5 7.5A2.5 2.5 0 0 1 7.5 5h9A2.5 2.5 0 0 1 19 7.5v6A2.5 2.5 0 0 1 16.5 16H11l-4 3v-3H7.5A2.5 2.5 0 0 1 5 13.5v-6Z" />
         </Glyph>
       );
-    case "notifyMe":
-      return (
-        <Glyph>
-          <path d="M12 5v4" />
-          <path d="M17 10a5 5 0 1 0-10 0c0 2.4-1 3.4-2 4.5h14c-1-1.1-2-2.1-2-4.5Z" />
-          <path d="M10 18a2 2 0 0 0 4 0" />
-        </Glyph>
-      );
+
     case "notificationCenter":
       return (
         <Glyph>

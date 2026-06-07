@@ -37,6 +37,16 @@
       "notes": "Notes",
       "notesPlaceholder": "Optional approval note for the audit trail.",
       "notesListPlaceholder": "Optional approval note for the seller or audit trail."
+    },
+    "import": {
+      "title": "Import Products",
+      "description": "Upload a ZIP file containing data.xlsx and an optional images/ folder.",
+      "storeLabel": "Select Store",
+      "uploadBtn": "Upload & Import",
+      "downloadTemplate": "Download Template",
+      "successMessage": "Import queued for processing.",
+      "fileLabel": "ZIP Archive",
+      "uploading": "Uploading..."
     }
   },
   "revisionsList": {

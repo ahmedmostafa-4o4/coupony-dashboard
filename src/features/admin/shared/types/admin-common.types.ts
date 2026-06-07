@@ -24,9 +24,10 @@ export interface AdminFilterField {
   key: string;
   keySecondary?: string;
   label: string;
-  type?: "search" | "text" | "select" | "daterange";
+  type?: "search" | "text" | "select" | "daterange" | "custom";
   placeholder?: string;
   options?: AdminFilterOption[];
+  render?: (value: any, onChange: (val: any) => void) => ReactNode;
 }
 
 export type AdminFilterValue = string | number | boolean | undefined;

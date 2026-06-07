@@ -1,0 +1,74 @@
+{
+  "title": "مطالبات اللافتات",
+  "description": "إدارة وإلغاء مطالبات اللافتات.",
+  "list": {
+    "columns": {
+      "id": "رقم المطالبة",
+      "user": "المستخدم",
+      "store": "المتجر",
+      "status": "الحالة",
+      "dates": "التواريخ",
+      "actions": "إجراءات"
+    },
+    "emptyState": "لا توجد مطالبات لافتات.",
+    "emptyStateDesc": "لا توجد مطالبات لافتات تطابق عوامل التصفية الحالية.",
+    "errorState": "حدث خطأ أثناء تحميل مطالبات اللافتات. يرجى المحاولة مرة أخرى."
+  },
+  "status": {
+    "active": "نشط",
+    "redeemed": "تم الاستخدام",
+    "cancelled": "ملغى",
+    "expired": "منتهي الصلاحية"
+  },
+  "stats": {
+    "total": "إجمالي المطالبات",
+    "active": "النشطة",
+    "cancelled": "الملغاة"
+  },
+  "filters": {
+    "status": "الحالة",
+    "statusPlaceholder": "جميع الحالات",
+    "statusOptions": {
+      "all": "الكل",
+      "active": "نشط",
+      "redeemed": "مستخدم",
+      "cancelled": "ملغى",
+      "expired": "منتهي"
+    },
+    "userId": "رقم المستخدم",
+    "userIdPlaceholder": "البحث برقم المستخدم",
+    "storeId": "رقم المتجر",
+    "storeIdPlaceholder": "البحث برقم المتجر",
+    "dateRange": "نطاق التاريخ",
+    "search": "بحث"
+  },
+
+  "details": {
+    "title": "تفاصيل مطالبة اللافتة",
+    "description": "مراجعة معلومات المطالبة وحالتها.",
+    "eyebrow": "ملخص",
+    "userProfile": "ملف المستخدم",
+    "storeInfo": "معلومات المتجر",
+    "bannerInfo": "معلومات اللافتة",
+    "claimToken": "رمز المطالبة",
+    "qrToken": "رمز الاستجابة السريعة (QR)",
+    "expiresAt": "ينتهي في",
+    "redeemedAt": "تاريخ الاستخدام",
+    "createdAt": "تاريخ المطالبة",
+    "cancellationReason": "سبب الإلغاء",
+    "cancelBtn": "إلغاء المطالبة"
+  },
+  "actions": {
+    "cancel": {
+      "title": "إلغاء مطالبة اللافتة",
+      "description": "يرجى تقديم سبب لإلغاء هذه المطالبة.",
+      "fields": {
+        "reason": {
+          "label": "سبب الإلغاء",
+          "placeholder": "مثال: تم اكتشاف مطالبة مكررة..."
+        }
+      },
+      "success": "تم إلغاء مطالبة اللافتة بنجاح."
+    }
+  }
+}

@@ -10,6 +10,15 @@
       "request": "Request error",
       "action": "Action error",
       "notLoaded": "Store not loaded"
+    },
+    "import": {
+      "title": "Import Stores",
+      "description": "Upload a ZIP file containing data.xlsx and an optional images/ folder.",
+      "uploadBtn": "Upload & Import",
+      "downloadTemplate": "Download Template",
+      "successMessage": "Import queued for processing.",
+      "fileLabel": "ZIP Archive",
+      "uploading": "Uploading..."
     }
   },
   "filters": {

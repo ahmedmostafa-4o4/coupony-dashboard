@@ -8,10 +8,12 @@ import { StoreVerificationsTable } from "../components/store-verifications-table
 import { useStoreVerificationActions } from "../hooks/use-store-verification-actions";
 import { useStoreVerificationsList } from "../hooks/use-store-verifications-list";
 import type { StoreVerificationsListFilters } from "../types/store-verification.types";
+import { getStoreVerificationsDictionary } from "../utils/get-dictionary";
 
 const defaultFilters: StoreVerificationsListFilters = { search: "", status: "all" };
 
 export function StoreVerificationsListPage({ lang }: { lang: string }) {
+  const dict = getStoreVerificationsDictionary(lang);
   const [filters, setFilters] = useState<StoreVerificationsListFilters>(defaultFilters);
   
   
@@ -25,18 +27,18 @@ export function StoreVerificationsListPage({ lang }: { lang: string }) {
         actions={
           <>
             <Button variant="secondary" onClick={() => void listState.reload()}>
-              Reload
+              {dict.list.reload}
             </Button>
           </>
         }
-        description="Process merchant verification submissions."
-        eyebrow="Admin"
-        title="Store Verifications"
+        description={dict.list.description}
+        eyebrow={dict.list.eyebrow}
+        title={dict.list.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
         <AdminStatCard
-          hint="Store Verifications currently loaded from the API response."
-          label="Rows"
+          hint={dict.list.hint}
+          label={dict.list.rows}
           value={listState.total}
         />
       </div>
@@ -44,15 +46,17 @@ export function StoreVerificationsListPage({ lang }: { lang: string }) {
         onChange={setFilters}
         onReset={() => setFilters(defaultFilters)}
         values={filters}
+        dict={dict}
       />
       {listState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.list.errorState}>
           <p className="text-sm text-rose-600">{listState.error}</p>
         </AdminSection>
       ) : null}
 
       <StoreVerificationsTable
         items={listState.items}
+        dict={dict}
         renderActions={(item) => (
           <div className="flex flex-wrap justify-end gap-2">
             <Link
@@ -63,19 +67,19 @@ export function StoreVerificationsListPage({ lang }: { lang: string }) {
                 String(item.id ?? ""),
               )}
             >
-              View
+              {dict.list.columns.view}
             </Link>
             <AdminConfirmDialog
-              confirmLabel="Approve"
-              description="This will call the mapped admin endpoint for the selected store verification."
+              confirmLabel={dict.actions.approve.title}
+              description={dict.actions.approve.description}
               isPending={actions.approveAction.isSubmitting}
               onConfirm={async () => {
                 await actions.approveAction.submit(
                   String(item.id ?? ""),
                 );
               }}
-              title="Approve Store Verification"
-              triggerLabel="Approve"
+              title={dict.actions.approve.title}
+              triggerLabel={dict.details.approveBtn}
               variant="primary"
             />
           </div>

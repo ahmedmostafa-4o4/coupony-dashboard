@@ -1,0 +1,71 @@
+{
+  "title": "Offer Claims",
+  "description": "Manage and cancel offer claims.",
+  "list": {
+    "columns": {
+      "id": "Claim ID",
+      "user": "User",
+      "store": "Store",
+      "status": "Status",
+      "dates": "Dates",
+      "actions": "Actions"
+    },
+    "emptyState": "No offer claims found.",
+    "emptyStateDesc": "There are no offer claims matching your current filters.",
+    "errorState": "Error loading offer claims. Please try again."
+  },
+  "status": {
+    "active": "Active",
+    "redeemed": "Redeemed",
+    "cancelled": "Cancelled",
+    "expired": "Expired"
+  },
+  "stats": {
+    "total": "Total Claims",
+    "active": "Active",
+    "cancelled": "Cancelled"
+  },
+  "filters": {
+    "status": "Status",
+    "statusOptions": {
+      "all": "All",
+      "active": "Active",
+      "redeemed": "Redeemed",
+      "cancelled": "Cancelled",
+      "expired": "Expired"
+    },
+    "userId": "User ID",
+    "storeId": "Store ID",
+    "dateRange": "Date Range",
+    "search": "Search"
+  },
+  "details": {
+    "title": "Show",
+    "description": "Review claim information and status.",
+    "eyebrow": "Summary",
+    "userProfile": "User Profile",
+    "storeInfo": "Store Info",
+    "productInfo": "Product Info",
+    "offerInfo": "Offer Info",
+    "claimToken": "Claim Token",
+    "qrToken": "QR Token",
+    "expiresAt": "Expires At",
+    "redeemedAt": "Redeemed At",
+    "createdAt": "Claimed At",
+    "cancellationReason": "Cancellation Reason",
+    "cancelBtn": "Cancel"
+  },
+  "actions": {
+    "cancel": {
+      "title": "Cancel Offer Claim",
+      "description": "Please provide a reason for cancelling this claim.",
+      "fields": {
+        "reason": {
+          "label": "Cancellation Reason",
+          "placeholder": "e.g., Suspicious activity detected..."
+        }
+      },
+      "success": "Offer claim cancelled successfully."
+    }
+  }
+}

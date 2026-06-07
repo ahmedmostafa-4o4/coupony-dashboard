@@ -10,22 +10,22 @@ export const adminRouteSegments = {
   storeVerifications: "/store-verifications",
   products: "/products",
   productRevisions: "/product-revisions",
-  offers: "/offers",
-  coupons: "/coupons",
+  offerClaims: "/offer-claims",
+  banners: "/banners",
+  bannerClaims: "/banner-claims",
+  travelBanners: "/travel-banners",
   redemptions: "/redemptions",
   billingProfiles: "/billing/billing-profiles",
-  invoices: "/billing/invoices",
-  commissions: "/billing/commissions",
+
   subscriptions: "/billing/subscriptions",
   subscriptionPlans: "/billing/subscription-plans",
   payments: "/billing/payments",
   inventory: "/billing/inventory",
-  recommendations: "/recommendations",
   contactCustomer: "/contact/customer",
   contactSeller: "/contact/seller",
   notificationsBroadcast: "/notifications/broadcast",
   notificationCenter: "/notifications",
-  notifyMe: "/notify-me",
+
   chatbotSessions: "/chatbot/sessions",
 } as const;
 

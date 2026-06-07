@@ -11,7 +11,7 @@ export async function getStoreVerifications(filters: StoreVerificationsListFilte
   const response = await apiClient.get<AdminStoreVerificationsListResponseDto>(
     apiEndpoints.admin.storeVerifications.list,
     {
-      query: buildAdminQuery(filters),
+      query: buildAdminQuery(filters, "search"),
     }
   );
 

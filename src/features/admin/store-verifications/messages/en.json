@@ -1,0 +1,65 @@
+{
+  "list": {
+    "title": "Store Verifications",
+    "description": "Process merchant verification submissions.",
+    "eyebrow": "Admin",
+    "reload": "Reload",
+    "rows": "Rows",
+    "hint": "Store Verifications currently loaded from the API response.",
+    "emptyState": "No verifications found",
+    "errorState": "Request error",
+    "columns": {
+      "store": "Store",
+      "documentType": "Document Type",
+      "status": "Status",
+      "submittedAt": "Submitted At",
+      "actions": "Actions",
+      "view": "View"
+    }
+  },
+  "details": {
+    "title": "Verification Details",
+    "eyebrow": "Admin details",
+    "description": "Inspect verification payloads and moderation actions.",
+    "notFound": "Store Verification not found",
+    "notFoundDesc": "The backend did not return a store verification for this route.",
+    "documentViewer": "Document Viewer",
+    "downloadDocument": "Download Document",
+    "storeContext": "Store Details",
+    "storeName": "Store Name",
+    "storeId": "Store ID",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "tier": "Subscription Tier",
+    "isVerified": "Verified",
+    "documentType": "Document Type",
+    "status": "Current Status",
+    "rejectionReason": "Rejection Reason",
+    "submittedAt": "Submitted At",
+    "actions": "Actions",
+    "approveBtn": "Approve",
+    "rejectBtn": "Reject"
+  },
+  "actions": {
+    "approve": {
+      "title": "Approve Store Verification",
+      "description": "Are you sure you want to approve this store verification document? This may automatically verify the store if all requirements are met."
+    },
+    "reject": {
+      "title": "Reject Store Verification",
+      "description": "Provide the rejection reason required by the verification endpoint. This will be visible to the merchant.",
+      "fields": {
+        "rejectionReason": {
+          "label": "Rejection reason",
+          "placeholder": "Explain why this verification was rejected. (e.g. Blurry image)"
+        }
+      }
+    }
+  },
+  "status": {
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "unknown": "Unknown"
+  }
+}

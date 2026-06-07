@@ -16,6 +16,7 @@ export type StoreVerification = Camelized<StoreVerificationDto> & {
 
 export type StoreVerificationsListFilters = Camelized<AdminStoreVerificationsQueryDto> & {
   search?: string;
+  store_id?: string;
 };
 export type StoreVerificationsListResult = AdminListResult<StoreVerification>;
 export type StoreVerificationDetailsResult = AdminItemResult<StoreVerification>;
