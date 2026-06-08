@@ -14,13 +14,10 @@ export const adminRouteSegments = {
   banners: "/banners",
   bannerClaims: "/banner-claims",
   travelBanners: "/travel-banners",
-  redemptions: "/redemptions",
-  billingProfiles: "/billing/billing-profiles",
 
   subscriptions: "/billing/subscriptions",
   subscriptionPlans: "/billing/subscription-plans",
   payments: "/billing/payments",
-  inventory: "/billing/inventory",
   contactCustomer: "/contact/customer",
   contactSeller: "/contact/seller",
   notificationsBroadcast: "/notifications/broadcast",

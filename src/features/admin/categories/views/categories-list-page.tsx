@@ -2,7 +2,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AdminPageHeader, AdminSection, AdminStatCard, AdminConfirmDialog, createAdminDetailHref, AdminPagination } from "@/features/admin/shared";
+import { AdminPageHeader, AdminSection, KpiCard, AdminConfirmDialog, createAdminDetailHref, AdminPagination } from "@/features/admin/shared";
+import { FolderIcon } from "lucide-react";
 import { CategoriesFilters } from "../components/categories-filters";
 import { CategoryForm } from "../components/category-form";
 import { CategoriesTable } from "../components/categories-table";
@@ -44,10 +45,11 @@ export function CategoriesListPage({ lang }: { lang: string }) {
         title={dict.list.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
-        <AdminStatCard
-          hint={dict.list.stats.totalHint}
-          label={dict.list.stats.total}
+        <KpiCard
+          description={dict.list.stats.totalHint}
+          title={dict.list.stats.total}
           value={listState.total}
+          icon={<FolderIcon />}
         />
       </div>
       <CategoriesFilters

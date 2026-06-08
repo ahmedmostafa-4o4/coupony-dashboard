@@ -6,11 +6,12 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import {
   AdminPageHeader,
   AdminSection,
-  AdminStatCard,
+  KpiCard,
   AdminConfirmDialog,
   createAdminDetailHref,
   AdminPagination,
 } from "@/features/admin/shared";
+import { UsersIcon, UserCheckIcon, UserXIcon, UserMinusIcon } from "lucide-react";
 import { UsersFilters } from "../components/users-filters";
 import { UserForm } from "../components/user-form";
 import { UsersTable } from "../components/users-table";
@@ -63,25 +64,29 @@ export function UsersListPage({ lang }: { lang: string }) {
         title={dict.list.title}
       />
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <AdminStatCard
-          hint={dict.list.stats.totalHint}
-          label={dict.list.stats.total}
+        <KpiCard
+          description={dict.list.stats.totalHint}
+          title={dict.list.stats.total}
           value={statisticsState.item?.total ?? listState.total}
+          icon={<UsersIcon />}
         />
-        <AdminStatCard
-          hint={dict.list.stats.activeHint}
-          label={dict.list.stats.active}
+        <KpiCard
+          description={dict.list.stats.activeHint}
+          title={dict.list.stats.active}
           value={statisticsState.item?.active ?? "-"}
+          icon={<UserCheckIcon />}
         />
-        <AdminStatCard
-          hint={dict.list.stats.suspendedHint}
-          label={dict.list.stats.suspended}
+        <KpiCard
+          description={dict.list.stats.suspendedHint}
+          title={dict.list.stats.suspended}
           value={statisticsState.item?.suspended ?? "-"}
+          icon={<UserXIcon />}
         />
-        <AdminStatCard
-          hint={dict.list.stats.deletedHint}
-          label={dict.list.stats.deleted}
+        <KpiCard
+          description={dict.list.stats.deletedHint}
+          title={dict.list.stats.deleted}
           value={statisticsState.item?.deleted ?? "-"}
+          icon={<UserMinusIcon />}
         />
       </div>
       <UsersFilters

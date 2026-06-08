@@ -1,6 +1,7 @@
 "use client";
 
-import { AdminPageHeader, AdminStatCard } from "@/features/admin/shared";
+import { AdminPageHeader, KpiCard } from "@/features/admin/shared";
+import { TicketIcon, CheckCircleIcon, XCircleIcon } from "lucide-react";
 import { getBannerClaimsDictionary } from "../utils/get-dictionary";
 import { BannerClaimsTable } from "../components/banner-claims-table";
 import { BannerClaimsFilters } from "../components/banner-claims-filters";
@@ -24,17 +25,23 @@ export function BannerClaimsListPage({ lang }: { lang: string }) {
       />
 
       <div className="grid gap-4 md:grid-cols-3">
-        <AdminStatCard
-          label={dict.stats.total}
+        <KpiCard
+          title={dict.stats.total}
           value={total.toString()}
+          description=""
+          icon={<TicketIcon />}
         />
-        <AdminStatCard
-          label={dict.stats.active}
+        <KpiCard
+          title={dict.stats.active}
           value="-"
+          description=""
+          icon={<CheckCircleIcon />}
         />
-        <AdminStatCard
-          label={dict.stats.cancelled}
+        <KpiCard
+          title={dict.stats.cancelled}
           value="-"
+          description=""
+          icon={<XCircleIcon />}
         />
       </div>
 

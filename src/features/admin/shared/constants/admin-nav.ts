@@ -106,12 +106,6 @@ export const adminNavigation: AdminNavigationGroup[] = [
     title: "Operations",
     items: [
       {
-        key: "redemptions",
-        label: "Redemptions",
-        description: "Investigate redemption activity and fraud flags.",
-        href: (lang) => createAdminHref(lang, "redemptions"),
-      },
-      {
         key: "offerClaims",
         label: "Offer Claims",
         description: "Manage and audit customer offer claims.",
@@ -124,12 +118,6 @@ export const adminNavigation: AdminNavigationGroup[] = [
         href: (lang) => createAdminHref(lang, "bannerClaims"),
       },
       {
-        key: "inventory",
-        label: "Inventory",
-        description: "Review inventory transaction movements.",
-        href: (lang) => createAdminHref(lang, "inventory"),
-      },
-      {
         key: "payments",
         label: "Payments",
         description: "Monitor payment activity and anomalies.",
@@ -140,14 +128,6 @@ export const adminNavigation: AdminNavigationGroup[] = [
   {
     title: "Billing",
     items: [
-      {
-        key: "billingProfiles",
-        label: "Billing Profiles",
-        description: "Reference store billing profile data.",
-        href: (lang) => createAdminHref(lang, "billingProfiles"),
-      },
-
-
       {
         key: "subscriptions",
         label: "Subscriptions",

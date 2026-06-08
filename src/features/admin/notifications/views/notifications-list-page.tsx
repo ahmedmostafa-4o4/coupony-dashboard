@@ -6,9 +6,10 @@ import { useRouter } from "next/navigation";
 import {
   AdminPageHeader,
   AdminSection,
-  AdminStatCard,
+  KpiCard,
   AdminPagination,
 } from "@/features/admin/shared";
+import { BellIcon, BellRingIcon, CheckIcon } from "lucide-react";
 
 import { useAdminNotificationContext } from "../context/admin-notification-provider";
 import { NotificationItem } from "../components/notification-item";
@@ -63,17 +64,23 @@ export function NotificationsListPage({ lang }: { lang: string }) {
 
       {/* Stat cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <AdminStatCard
-          label="Total Notifications"
+        <KpiCard
+          title="Total Notifications"
           value={total}
+          description=""
+          icon={<BellIcon />}
         />
-        <AdminStatCard
-          label="Unread"
+        <KpiCard
+          title="Unread"
           value={unreadCount}
+          description=""
+          icon={<BellRingIcon />}
         />
-        <AdminStatCard
-          label="Read"
+        <KpiCard
+          title="Read"
           value={Math.max(0, total - unreadCount)}
+          description=""
+          icon={<CheckIcon />}
         />
       </div>
 

@@ -3,7 +3,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { AdminPageHeader, AdminSection, AdminStatCard, AdminConfirmDialog, createAdminDetailHref } from "@/features/admin/shared";
+import { AdminPageHeader, AdminSection, KpiCard, AdminConfirmDialog, createAdminDetailHref } from "@/features/admin/shared";
+import { ShieldIcon } from "lucide-react";
 import { RolesFilters } from "../components/roles-filters";
 import { RoleForm } from "../components/role-form";
 import { RolesTable } from "../components/roles-table";
@@ -44,10 +45,11 @@ export function RolesListPage({ lang }: { lang: string }) {
         title="Roles"
       />
       <div className="grid gap-4 md:grid-cols-3">
-        <AdminStatCard
-          hint="Roles currently loaded from the API response."
-          label="Rows"
+        <KpiCard
+          description="Roles currently loaded from the API response."
+          title="Rows"
           value={listState.total}
+          icon={<ShieldIcon />}
         />
       </div>
       <RolesFilters

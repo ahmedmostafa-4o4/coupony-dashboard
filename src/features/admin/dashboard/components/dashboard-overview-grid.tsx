@@ -1,5 +1,6 @@
 import { CardGrid } from "@/components/ui/card";
-import { AdminStatCard } from "@/features/admin/shared";
+import { KpiCard } from "@/features/admin/shared";
+import { DollarSignIcon, StoreIcon, UsersIcon, StarIcon } from "lucide-react";
 
 import type { DashboardOverview } from "../types/dashboard.types";
 import type { DashboardDictionary } from "../utils/get-dictionary";
@@ -19,23 +20,27 @@ export function DashboardOverviewGrid({
 
   return (
     <CardGrid>
-      <AdminStatCard
-        label={dict.totalSalesVolume}
+      <KpiCard
+        title={dict.totalSalesVolume}
         value={financial?.totalSalesVolume ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(financial.totalSalesVolume) : "$0.00"}
+        icon={<DollarSignIcon />}
       />
-      <AdminStatCard
-        label={dict.totalActiveStores}
+      <KpiCard
+        title={dict.totalActiveStores}
         value={growth?.totalStores || 0}
-        hint={financial?.premiumStores ? dict.premiumStores.replace("{{count}}", financial.premiumStores.toString()) : undefined}
+        description={financial?.premiumStores ? dict.premiumStores.replace("{{count}}", financial.premiumStores.toString()) : undefined}
+        icon={<StoreIcon />}
       />
-      <AdminStatCard
-        label={dict.totalUsers}
+      <KpiCard
+        title={dict.totalUsers}
         value={growth?.totalUsers || 0}
-        hint={growth?.newUsersThisMonth ? dict.newUsers.replace("{{count}}", growth.newUsersThisMonth.toString()) : undefined}
+        description={growth?.newUsersThisMonth ? dict.newUsers.replace("{{count}}", growth.newUsersThisMonth.toString()) : undefined}
+        icon={<UsersIcon />}
       />
-      <AdminStatCard
-        label={dict.averageStoreRating}
+      <KpiCard
+        title={dict.averageStoreRating}
         value={financial?.averageStoreRating ? `${financial.averageStoreRating} ⭐` : "0 ⭐"}
+        icon={<StarIcon />}
       />
     </CardGrid>
   );

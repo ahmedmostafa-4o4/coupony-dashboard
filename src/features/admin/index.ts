@@ -7,7 +7,6 @@ export * from "./dashboard";
 export * from "./notifications";
 export * from "./products";
 export * from "./permissions";
-export * from "./redemptions";
 export * from "./roles";
 export * from "./shared";
 export * from "./store-categories";

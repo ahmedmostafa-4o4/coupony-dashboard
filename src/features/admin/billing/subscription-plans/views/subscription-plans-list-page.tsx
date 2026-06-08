@@ -2,7 +2,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AdminPageHeader, AdminSection, AdminStatCard, AdminConfirmDialog, createAdminDetailHref } from "@/features/admin/shared";
+import { AdminPageHeader, AdminSection, KpiCard, AdminConfirmDialog, createAdminDetailHref } from "@/features/admin/shared";
+import { LayersIcon } from "lucide-react";
 import { SubscriptionPlansFilters } from "../components/subscription-plans-filters";
 import { SubscriptionPlanForm } from "../components/subscription-plan-form";
 import { SubscriptionPlansTable } from "../components/subscription-plans-table";
@@ -42,10 +43,11 @@ export function SubscriptionPlansListPage({ lang }: { lang: string }) {
         title="Subscription Plans"
       />
       <div className="grid gap-4 md:grid-cols-3">
-        <AdminStatCard
-          hint="Subscription Plans currently loaded from the API response."
-          label="Rows"
+        <KpiCard
+          description="Subscription Plans currently loaded from the API response."
+          title="Rows"
           value={listState.total}
+          icon={<LayersIcon />}
         />
       </div>
       <SubscriptionPlansFilters

@@ -7,10 +7,11 @@ import {
   AdminActionDialog,
   AdminPageHeader,
   AdminSection,
-  AdminStatCard,
+  KpiCard,
   createAdminDetailHref,
   type AdminFormField,
 } from "@/features/admin/shared";
+import { FileEditIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { ProductRevisionsTable } from "../components/product-revisions-table";
@@ -59,10 +60,11 @@ export function ProductRevisionsListPage({ lang }: { lang: string }) {
         title={dict.revisionsList.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
-        <AdminStatCard
-          hint={dict.revisionsList.stats.pendingHint}
-          label={dict.revisionsList.stats.pending}
+        <KpiCard
+          description={dict.revisionsList.stats.pendingHint}
+          title={dict.revisionsList.stats.pending}
           value={listState.total}
+          icon={<FileEditIcon />}
         />
       </div>
       {listState.error ? (

@@ -2,7 +2,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AdminPageHeader, AdminSection, AdminStatCard, createAdminDetailHref } from "@/features/admin/shared";
+import { AdminPageHeader, AdminSection, KpiCard, createAdminDetailHref } from "@/features/admin/shared";
+import { RepeatIcon } from "lucide-react";
 import { SubscriptionsFilters } from "../components/subscriptions-filters";
 import { SubscriptionsTable } from "../components/subscriptions-table";
 import { SubscriptionAnalyticsWidget } from "../components/subscription-analytics-widget";
@@ -35,10 +36,11 @@ export function SubscriptionsListPage({ lang }: { lang: string }) {
         title="Subscriptions"
       />
       <div className="grid gap-4 md:grid-cols-3">
-        <AdminStatCard
-          hint="Subscriptions currently loaded from the API response."
-          label="Rows"
+        <KpiCard
+          description="Subscriptions currently loaded from the API response."
+          title="Rows"
           value={listState.total}
+          icon={<RepeatIcon />}
         />
       </div>
 

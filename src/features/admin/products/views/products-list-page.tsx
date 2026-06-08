@@ -7,11 +7,12 @@ import { Button } from "@/components/ui/button";
 import {
   AdminPageHeader,
   AdminSection,
-  AdminStatCard,
+  KpiCard,
   createAdminDetailHref,
   createAdminHref,
   AdminPagination,
 } from "@/features/admin/shared";
+import { PackageIcon } from "lucide-react";
 
 import { ProductsFilters } from "../components/products-filters";
 import { ImportProductsDialog } from "../components/import-products-dialog";
@@ -57,10 +58,11 @@ export function ProductsListPage({ lang }: { lang: string }) {
         title={dict.list.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
-        <AdminStatCard
-          hint={dict.list.stats.totalHint}
-          label={dict.list.stats.total}
+        <KpiCard
+          description={dict.list.stats.totalHint}
+          title={dict.list.stats.total}
           value={listState.total}
+          icon={<PackageIcon />}
         />
       </div>
       <ProductsFilters

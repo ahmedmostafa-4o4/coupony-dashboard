@@ -2,7 +2,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AdminPageHeader, AdminSection, AdminStatCard, AdminConfirmDialog, createAdminDetailHref } from "@/features/admin/shared";
+import { AdminPageHeader, AdminSection, KpiCard, AdminConfirmDialog, createAdminDetailHref } from "@/features/admin/shared";
+import { CheckSquareIcon } from "lucide-react";
 import { StoreVerificationsFilters } from "../components/store-verifications-filters";
 import { StoreVerificationsTable } from "../components/store-verifications-table";
 import { useStoreVerificationActions } from "../hooks/use-store-verification-actions";
@@ -36,10 +37,11 @@ export function StoreVerificationsListPage({ lang }: { lang: string }) {
         title={dict.list.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
-        <AdminStatCard
-          hint={dict.list.hint}
-          label={dict.list.rows}
+        <KpiCard
+          description={dict.list.hint}
+          title={dict.list.rows}
           value={listState.total}
+          icon={<CheckSquareIcon />}
         />
       </div>
       <StoreVerificationsFilters

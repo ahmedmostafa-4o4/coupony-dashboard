@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { AdminPageHeader, AdminSection, AdminStatCard } from "@/features/admin/shared";
+import { AdminPageHeader, AdminSection, KpiCard } from "@/features/admin/shared";
+import { ActivityIcon } from "lucide-react";
 import { AuditLogsFilters } from "../components/audit-logs-filters";
 import { AuditLogsTable } from "../components/audit-logs-table";
 import { useAuditLogsList } from "../hooks/use-audit-logs-list";
@@ -32,10 +33,11 @@ export function AuditLogsListPage({ lang }: { lang: string }) {
         title="Audit Logs"
       />
       <div className="grid gap-4 md:grid-cols-3">
-        <AdminStatCard
-          hint="Audit Logs currently loaded from the API response."
-          label="Rows"
+        <KpiCard
+          description="Audit Logs currently loaded from the API response."
+          title="Rows"
           value={listState.total}
+          icon={<ActivityIcon />}
         />
       </div>
       <AuditLogsFilters

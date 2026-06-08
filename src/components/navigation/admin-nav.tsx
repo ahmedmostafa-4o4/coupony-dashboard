@@ -206,35 +206,12 @@ function ItemIcon({ itemKey }: { itemKey: string }) {
           <path d="m9.5 12 1.5 1.5 3.5-3.5" />
         </Glyph>
       );
-    case "redemptions":
-      return (
-        <Glyph>
-          <circle cx="12" cy="12" r="7" />
-          <path d="m10.5 12 1 1 2.5-2.5" />
-        </Glyph>
-      );
-    case "inventory":
-      return (
-        <Glyph>
-          <path d="M6 7.5A2.5 2.5 0 0 1 8.5 5h7A2.5 2.5 0 0 1 18 7.5v9A2.5 2.5 0 0 1 15.5 19h-7A2.5 2.5 0 0 1 6 16.5v-9Z" />
-          <path d="M9 9h6" />
-          <path d="M9 12h6" />
-          <path d="M9 15h4" />
-        </Glyph>
-      );
     case "payments":
       return (
         <Glyph>
           <circle cx="12" cy="12" r="7" />
           <path d="M12 8v8" />
           <path d="M9.5 10c0-1 1-2 2.5-2s2.5.8 2.5 2-1 1.7-2.5 2-2.5 1-2.5 2 1 2 2.5 2 2.5-1 2.5-2" />
-        </Glyph>
-      );
-    case "billingProfiles":
-      return (
-        <Glyph>
-          <rect x="5" y="6" width="14" height="12" rx="2.5" />
-          <path d="M5 10h14" />
         </Glyph>
       );
 

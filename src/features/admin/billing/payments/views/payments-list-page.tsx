@@ -3,7 +3,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { AdminPageHeader, AdminSection, AdminStatCard } from "@/features/admin/shared";
+import { AdminPageHeader, AdminSection, KpiCard } from "@/features/admin/shared";
+import { CreditCardIcon } from "lucide-react";
 import { PaymentsFilters } from "../components/payments-filters";
 import { PaymentsTable } from "../components/payments-table";
 import { ApprovePaymentDialog, FailPaymentDialog } from "../components/payment-action-dialogs";
@@ -37,10 +38,11 @@ export function PaymentsListPage({ lang }: { lang: string }) {
         title="Payments"
       />
       <div className="grid gap-4 md:grid-cols-3">
-        <AdminStatCard
-          hint="Payments currently loaded from the API response."
-          label="Rows"
+        <KpiCard
+          description="Payments currently loaded from the API response."
+          title="Rows"
           value={listState.total}
+          icon={<CreditCardIcon />}
         />
       </div>
       <PaymentsFilters

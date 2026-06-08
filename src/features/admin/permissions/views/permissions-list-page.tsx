@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { AdminPageHeader, AdminSection, AdminStatCard } from "@/features/admin/shared";
+import { AdminPageHeader, AdminSection, KpiCard } from "@/features/admin/shared";
+import { KeyIcon } from "lucide-react";
 import { PermissionsFilters } from "../components/permissions-filters";
 import { PermissionsTable } from "../components/permissions-table";
 import { usePermissionsList } from "../hooks/use-permissions-list";
@@ -32,10 +33,11 @@ export function PermissionsListPage({ lang }: { lang: string }) {
         title="Permissions"
       />
       <div className="grid gap-4 md:grid-cols-3">
-        <AdminStatCard
-          hint="Permissions currently loaded from the API response."
-          label="Rows"
+        <KpiCard
+          description="Permissions currently loaded from the API response."
+          title="Rows"
           value={listState.total}
+          icon={<KeyIcon />}
         />
       </div>
       <PermissionsFilters

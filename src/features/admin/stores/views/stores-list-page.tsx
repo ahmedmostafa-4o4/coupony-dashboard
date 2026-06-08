@@ -2,7 +2,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AdminPageHeader, AdminSection, AdminStatCard, AdminConfirmDialog, createAdminDetailHref, AdminPagination } from "@/features/admin/shared";
+import { AdminPageHeader, AdminSection, KpiCard, AdminConfirmDialog, createAdminDetailHref, AdminPagination } from "@/features/admin/shared";
+import { StoreIcon } from "lucide-react";
 import { StoresFilters } from "../components/stores-filters";
 import { ImportStoresDialog } from "../components/import-stores-dialog";
 import { StoresTable } from "../components/stores-table";
@@ -40,10 +41,11 @@ export function StoresListPage({ lang }: { lang: string }) {
         title={dict.list.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
-        <AdminStatCard
-          hint={dict.list.rowsHint}
-          label={dict.list.rows}
+        <KpiCard
+          description={dict.list.rowsHint}
+          title={dict.list.rows}
           value={listState.total}
+          icon={<StoreIcon />}
         />
       </div>
       <StoresFilters

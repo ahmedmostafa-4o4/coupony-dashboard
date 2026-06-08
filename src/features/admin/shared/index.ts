@@ -14,6 +14,7 @@ export * from "./components/admin-status-badge";
 export * from "./components/store-select-filter";
 export * from "./components/user-select-filter";
 export * from "./components/global-search-menu";
+export * from "./components/kpi-card";
 export * from "./constants/admin-nav";
 export * from "./constants/admin-permissions";
 export * from "./constants/admin-routes";
