@@ -31,12 +31,16 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+import type { GlobalDictionary } from "@/messages/get-dictionary";
+
 export function PaymentDetailsPage({
   paymentId,
   lang,
+  dict,
 }: {
   paymentId: string;
   lang: string;
+  dict: GlobalDictionary;
 }) {
   const detailState = usePaymentDetails(paymentId);
   void lang;
@@ -45,12 +49,12 @@ export function PaymentDetailsPage({
   const [failOpen, setFailOpen] = useState(false);
 
   if (detailState.isLoading) {
-    return <PageLoading label="Loading payment details..." />;
+    return <PageLoading label={dict.adminPayments.details.loading} />;
   }
 
   if (!detailState.item) {
     return (
-      <AdminSection title="Payment not found">
+      <AdminSection title={dict.adminPayments.details.notFound}>
         <p className="text-sm text-slate-500">
           The backend did not return a payment session for this route.
         </p>
@@ -75,26 +79,26 @@ export function PaymentDetailsPage({
                   size="sm"
                   onClick={() => setApproveOpen(true)}
                 >
-                  Approve
+                  {dict.adminPayments.list.approve}
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => setFailOpen(true)}
                 >
-                  Fail
+                  {dict.adminPayments.list.fail}
                 </Button>
               </>
             )}
           </div>
         }
-        description="Comprehensive details of this payment session."
-        eyebrow="Admin details"
-        title={getAdminEntityTitle(payment, paymentId)}
+        description={dict.adminPayments.details.description}
+        eyebrow={dict.adminPayments.details.eyebrow}
+        title={dict.adminPayments.details.title}
       />
 
       {detailState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.adminPayments.details.failed}>
           <p className="text-sm text-rose-600">{detailState.error}</p>
         </AdminSection>
       ) : null}
@@ -193,7 +197,7 @@ export function PaymentDetailsPage({
             <CardContent className="p-0">
               <ul className="divide-y divide-slate-100 text-sm">
                 <li className="flex justify-between p-4">
-                  <span className="text-slate-500">Created At</span>
+                  <span className="text-slate-500">{dict.adminPayments.details.createdAt}</span>
                   <span className="font-medium text-slate-900">
                     {formatAdminDate(payment.createdAt) || "N/A"}
                   </span>
@@ -235,14 +239,14 @@ export function PaymentDetailsPage({
             <CardHeader className="border-b border-slate-100 bg-slate-50/50 pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Store className="h-5 w-5 text-indigo-500" />
-                Store Details
+                {dict.adminPayments.details.sectionContext}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               {payment.store ? (
                 <ul className="divide-y divide-slate-100 text-sm">
                   <li className="flex justify-between p-4">
-                    <span className="text-slate-500">Store Name</span>
+                    <span className="text-slate-500">{dict.adminPayments.details.storeName}</span>
                     <span className="font-medium text-slate-900">
                       {payment.store.name}
                     </span>
@@ -307,7 +311,7 @@ export function PaymentDetailsPage({
 
                   {payment.store.createdAt && (
                     <li className="flex justify-between p-4">
-                      <span className="text-slate-500">Created At</span>
+                      <span className="text-slate-500">{dict.adminPayments.details.createdAt}</span>
                       <span className="font-medium text-slate-900">
                         {formatAdminDate(payment.store.createdAt)}
                       </span>
@@ -349,7 +353,7 @@ export function PaymentDetailsPage({
               ) : (
                 <div className="p-6 text-center text-slate-500">
                   <Store className="mx-auto mb-2 h-8 w-8 opacity-20" />
-                  <p>No store associated</p>
+                  <p>{dict.adminPayments.details.noStore}</p>
                 </div>
               )}
             </CardContent>
@@ -360,67 +364,67 @@ export function PaymentDetailsPage({
             <CardHeader className="border-b border-slate-100 bg-slate-50/50 pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Box className="h-5 w-5 text-indigo-500" />
-                Subscription Plan
+                {dict.adminPayments.details.sectionPlan}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               {payment.plan ? (
                 <ul className="divide-y divide-slate-100 text-sm">
                   <li className="flex items-center justify-between p-4">
-                    <span className="text-slate-500">Plan Name</span>
+                    <span className="text-slate-500">{dict.adminPayments.details.planName}</span>
                     <div className="flex items-center gap-2">
                       <span className="font-medium text-slate-900">
                         {payment.plan.name}
                       </span>
                       {!payment.plan.isActive && (
                         <span className="inline-flex items-center rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-700">
-                          Legacy
+                          {dict.adminPayments.details.legacy}
                         </span>
                       )}
                     </div>
                   </li>
                   {payment.plan.description && (
                     <li className="flex justify-between p-4">
-                      <span className="text-slate-500">Description</span>
+                      <span className="text-slate-500">{dict.adminPayments.details.planDesc}</span>
                       <span className="font-medium text-slate-900 text-right">
                         {payment.plan.description}
                       </span>
                     </li>
                   )}
                   <li className="flex justify-between p-4">
-                    <span className="text-slate-500">Billing Cycle</span>
+                    <span className="text-slate-500">{dict.adminPayments.details.billingCycle}</span>
                     <span className="font-medium text-slate-900 capitalize">
                       {payment.billingCycle || "Monthly"}
                     </span>
                   </li>
                   <li className="flex justify-between p-4">
-                    <span className="text-slate-500">Max Products</span>
+                    <span className="text-slate-500">{dict.adminPayments.details.maxProducts}</span>
                     <span className="font-medium text-slate-900">
                       {payment.plan.entitlements?.maxProducts ?? "Unlimited"}
                     </span>
                   </li>
                   <li className="flex justify-between p-4">
-                    <span className="text-slate-500">Max Branches</span>
+                    <span className="text-slate-500">{dict.adminPayments.details.maxBranches}</span>
                     <span className="font-medium text-slate-900">
                       {payment.plan.entitlements?.maxBranches ?? "Unlimited"}
                     </span>
                   </li>
                   <li className="flex justify-between p-4">
-                    <span className="text-slate-500">Max Employees</span>
+                    <span className="text-slate-500">{dict.adminPayments.details.maxEmployees}</span>
                     <span className="font-medium text-slate-900">
                       {payment.plan.entitlements?.maxEmployees ?? "Unlimited"}
                     </span>
                   </li>
                   {payment.plan.createdAt && (
                     <li className="flex justify-between p-4">
-                      <span className="text-slate-500">Plan Created</span>
+                      <span className="text-slate-500">{dict.adminPayments.details.planCreated}</span>
                       <span className="font-medium text-slate-900">
                         {formatAdminDate(payment.plan.createdAt)}
                       </span>
                     </li>
                   )}
                   <li className="flex justify-between p-4">
-                    <span className="text-slate-500">Plan ID</span>
+                    <span className="text-slate-500">{dict.adminPayments.details.planId}</span>
                     <span className="font-medium text-slate-900 font-mono text-xs">
                       {payment.plan.id}
                     </span>
@@ -429,7 +433,7 @@ export function PaymentDetailsPage({
               ) : (
                 <div className="p-6 text-center text-slate-500">
                   <Box className="mx-auto mb-2 h-8 w-8 opacity-20" />
-                  <p>No plan associated</p>
+                  <p>{dict.adminPayments.details.noPlan}</p>
                 </div>
               )}
             </CardContent>
@@ -442,6 +446,7 @@ export function PaymentDetailsPage({
         open={approveOpen}
         onOpenChange={setApproveOpen}
         onSuccess={detailState.reload}
+        dict={dict}
       />
 
       <FailPaymentDialog
@@ -449,6 +454,7 @@ export function PaymentDetailsPage({
         open={failOpen}
         onOpenChange={setFailOpen}
         onSuccess={detailState.reload}
+        dict={dict}
       />
     </div>
   );

@@ -29,6 +29,7 @@ export function AdminDataTable<TData>({
   renderRowActions,
   emptyTitle = "No records found",
   emptyDescription = "The API returned no rows for this view yet.",
+  actionsTitle,
 }: {
   caption?: string;
   columns: AdminColumn<TData>[];
@@ -37,6 +38,7 @@ export function AdminDataTable<TData>({
   renderRowActions?: (item: TData) => ReactNode;
   emptyTitle?: string;
   emptyDescription?: string;
+  actionsTitle?: string;
 }) {
   if (!data.length) {
     return (
@@ -64,7 +66,7 @@ export function AdminDataTable<TData>({
               ))}
               {renderRowActions ? (
                 <th className="px-4 py-3 text-end text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                  Actions
+                  {actionsTitle || "Actions"}
                 </th>
               ) : null}
             </tr>

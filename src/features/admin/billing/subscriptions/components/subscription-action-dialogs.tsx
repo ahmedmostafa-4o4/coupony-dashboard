@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import type { GlobalDictionary } from "@/messages/get-dictionary";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,18 +22,18 @@ import { suspendSubscription } from "../api/suspend-subscription";
 import { cancelSubscription } from "../api/cancel-subscription";
 import { assignSubscription } from "../api/assign-subscription";
 import { getSubscriptionPlans } from "@/features/admin/billing/subscription-plans/api/get-subscription-plans";
-import { useEffect } from "react";
-
 export function SuspendSubscriptionDialog({
   subscriptionId,
   open,
   onOpenChange,
   onSuccess,
+  dict,
 }: {
   subscriptionId: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSuccess?: () => void;
+  dict: GlobalDictionary;
 }) {
   const [reason, setReason] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,9 +56,9 @@ export function SuspendSubscriptionDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Suspend Subscription</DialogTitle>
+          <DialogTitle>{dict.adminSubscriptions.dialogs?.suspendTitle || "Suspend Subscription"}</DialogTitle>
           <DialogDescription>
-            Are you sure you want to suspend this subscription? Please provide an optional reason below.
+            {dict.adminSubscriptions.dialogs?.suspendDesc || "Are you sure you want to suspend this subscription? Please provide an optional reason below."}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
@@ -85,11 +86,13 @@ export function CancelSubscriptionDialog({
   open,
   onOpenChange,
   onSuccess,
+  dict,
 }: {
   subscriptionId: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSuccess?: () => void;
+  dict: GlobalDictionary;
 }) {
   const [reason, setReason] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -112,14 +115,14 @@ export function CancelSubscriptionDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Cancel Subscription</DialogTitle>
+          <DialogTitle>{dict.adminSubscriptions.dialogs?.cancelTitle || "Cancel Subscription"}</DialogTitle>
           <DialogDescription>
-            Are you sure you want to permanently cancel this subscription? Please provide an optional reason below.
+            {dict.adminSubscriptions.dialogs?.cancelDesc || "Are you sure you want to permanently cancel this subscription? Please provide an optional reason below."}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <Input
-            placeholder="Reason (optional)"
+            placeholder={dict.adminSubscriptions.dialogs?.reasonPlaceholder || "Reason (optional)"}
             value={reason}
             onChange={(e) => setReason(e.target.value)}
           />
@@ -129,7 +132,7 @@ export function CancelSubscriptionDialog({
             Close
           </Button>
           <Button variant="danger" onClick={handleSubmit} disabled={isSubmitting}>
-            {isSubmitting ? "Cancelling..." : "Cancel Subscription"}
+            {isSubmitting ? (dict.adminSubscriptions.dialogs?.canceling || "Cancelling...") : (dict.adminSubscriptions.dialogs?.cancelSubscription || "Cancel Subscription")}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -142,11 +145,13 @@ export function AssignSubscriptionDialog({
   open,
   onOpenChange,
   onSuccess,
+  dict,
 }: {
   storeId: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSuccess?: () => void;
+  dict: GlobalDictionary;
 }) {
   const [planId, setPlanId] = useState("");
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
@@ -183,9 +188,9 @@ export function AssignSubscriptionDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Admin Override: Assign Plan</DialogTitle>
+          <DialogTitle>{dict.adminSubscriptions.dialogs?.assignTitle || "Admin Override: Assign Plan"}</DialogTitle>
           <DialogDescription>
-            Manually assign a subscription plan to this store. This generates a $0 paid payment session immediately.
+            {dict.adminSubscriptions.dialogs?.assignDesc || "Manually assign a subscription plan to this store. This generates a $0 paid payment session immediately."}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">

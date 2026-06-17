@@ -31,9 +31,16 @@ export function LanguageSwitcher({ currentLang }: { currentLang: string }) {
             <SelectValue placeholder="Language" />
           </div>
         </SelectTrigger>
-        <SelectContent align="end" className="rounded-xl border-slate-200 min-w-[120px]">
-          <SelectItem value="en" className="text-sm rounded-lg font-medium">English (EN)</SelectItem>
-          <SelectItem value="ar" className="text-sm rounded-lg font-medium">العربية (AR)</SelectItem>
+        <SelectContent
+          align="end"
+          className="rounded-xl border-slate-200 min-w-[120px]"
+        >
+          <SelectItem value="en" className="text-sm rounded-lg font-medium">
+            English (EN)
+          </SelectItem>
+          <SelectItem value="ar" className="text-sm rounded-lg font-medium">
+            العربية (AR)
+          </SelectItem>
         </SelectContent>
       </Select>
     </div>

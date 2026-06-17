@@ -23,6 +23,7 @@ export function AdminFilterBar<TFilters extends AdminFilterValues>({
   onReset,
   onSubmit,
   submitLabel = "Apply filters",
+  resetLabel,
   values,
 }: {
   fields: AdminFilterField[];
@@ -30,6 +31,7 @@ export function AdminFilterBar<TFilters extends AdminFilterValues>({
   onReset?: () => void;
   onSubmit?: () => void;
   submitLabel?: string;
+  resetLabel?: string;
   values: TFilters;
 }) {
   function handleFieldChange(
@@ -107,7 +109,7 @@ export function AdminFilterBar<TFilters extends AdminFilterValues>({
       <div className="mt-4 flex flex-wrap justify-end gap-3">
         {onReset ? (
           <Button variant="ghost" onClick={onReset}>
-            Reset
+            {resetLabel || "Reset"}
           </Button>
         ) : null}
         {onSubmit ? <Button onClick={onSubmit}>{submitLabel}</Button> : null}

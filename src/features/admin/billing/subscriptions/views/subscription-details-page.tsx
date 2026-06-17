@@ -1,5 +1,6 @@
 "use client";
 import { PageLoading } from "@/components/shared/page-loading";
+import type { GlobalDictionary } from "@/messages/get-dictionary";
 import { useState } from "react";
 import { AdminPageHeader, getAdminEntityTitle, AdminSection, formatAdminDate, formatAdminCurrency } from "@/features/admin/shared";
 import { SubscriptionStatusBadge } from "../components/subscription-status-badge";
@@ -24,9 +25,11 @@ import {
 export function SubscriptionDetailsPage({
   subscriptionId,
   lang,
+  dict,
 }: {
   subscriptionId: string;
   lang: string;
+  dict: GlobalDictionary;
 }) {
   const detailState = useSubscriptionDetails(subscriptionId);
   void lang;
@@ -34,14 +37,14 @@ export function SubscriptionDetailsPage({
   const [cancelOpen, setCancelOpen] = useState(false);
 
   if (detailState.isLoading) {
-    return <PageLoading label="Loading subscription details..." />;
+    return <PageLoading label={dict.adminSubscriptions.details.loading || "Loading subscription details..."} />;
   }
 
   if (!detailState.item) {
     return (
-      <AdminSection title="Subscription not found">
+      <AdminSection title={dict.adminSubscriptions.details.notFound || "Subscription not found"}>
         <p className="text-sm text-slate-500">
-          The backend did not return a subscription for this route.
+          {dict.adminSubscriptions.list.emptyDesc || "The backend did not return a subscription for this route."}
         </p>
       </AdminSection>
     );
@@ -66,7 +69,7 @@ export function SubscriptionDetailsPage({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" dir={lang === "ar" ? "rtl" : "ltr"}>
       <AdminPageHeader
         actions={
           <div className="flex flex-wrap items-center gap-2">
@@ -74,20 +77,20 @@ export function SubscriptionDetailsPage({
             {status !== "suspended" && status !== "cancelled" && (
               <Button variant="outline" size="sm" onClick={() => setSuspendOpen(true)}>
                 <AlertTriangle className="mr-2 h-4 w-4" />
-                Suspend
+                {dict.adminSubscriptions.dialogs?.suspendTitle || "Suspend"}
               </Button>
             )}
             {status !== "cancelled" && (
               <Button variant="danger" size="sm" onClick={() => setCancelOpen(true)}>
                 <XCircle className="mr-2 h-4 w-4" />
-                Cancel
+                {dict.adminSubscriptions.list.cancel}
               </Button>
             )}
           </div>
         }
-        description="Comprehensive overview of this store's subscription and entitlements."
-        eyebrow="Admin details"
-        title={getAdminEntityTitle(sub, subscriptionId)}
+        description={dict.adminSubscriptions.details.description}
+        eyebrow={dict.adminSubscriptions.details.eyebrow}
+        title={dict.adminSubscriptions.details.title}
       />
       {detailState.error ? (
         <AdminSection title="Request error">
@@ -162,7 +165,7 @@ export function SubscriptionDetailsPage({
             <CardHeader className="border-b border-slate-100 bg-slate-50/50 pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Info className="h-5 w-5 text-indigo-500" />
-                Subscription Details
+                {dict.adminSubscriptions.details.sectionGeneral || "Subscription Details"}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
@@ -176,7 +179,7 @@ export function SubscriptionDetailsPage({
                   <span className="font-medium text-slate-900 font-mono text-xs">{sub.storeId || "N/A"}</span>
                 </li>
                 <li className="flex justify-between p-4">
-                  <span className="text-slate-500">Created At</span>
+                  <span className="text-slate-500">{dict.adminSubscriptions.details.createdAt || "Created At"}</span>
                   <span className="font-medium text-slate-900">{formatAdminDate(sub.createdAt) || "N/A"}</span>
                 </li>
                 {sub.trialEndsAt && (
@@ -214,7 +217,7 @@ export function SubscriptionDetailsPage({
             <CardHeader className="border-b border-slate-100 bg-slate-50/50 pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Zap className="h-5 w-5 text-indigo-500" />
-                Plan Entitlements
+                {dict.adminSubscriptions.details.sectionLimits || "Plan Entitlements"}
               </CardTitle>
               <CardDescription>Features and limits included in this plan</CardDescription>
             </CardHeader>
@@ -226,7 +229,7 @@ export function SubscriptionDetailsPage({
                       <Package className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-slate-900">Max Products</p>
+                      <p className="text-sm font-medium text-slate-900">{dict.adminSubscriptions.details.products || "Max Products"}</p>
                       <p className="text-xs text-slate-500">Products allowed in store</p>
                     </div>
                   </div>
@@ -240,7 +243,7 @@ export function SubscriptionDetailsPage({
                       <Store className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-slate-900">Max Branches</p>
+                      <p className="text-sm font-medium text-slate-900">{dict.adminSubscriptions.details.branches || "Max Branches"}</p>
                       <p className="text-xs text-slate-500">Store locations</p>
                     </div>
                   </div>
@@ -254,7 +257,7 @@ export function SubscriptionDetailsPage({
                       <Users className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-slate-900">Max Employees</p>
+                      <p className="text-sm font-medium text-slate-900">{dict.adminSubscriptions.details.employees || "Max Employees"}</p>
                       <p className="text-xs text-slate-500">Staff members per store</p>
                     </div>
                   </div>
@@ -273,6 +276,7 @@ export function SubscriptionDetailsPage({
         open={suspendOpen}
         onOpenChange={setSuspendOpen}
         onSuccess={detailState.reload}
+        dict={dict}
       />
 
       <CancelSubscriptionDialog
@@ -280,6 +284,7 @@ export function SubscriptionDetailsPage({
         open={cancelOpen}
         onOpenChange={setCancelOpen}
         onSuccess={detailState.reload}
+        dict={dict}
       />
     </div>
   );

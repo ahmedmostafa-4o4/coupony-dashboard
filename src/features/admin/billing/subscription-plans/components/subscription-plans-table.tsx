@@ -5,77 +5,81 @@ import { SubscriptionPlanStatusBadge } from "./subscription-plan-status-badge";
 
 import type { SubscriptionPlan } from "../types/subscription-plan.types";
 
-const columns: AdminColumn<SubscriptionPlan>[] = [
-  {
-    id: "id",
-    header: "ID",
-    accessorKey: "id",
-  },
-  {
-    id: "name",
-    header: "Plan",
-    accessorKey: "name",
-  },
-  {
-    id: "status",
-    header: "Status",
-    cell: (item) => (
-      <SubscriptionPlanStatusBadge
-        value={item.isActive ? "active" : "inactive"}
-      />
-    ),
-  },
-  {
-    id: "priceMonthly",
-    header: "Monthly Price",
-    cell: (item) => formatAdminCurrency(
-      typeof item.prices?.monthly === "number" ? item.prices.monthly : Number(item.prices?.monthly),
-    ),
-  },
-  {
-    id: "priceYearly",
-    header: "Yearly Price",
-    cell: (item) => formatAdminCurrency(
-      typeof item.prices?.yearly === "number" ? item.prices.yearly : Number(item.prices?.yearly),
-    ),
-  },
-  {
-    id: "maxProducts",
-    header: "Max Products",
-    cell: (item) => item.entitlements?.maxProducts ?? "Unlimited",
-  },
-  {
-    id: "maxBranches",
-    header: "Max Branches",
-    cell: (item) => item.entitlements?.maxBranches ?? "Unlimited",
-  },
-  {
-    id: "maxEmployees",
-    header: "Max Employees",
-    cell: (item) => item.entitlements?.maxEmployees ?? "Unlimited",
-  },
-  {
-    id: "updatedAt",
-    header: "Updated",
-    cell: (item) => formatAdminDate(item.updatedAt),
-  },
-];
+import type { GlobalDictionary } from "@/messages/get-dictionary";
 
 export function SubscriptionPlansTable({
   items,
   renderActions,
+  dict,
 }: {
   items: SubscriptionPlan[];
   renderActions?: (item: SubscriptionPlan) => ReactNode;
+  dict: GlobalDictionary;
 }) {
+  const columns: AdminColumn<SubscriptionPlan>[] = [
+    {
+      id: "id",
+      header: "ID",
+      accessorKey: "id",
+    },
+    {
+      id: "name",
+      header: dict.adminSubscriptionPlans.details.name,
+      accessorKey: "name",
+    },
+    {
+      id: "status",
+      header: dict.adminSubscriptionPlans.details.status,
+      cell: (item) => (
+        <SubscriptionPlanStatusBadge
+          value={item.isActive ? "active" : "inactive"}
+        />
+      ),
+    },
+    {
+      id: "priceMonthly",
+      header: "Monthly Price",
+      cell: (item) => formatAdminCurrency(
+        typeof item.prices?.monthly === "number" ? item.prices.monthly : Number(item.prices?.monthly),
+      ),
+    },
+    {
+      id: "priceYearly",
+      header: "Yearly Price",
+      cell: (item) => formatAdminCurrency(
+        typeof item.prices?.yearly === "number" ? item.prices.yearly : Number(item.prices?.yearly),
+      ),
+    },
+    {
+      id: "maxProducts",
+      header: dict.adminSubscriptionPlans.details.maxProducts,
+      cell: (item) => item.entitlements?.maxProducts ?? "Unlimited",
+    },
+    {
+      id: "maxBranches",
+      header: dict.adminSubscriptionPlans.details.maxBranches,
+      cell: (item) => item.entitlements?.maxBranches ?? "Unlimited",
+    },
+    {
+      id: "maxEmployees",
+      header: dict.adminSubscriptionPlans.details.maxEmployees,
+      cell: (item) => item.entitlements?.maxEmployees ?? "Unlimited",
+    },
+    {
+      id: "updatedAt",
+      header: dict.adminSubscriptionPlans.details.updatedAt,
+      cell: (item) => formatAdminDate(item.updatedAt),
+    },
+  ];
+
   return (
     <AdminDataTable
       columns={columns}
       data={items}
       rowKey={(item) => String(item.id ?? JSON.stringify(item))}
       renderRowActions={renderActions}
-      emptyDescription="The backend has not returned any subscription plans yet."
-      emptyTitle="No subscription plans found"
+      emptyDescription={dict.adminSubscriptionPlans.list.emptyDesc}
+      emptyTitle={dict.adminSubscriptionPlans.list.noPlans}
     />
   );
 }

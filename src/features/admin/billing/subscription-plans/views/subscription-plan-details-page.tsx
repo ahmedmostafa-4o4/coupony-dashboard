@@ -6,33 +6,37 @@ import { SubscriptionPlanStatusBadge } from "../components/subscription-plan-sta
 import { useSubscriptionPlanActions } from "../hooks/use-subscription-plan-actions";
 import { useSubscriptionPlanDetails } from "../hooks/use-subscription-plan-details";
 
+import type { GlobalDictionary } from "@/messages/get-dictionary";
+
 export function SubscriptionPlanDetailsPage({
   planId,
   lang,
+  dict,
 }: {
   planId: string;
   lang: string;
+  dict: GlobalDictionary;
 }) {
   const detailState = useSubscriptionPlanDetails(planId);
   void lang;
   const actions = useSubscriptionPlanActions(async () => { await detailState.reload(); });
 
   if (detailState.isLoading) {
-    return <PageLoading label="Loading subscription plan details..." />;
+    return <PageLoading label={dict.adminSubscriptionPlans.details.loading} />;
   }
 
   if (!detailState.item) {
     return (
-      <AdminSection title="Subscription Plan not found">
+      <AdminSection title={dict.adminSubscriptionPlans.details.notFound}>
         <p className="text-sm text-slate-500">
-          The backend did not return a subscription plan for this route.
+          {dict.adminSubscriptionPlans.details.failed}
         </p>
       </AdminSection>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" dir={lang === "ar" ? "rtl" : "ltr"}>
       <AdminPageHeader
         actions={
           <div className="flex flex-wrap items-center gap-2">
@@ -41,29 +45,30 @@ export function SubscriptionPlanDetailsPage({
             />
             
             <AdminConfirmDialog
-              confirmLabel="Delete"
-              description="This will call the mapped admin endpoint for the selected subscription plan."
+              confirmLabel={dict.adminSubscriptionPlans.list.delete}
+              description={dict.adminSubscriptionPlans.details.description}
               isPending={actions.deleteAction.isSubmitting}
               onConfirm={async () => {
                 await actions.deleteAction.submit(planId);
               }}
-              title="Delete Subscription Plan"
-              triggerLabel="Delete"
+              title={dict.adminSubscriptionPlans.list.delete}
+              triggerLabel={dict.adminSubscriptionPlans.list.delete}
               variant="danger"
             />
           </div>
         }
-        description="Fallback details view until the backend exposes a subscription plan lookup endpoint."
-        eyebrow="Admin details"
+        description={dict.adminSubscriptionPlans.details.description}
+        eyebrow={dict.adminSubscriptionPlans.details.eyebrow}
         title={getAdminEntityTitle(detailState.item, planId)}
       />
       {detailState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.adminSubscriptionPlans.details.failed}>
           <p className="text-sm text-rose-600">{detailState.error}</p>
         </AdminSection>
       ) : null}
       <SubscriptionPlanForm
-        description="Update plan pricing and capacity metadata using typed fields."
+        dict={dict}
+        description={dict.adminSubscriptionPlans.form.editDesc}
         initialValues={detailState.item}
         isSubmitting={actions.updateAction.isSubmitting}
         mode="update"
@@ -73,8 +78,8 @@ export function SubscriptionPlanDetailsPage({
             payload,
           });
         }}
-        submitLabel="Update plan"
-        title="Update plan"
+        submitLabel={dict.adminSubscriptionPlans.form.save}
+        title={dict.adminSubscriptionPlans.form.editTitle}
       />
       </div>
   );

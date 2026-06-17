@@ -10,10 +10,11 @@ import { PaymentsTable } from "../components/payments-table";
 import { ApprovePaymentDialog, FailPaymentDialog } from "../components/payment-action-dialogs";
 import { usePaymentsList } from "../hooks/use-payments-list";
 import type { PaymentsListFilters } from "../types/payment.types";
+import type { GlobalDictionary } from "@/messages/get-dictionary";
 
 const defaultFilters: PaymentsListFilters = { search: "", status: "all" };
 
-export function PaymentsListPage({ lang }: { lang: string }) {
+export function PaymentsListPage({ lang, dict }: { lang: string; dict: GlobalDictionary }) {
   const [filters, setFilters] = useState<PaymentsListFilters>(defaultFilters);
   const [approveId, setApproveId] = useState<string | null>(null);
   const [failId, setFailId] = useState<string | null>(null);
@@ -29,18 +30,18 @@ export function PaymentsListPage({ lang }: { lang: string }) {
         actions={
           <>
             <Button variant="secondary" onClick={() => void listState.reload()}>
-              Reload
+              {dict.adminPayments.list.reload}
             </Button>
           </>
         }
-        description="Monitor payment activity and backend settlement payloads."
-        eyebrow="Admin"
-        title="Payments"
+        description={dict.adminPayments.list.description}
+        eyebrow={dict.adminPayments.list.eyebrow}
+        title={dict.adminPayments.list.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
         <KpiCard
-          description="Payments currently loaded from the API response."
-          title="Rows"
+          description={dict.adminPayments.list.rowsHint || "Payments currently loaded from the API response."}
+          title={dict.adminPayments.list.rows}
           value={listState.total}
           icon={<CreditCardIcon />}
         />
@@ -49,15 +50,17 @@ export function PaymentsListPage({ lang }: { lang: string }) {
         onChange={setFilters}
         onReset={() => setFilters(defaultFilters)}
         values={filters}
+        dict={dict}
       />
       {listState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.adminPayments.list.requestError}>
           <p className="text-sm text-rose-600">{listState.error}</p>
         </AdminSection>
       ) : null}
 
       <PaymentsTable
         items={listState.items}
+        dict={dict}
         renderActions={(item) => (
           <div className="flex flex-wrap items-center justify-end gap-2">
             <Button variant="outline" size="icon" asChild>
@@ -68,8 +71,8 @@ export function PaymentsListPage({ lang }: { lang: string }) {
             </Button>
             {item.status === "pending" && (
               <>
-                <Button variant="outline" onClick={() => setApproveId(item.id)}>Approve</Button>
-                <Button variant="danger" onClick={() => setFailId(item.id)}>Fail</Button>
+                <Button variant="outline" onClick={() => setApproveId(item.id)}>{dict.adminPayments.list.approve}</Button>
+                <Button variant="danger" onClick={() => setFailId(item.id)}>{dict.adminPayments.list.fail}</Button>
               </>
             )}
           </div>
@@ -82,6 +85,7 @@ export function PaymentsListPage({ lang }: { lang: string }) {
           open={!!approveId}
           onOpenChange={(open) => !open && setApproveId(null)}
           onSuccess={() => void listState.reload()}
+          dict={dict}
         />
       )}
 
@@ -91,6 +95,7 @@ export function PaymentsListPage({ lang }: { lang: string }) {
           open={!!failId}
           onOpenChange={(open) => !open && setFailId(null)}
           onSuccess={() => void listState.reload()}
+          dict={dict}
         />
       )}
     </div>

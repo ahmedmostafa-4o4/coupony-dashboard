@@ -14,11 +14,13 @@ import { LoyaltyPointsWidget } from "../components/loyalty-points-widget";
 import { DashboardChartsGrid } from "../components/dashboard-charts-grid";
 import { useDashboardOverview } from "../hooks/use-dashboard-overview";
 import { getDashboardDictionary } from "../utils/get-dictionary";
+import { getGlobalDictionary } from "@/messages/get-dictionary";
 import { SubscriptionAnalyticsWidget } from "@/features/admin/billing/subscriptions/components/subscription-analytics-widget";
 
 export function DashboardPage({ lang }: { lang: string }) {
   const dashboardState = useDashboardOverview();
   const dict = getDashboardDictionary(lang);
+  const globalDict = getGlobalDictionary(lang);
 
   void lang;
 
@@ -48,7 +50,7 @@ export function DashboardPage({ lang }: { lang: string }) {
         </AdminSection>
       ) : null}
       
-      <SubscriptionAnalyticsWidget />
+      <SubscriptionAnalyticsWidget dict={globalDict} />
 
       <ActionRequiredBanner operational={dashboardState.item?.operational} dict={dict.dashboard.actionRequired} />
       <DashboardOverviewGrid overview={dashboardState.item} dict={dict.dashboard.overview} />

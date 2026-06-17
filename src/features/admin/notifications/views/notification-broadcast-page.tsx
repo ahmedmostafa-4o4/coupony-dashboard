@@ -12,8 +12,9 @@ import { Button } from "@/components/ui/button";
 
 import { BroadcastsTable } from "../components/broadcasts-table";
 import { useBroadcasts } from "../hooks/use-broadcasts";
+import type { NotificationsDictionary } from "../utils/get-dictionary";
 
-export function NotificationBroadcastPage({ lang }: { lang: string }) {
+export function NotificationBroadcastPage({ lang, dict }: { lang: string; dict: NotificationsDictionary }) {
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
 
@@ -25,39 +26,40 @@ export function NotificationBroadcastPage({ lang }: { lang: string }) {
   return (
     <div className="space-y-6">
       <AdminPageHeader
-        description="View past notification broadcasts or create a new one."
-        eyebrow="Support"
-        title="Broadcast History"
+        description={dict.broadcastList.description}
+        eyebrow={dict.broadcastList.eyebrow}
+        title={dict.broadcastList.title}
         actions={
           <Button asChild>
             <Link href={`/${lang}/admin/notifications/broadcast/create`}>
               <Plus className="mr-2 h-4 w-4" />
-              New Broadcast
+              {dict.broadcastList.newBroadcast}
             </Link>
           </Button>
         }
       />
 
-      <AdminSection title="History">
+      <AdminSection title={dict.broadcastList.history}>
         {isLoading ? (
           <div className="py-12 text-center text-sm text-slate-500">
-            Loading broadcast history...
+            {dict.broadcastList.loading}
           </div>
         ) : error ? (
           <div className="py-12 text-center text-sm text-rose-600">
-            Failed to load broadcasts: {error}
+            {dict.broadcastList.failed}: {error}
           </div>
         ) : !items.length ? (
           <div className="py-12 text-center text-sm text-slate-500">
-            No broadcasts found.
+            {dict.broadcastList.noBroadcasts}
           </div>
         ) : (
           <BroadcastsTable 
+            dict={dict}
             items={items} 
             renderActions={(item) => (
               <Button asChild size="sm" variant="ghost">
                 <Link href={`/${lang}/admin/notifications/broadcast/${item.id}`}>
-                  View <ArrowRight className="ml-2 h-4 w-4" />
+                  {dict.broadcastList.view} <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             )}

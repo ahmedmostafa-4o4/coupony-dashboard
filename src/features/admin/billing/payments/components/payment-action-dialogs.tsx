@@ -20,17 +20,20 @@ import {
 } from "@/components/ui/select";
 import { approvePaymentSession } from "../api/approve-payment";
 import { failPaymentSession } from "../api/fail-payment";
+import type { GlobalDictionary } from "@/messages/get-dictionary";
 
 export function ApprovePaymentDialog({
   sessionId,
   open,
   onOpenChange,
   onSuccess,
+  dict,
 }: {
   sessionId: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSuccess?: () => void;
+  dict: GlobalDictionary;
 }) {
   const [method, setMethod] = useState("");
   const [notes, setNotes] = useState("");
@@ -58,29 +61,29 @@ export function ApprovePaymentDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Manual Payment Approval</DialogTitle>
+          <DialogTitle>{dict.adminPayments.dialogs.approveTitle}</DialogTitle>
           <DialogDescription>
-            Approve a pending payment session manually. This will activate the associated subscription immediately.
+            {dict.adminPayments.dialogs.approveDesc}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Payment Method</label>
+            <label className="text-sm font-medium">{dict.adminPayments.dialogs.method}</label>
             <Select value={method} onValueChange={setMethod}>
               <SelectTrigger>
-                <SelectValue placeholder="Select method..." />
+                <SelectValue placeholder={dict.adminPayments.dialogs.methodSelect} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Bank Transfer">Bank Transfer</SelectItem>
-                <SelectItem value="Cash">Cash</SelectItem>
-                <SelectItem value="Other">Other</SelectItem>
+                <SelectItem value="Bank Transfer">{dict.adminPayments.dialogs.bankTransfer}</SelectItem>
+                <SelectItem value="Cash">{dict.adminPayments.dialogs.cash}</SelectItem>
+                <SelectItem value="Other">{dict.adminPayments.dialogs.other}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium">Notes (Optional)</label>
+            <label className="text-sm font-medium">{dict.adminPayments.dialogs.notes}</label>
             <Textarea
-              placeholder="Transaction ID, reference, or other details..."
+              placeholder={dict.adminPayments.dialogs.notesPlaceholder}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
             />
@@ -88,10 +91,10 @@ export function ApprovePaymentDialog({
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isSubmitting}>
-            Cancel
+            {dict.adminPayments.dialogs.cancel}
           </Button>
           <Button onClick={handleSubmit} disabled={isSubmitting}>
-            {isSubmitting ? "Approving..." : "Approve Payment"}
+            {isSubmitting ? dict.adminPayments.dialogs.approving : dict.adminPayments.dialogs.approvePayment}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -104,11 +107,13 @@ export function FailPaymentDialog({
   open,
   onOpenChange,
   onSuccess,
+  dict,
 }: {
   sessionId: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSuccess?: () => void;
+  dict: GlobalDictionary;
 }) {
   const [reason, setReason] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -131,24 +136,24 @@ export function FailPaymentDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Fail Payment Session</DialogTitle>
+          <DialogTitle>{dict.adminPayments.dialogs.failTitle}</DialogTitle>
           <DialogDescription>
-            Mark this pending payment session as failed. Please provide an optional reason.
+            {dict.adminPayments.dialogs.failDesc}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <Input
-            placeholder="Reason (optional)"
+            placeholder={dict.adminPayments.dialogs.reasonPlaceholder}
             value={reason}
             onChange={(e) => setReason(e.target.value)}
           />
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isSubmitting}>
-            Cancel
+            {dict.adminPayments.dialogs.cancel}
           </Button>
           <Button variant="danger" onClick={handleSubmit} disabled={isSubmitting}>
-            {isSubmitting ? "Failing..." : "Fail Payment"}
+            {isSubmitting ? dict.adminPayments.dialogs.failing : dict.adminPayments.dialogs.failPayment}
           </Button>
         </DialogFooter>
       </DialogContent>

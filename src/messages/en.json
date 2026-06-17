@@ -29,10 +29,13 @@
   "groups": {
     "Overview": "Overview",
     "Access": "Access",
-    "Catalog": "Catalog",
     "Stores": "Stores",
-    "Operations": "Operations",
-    "Billing": "Billing",
+    "Catalog": "Catalog",
+    "Products": "Products",
+    "Banners": "Banners",
+    "Finance": "Finance",
+    "Claims": "Claims",
+    "Notifications": "Notifications",
     "Support": "Support"
   },
   "items": {
@@ -84,7 +87,6 @@
       "label": "Coupons",
       "description": "Inspect and patch coupon-level configuration."
     },
-
     "stores": {
       "label": "Stores",
       "description": "Approve, suspend, and bill merchants."
@@ -109,7 +111,6 @@
       "label": "Billing Profiles",
       "description": "Reference store billing profile data."
     },
-
     "commissions": {
       "label": "Commissions",
       "description": "Track payout status and invoicing workflow."
@@ -130,14 +131,122 @@
       "label": "Contact / Seller",
       "description": "Handle seller support tickets."
     },
-
     "notificationsBroadcast": {
       "label": "Notifications / Broadcast",
       "description": "Send broadcast notifications across the platform."
     },
+    "notificationCenter": {
+      "label": "Notification Center",
+      "description": "View and manage admin notifications."
+    },
     "chatbotSessions": {
       "label": "Chatbot Sessions",
       "description": "Inspect support chatbot conversations."
+    },
+    "travelBanners": {
+      "label": "Travel Banners",
+      "description": "Manage and create banners for travel products."
+    },
+    "offerClaims": {
+      "label": "Offer Claims",
+      "description": "Manage and audit customer offer claims."
+    },
+    "bannerClaims": {
+      "label": "Banner Claims",
+      "description": "Manage and audit store banner claims."
+    }
+  },
+  "adminNotifications": {
+    "list": {
+      "title": "Notification Center",
+      "description": "View and manage all admin notifications in one place.",
+      "eyebrow": "Support",
+      "total": "Total Notifications",
+      "unread": "Unread",
+      "read": "Read",
+      "sectionTitle": "Notifications",
+      "all": "All",
+      "unreadTab": "Unread ({count})",
+      "markAllRead": "Mark all as read",
+      "noUnread": "No unread notifications",
+      "caughtUp": "You're all caught up!",
+      "noNotifications": "No notifications yet",
+      "willAppear": "Notifications will appear here when events occur."
+    },
+    "broadcastList": {
+      "title": "Broadcast History",
+      "description": "View past notification broadcasts or create a new one.",
+      "eyebrow": "Support",
+      "newBroadcast": "New Broadcast",
+      "history": "History",
+      "loading": "Loading broadcast history...",
+      "failed": "Failed to load broadcasts",
+      "noBroadcasts": "No broadcasts found.",
+      "view": "View"
+    },
+    "broadcastCreate": {
+      "title": "Create Broadcast",
+      "description": "Send a typed admin broadcast request to the notification pipeline.",
+      "eyebrow": "Support",
+      "error": "Broadcast error",
+      "formTitle": "Broadcast payload",
+      "formDesc": "Compose a typed notification payload with recipient filters and optional metadata.",
+      "send": "Send broadcast"
+    },
+    "broadcastDetails": {
+      "title": "Broadcast Details",
+      "description": "Review the details and state of a dispatched broadcast.",
+      "eyebrow": "Support",
+      "loading": "Loading broadcast...",
+      "failed": "Failed",
+      "notFound": "Broadcast not found.",
+      "back": "Back to History",
+      "payload": "Payload",
+      "metadata": "Metadata",
+      "targets": "Targets",
+      "empty": "Empty",
+      "sentBy": "Sent by {name} on {date}",
+      "completed": "Completed",
+      "processing": "Processing",
+      "pending": "Pending",
+      "deliveryStats": "Delivery Stats",
+      "sent": "Sent",
+      "someFailed": "Some notifications failed to send. This can happen if a user's notification preferences are disabled, or if an email/push token is invalid.",
+      "created": "Created",
+      "duration": "Duration",
+      "durationSeconds": "{seconds}s",
+      "unknown": "Unknown"
+    },
+    "broadcastForm": {
+      "title": "Notification Title",
+      "titlePlaceholder": "e.g., Scheduled Maintenance",
+      "message": "Notification Message",
+      "messagePlaceholder": "Details of the notification...",
+      "type": "Notification Type",
+      "typeSelect": "Select notification type",
+      "targetType": "Target Audience",
+      "targetTypeSelect": "Select target audience",
+      "roles": "Target Roles",
+      "users": "Target Users",
+      "metadata": "Additional Metadata (JSON)",
+      "metadataPlaceholder": "{\"key\": \"value\"}",
+      "channel": "Channels",
+      "channelInfo": "Select the delivery channels for this broadcast.",
+      "inApp": "In-App",
+      "email": "Email",
+      "push": "Push",
+      "sms": "SMS",
+      "cancel": "Cancel",
+      "submit": "Submit"
+    },
+    "table": {
+      "type": "Type",
+      "title": "Title",
+      "target": "Target",
+      "status": "Status",
+      "date": "Date",
+      "sentFailed": "Sent / Failed",
+      "actions": "ACTIONS"
     }
   },
   "adminTravelBanners": {
@@ -212,6 +321,215 @@
       "actions": {
         "select": "Select"
       }
+    }
+  },
+  "adminPayments": {
+    "list": {
+      "title": "Payments",
+      "description": "Monitor payment activity and backend settlement payloads.",
+      "eyebrow": "Admin",
+      "rows": "Rows",
+      "reload": "Reload",
+      "requestError": "Request error",
+      "noPayments": "No payments found",
+      "emptyDesc": "The backend has not returned any payments yet.",
+      "search": "Search",
+      "searchDesc": "Search payments by invoice or payment ID",
+      "approve": "Approve",
+      "fail": "Fail",
+      "rowsHint": "Total payments loaded in this view.",
+      "filters": {
+        "status": "Status",
+        "allStatuses": "All statuses",
+        "reset": "Reset"
+      }
+    },
+    "details": {
+      "title": "Payment Details",
+      "description": "Review payment session properties, status, and associated context.",
+      "eyebrow": "Admin",
+      "loading": "Loading payment details...",
+      "failed": "Failed to load payment details",
+      "notFound": "Payment session not found.",
+      "back": "Back to List",
+      "sectionProperties": "Session Properties",
+      "sectionContext": "Store Context",
+      "sectionPlan": "Subscription Plan",
+      "status": "Status",
+      "invoiceId": "Invoice ID",
+      "amount": "Amount",
+      "currency": "Currency",
+      "method": "Method",
+      "provider": "Provider",
+      "createdAt": "Created",
+      "updatedAt": "Updated",
+      "storeName": "Store Name",
+      "storeType": "Store Type",
+      "noStore": "No store associated",
+      "planName": "Plan Name",
+      "legacy": "Legacy",
+      "planDesc": "Description",
+      "billingCycle": "Billing Cycle",
+      "maxProducts": "Max Products",
+      "maxBranches": "Max Branches",
+      "maxEmployees": "Max Employees",
+      "planCreated": "Plan Created",
+      "planId": "Plan ID",
+      "noPlan": "No plan associated"
+    },
+    "dialogs": {
+      "approveTitle": "Manual Payment Approval",
+      "approveDesc": "Approve a pending payment session manually. This will activate the associated subscription immediately.",
+      "method": "Payment Method",
+      "methodSelect": "Select method...",
+      "bankTransfer": "Bank Transfer",
+      "cash": "Cash",
+      "other": "Other",
+      "notes": "Notes (Optional)",
+      "notesPlaceholder": "Transaction ID, reference, or other details...",
+      "cancel": "Cancel",
+      "approving": "Approving...",
+      "approvePayment": "Approve Payment",
+      "failTitle": "Fail Payment Session",
+      "failDesc": "Mark this pending payment session as failed. Please provide an optional reason.",
+      "reasonPlaceholder": "Reason (optional)",
+      "failing": "Failing...",
+      "failPayment": "Fail Payment"
+    }
+  },
+  "adminSubscriptions": {
+    "list": {
+      "title": "Subscriptions",
+      "description": "Manage merchant subscription lifecycle state.",
+      "eyebrow": "Billing",
+      "rows": "Rows",
+      "reload": "Reload",
+      "requestError": "Request error",
+      "noSubscriptions": "No subscriptions found",
+      "emptyDesc": "The backend has not returned any subscriptions yet.",
+      "search": "Search",
+      "searchDesc": "Search by subscription ID or reference",
+      "cancel": "Cancel",
+      "upgrade": "Upgrade",
+      "view": "View",
+      "rowsHint": "Subscriptions currently loaded in this view.",
+      "filters": {
+        "status": "Status",
+        "allStatuses": "All statuses",
+        "reset": "Reset"
+      }
+    },
+    "details": {
+      "title": "Subscription Details",
+      "description": "Detailed view of a specific subscription state.",
+      "eyebrow": "Billing",
+      "loading": "Loading subscription details...",
+      "failed": "Failed to load subscription details",
+      "notFound": "Subscription not found.",
+      "back": "Back to List",
+      "sectionGeneral": "General Information",
+      "sectionLimits": "Limits & Usage",
+      "status": "Status",
+      "plan": "Plan",
+      "billingCycle": "Billing Cycle",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "nextBilling": "Next Billing",
+      "createdAt": "Created",
+      "updatedAt": "Updated",
+      "products": "Products",
+      "branches": "Branches",
+      "employees": "Employees"
+    },
+    "analytics": {
+      "title": "Subscription Analytics",
+      "description": "Key metrics and usage statistics.",
+      "activeSubscriptions": "Active Subscriptions",
+      "revenue": "Revenue",
+      "churnRate": "Churn Rate",
+      "mrr": "MRR",
+      "hints": {
+        "active": "Subscriptions currently active",
+        "revenue": "From paid payment sessions",
+        "mrr": "Monthly Recurring Revenue",
+        "churn": "Cancelled or suspended (30d)"
+      }
+    },
+    "dialogs": {
+      "cancelTitle": "Cancel Subscription",
+      "cancelDesc": "Are you sure you want to cancel this subscription? This action cannot be undone.",
+      "reasonPlaceholder": "Reason for cancellation",
+      "canceling": "Canceling...",
+      "cancelSubscription": "Cancel Subscription",
+      "suspendTitle": "Suspend Subscription",
+      "suspendDesc": "Are you sure you want to suspend this subscription? Please provide an optional reason below.",
+      "assignTitle": "Admin Override: Assign Plan",
+      "assignDesc": "Manually assign a subscription plan to this store. This generates a  paid payment session immediately."
+    }
+  },
+  "adminSubscriptionPlans": {
+    "list": {
+      "title": "Subscription Plans",
+      "description": "Maintain plan catalog and pricing definitions.",
+      "eyebrow": "Billing",
+      "rows": "Rows",
+      "reload": "Reload",
+      "requestError": "Request error",
+      "noPlans": "No plans found",
+      "emptyDesc": "The backend has not returned any subscription plans yet.",
+      "search": "Search",
+      "searchDesc": "Search by plan name",
+      "create": "Create Plan",
+      "edit": "Edit",
+      "delete": "Delete",
+      "rowsHint": "Plans currently loaded in this view.",
+      "filters": {
+        "status": "Status",
+        "allStatuses": "All statuses",
+        "reset": "Reset"
+      }
+    },
+    "details": {
+      "title": "Plan Details",
+      "description": "Detailed view of a subscription plan.",
+      "eyebrow": "Billing",
+      "loading": "Loading plan details...",
+      "failed": "Failed to load plan details",
+      "notFound": "Plan not found.",
+      "back": "Back to List",
+      "sectionGeneral": "General Information",
+      "sectionFeatures": "Features & Limits",
+      "name": "Name",
+      "price": "Price",
+      "billingCycle": "Billing Cycle",
+      "status": "Status",
+      "descriptionLabel": "Description",
+      "createdAt": "Created",
+      "updatedAt": "Updated",
+      "maxProducts": "Max Products",
+      "maxBranches": "Max Branches",
+      "maxEmployees": "Max Employees",
+      "features": "Features"
+    },
+    "form": {
+      "createTitle": "Create Subscription Plan",
+      "createDesc": "Define a new subscription plan with pricing and limits.",
+      "editTitle": "Edit Subscription Plan",
+      "editDesc": "Update an existing subscription plan.",
+      "nameLabel": "Plan Name",
+      "namePlaceholder": "e.g. Premium Plan",
+      "descLabel": "Description",
+      "descPlaceholder": "Brief description of the plan",
+      "priceLabel": "Price",
+      "pricePlaceholder": "e.g. 99.99",
+      "billingCycleLabel": "Billing Cycle",
+      "statusLabel": "Status",
+      "maxProductsLabel": "Maximum Products",
+      "maxBranchesLabel": "Maximum Branches",
+      "maxEmployeesLabel": "Maximum Employees",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "save": "Save Plan"
     }
   }
 }

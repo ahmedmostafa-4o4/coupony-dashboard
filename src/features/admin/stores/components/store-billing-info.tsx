@@ -23,12 +23,16 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { AssignSubscriptionDialog } from "@/features/admin/billing/subscriptions/components/subscription-action-dialogs";
 import type { StoresDictionary } from "../utils/get-dictionary";
 import { cn } from "@/lib/utils/cn";
+import { useParams } from "next/navigation";
+import { getGlobalDictionary } from "@/messages/get-dictionary";
 
 export function StoreBillingInfo({ storeId, dict }: { storeId: string; dict: StoresDictionary["details"]["billing"] }) {
   const [subscription, setSubscription] = useState<StoreSubscription | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [assignOpen, setAssignOpen] = useState(false);
+  const { lang } = useParams() as { lang: string };
+  const globalDict = getGlobalDictionary(lang);
 
   const load = async () => {
       try {
@@ -82,6 +86,7 @@ export function StoreBillingInfo({ storeId, dict }: { storeId: string; dict: Sto
           open={assignOpen}
           onOpenChange={setAssignOpen}
           onSuccess={load}
+          dict={globalDict}
         />
       </AdminSection>
     );
@@ -242,6 +247,7 @@ export function StoreBillingInfo({ storeId, dict }: { storeId: string; dict: Sto
         open={assignOpen}
         onOpenChange={setAssignOpen}
         onSuccess={load}
+        dict={globalDict}
       />
     </div>
   );

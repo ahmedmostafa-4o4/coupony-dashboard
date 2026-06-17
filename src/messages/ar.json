@@ -29,10 +29,13 @@
   "groups": {
     "Overview": "نظرة عامة",
     "Access": "الوصول",
-    "Catalog": "الكتالوج",
     "Stores": "المتاجر",
-    "Operations": "العمليات",
-    "Billing": "الفواتير",
+    "Catalog": "الكتالوج",
+    "Products": "المنتجات",
+    "Banners": "اللافتات",
+    "Finance": "المالية",
+    "Claims": "المطالبات",
+    "Notifications": "الإشعارات",
     "Support": "الدعم"
   },
   "items": {
@@ -108,7 +111,6 @@
       "label": "ملفات الفوترة",
       "description": "مرجع بيانات فوترة المتاجر."
     },
-
     "commissions": {
       "label": "العمولات",
       "description": "تتبع حالة الدفع والفوترة."
@@ -133,9 +135,118 @@
       "label": "إشعارات / بث",
       "description": "إرسال إشعارات البث عبر المنصة."
     },
+    "notificationCenter": {
+      "label": "مركز الإشعارات",
+      "description": "عرض وإدارة إشعارات المشرفين."
+    },
     "chatbotSessions": {
       "label": "جلسات الشات بوت",
       "description": "فحص محادثات الدعم."
+    },
+    "travelBanners": {
+      "label": "بانرات السفر",
+      "description": "إدارة وإنشاء بانرات للمنتجات السياحية."
+    },
+    "offerClaims": {
+      "label": "مطالبات العروض",
+      "description": "إدارة ومراجعة مطالبات العروض للعملاء."
+    },
+    "bannerClaims": {
+      "label": "مطالبات اللافتات",
+      "description": "إدارة ومراجعة مطالبات اللافتات للمتاجر."
+    }
+  },
+  "adminNotifications": {
+    "list": {
+      "title": "مركز الإشعارات",
+      "description": "عرض وإدارة كافة إشعارات المشرفين في مكان واحد.",
+      "eyebrow": "الدعم",
+      "total": "إجمالي الإشعارات",
+      "unread": "غير مقروء",
+      "read": "مقروء",
+      "sectionTitle": "الإشعارات",
+      "all": "الكل",
+      "unreadTab": "غير مقروء ({count})",
+      "markAllRead": "تحديد الكل كمقروء",
+      "noUnread": "لا توجد إشعارات غير مقروءة",
+      "caughtUp": "لقد قرأت كل شيء!",
+      "noNotifications": "لا توجد إشعارات بعد",
+      "willAppear": "ستظهر الإشعارات هنا عند حدوث أحداث."
+    },
+    "broadcastList": {
+      "title": "سجل البث",
+      "description": "عرض رسائل البث السابقة أو إنشاء واحدة جديدة.",
+      "eyebrow": "الدعم",
+      "newBroadcast": "بث جديد",
+      "history": "السجل",
+      "loading": "جاري تحميل سجل البث...",
+      "failed": "فشل تحميل رسائل البث",
+      "noBroadcasts": "لم يتم العثور على رسائل بث.",
+      "view": "عرض"
+    },
+    "broadcastCreate": {
+      "title": "إنشاء بث",
+      "description": "إرسال طلب بث إداري لخط الإشعارات.",
+      "eyebrow": "الدعم",
+      "error": "خطأ في البث",
+      "formTitle": "حمولة البث",
+      "formDesc": "تكوين إشعار مع فلاتر للمستلمين وبيانات إضافية.",
+      "send": "إرسال البث"
+    },
+    "broadcastDetails": {
+      "title": "تفاصيل البث",
+      "description": "مراجعة تفاصيل وحالة البث المُرسل.",
+      "eyebrow": "الدعم",
+      "loading": "جاري تحميل البث...",
+      "failed": "فشل",
+      "notFound": "لم يتم العثور على البث.",
+      "back": "العودة للسجل",
+      "payload": "الحمولة",
+      "metadata": "البيانات الوصفية",
+      "targets": "المستهدفين",
+      "empty": "فارغ",
+      "sentBy": "تم الإرسال بواسطة {name} في {date}",
+      "completed": "مكتمل",
+      "processing": "قيد المعالجة",
+      "pending": "قيد الانتظار",
+      "deliveryStats": "إحصائيات التسليم",
+      "sent": "تم الإرسال",
+      "someFailed": "فشل إرسال بعض الإشعارات. قد يحدث هذا إذا كانت تفضيلات إشعارات المستخدم معطلة، أو إذا كان رمز البريد الإلكتروني/الدفع غير صالح.",
+      "created": "تاريخ الإنشاء",
+      "duration": "المدة الزمنية",
+      "durationSeconds": "{seconds}ث",
+      "unknown": "مجهول"
+    },
+    "broadcastForm": {
+      "title": "عنوان الإشعار",
+      "titlePlaceholder": "مثال: صيانة مجدولة",
+      "message": "رسالة الإشعار",
+      "messagePlaceholder": "تفاصيل الإشعار...",
+      "type": "نوع الإشعار",
+      "typeSelect": "تحديد نوع الإشعار",
+      "targetType": "الجمهور المستهدف",
+      "targetTypeSelect": "تحديد الجمهور المستهدف",
+      "roles": "الأدوار المستهدفة",
+      "users": "المستخدمون المستهدفون",
+      "metadata": "بيانات إضافية (JSON)",
+      "metadataPlaceholder": "{\"key\": \"value\"}",
+      "channel": "القنوات",
+      "channelInfo": "تحديد قنوات توصيل هذا البث.",
+      "inApp": "داخل التطبيق",
+      "email": "البريد الإلكتروني",
+      "push": "إشعار دفع",
+      "sms": "رسالة نصية",
+      "cancel": "إلغاء",
+      "submit": "إرسال"
+    },
+    "table": {
+      "type": "النوع",
+      "title": "العنوان",
+      "target": "الهدف",
+      "status": "الحالة",
+      "date": "التاريخ",
+      "sentFailed": "المرسل / الفاشل",
+      "actions": "الإجراءات"
     }
   },
   "adminTravelBanners": {
@@ -210,6 +321,215 @@
       "actions": {
         "select": "تحديد"
       }
+    }
+  },
+  "adminPayments": {
+    "list": {
+      "title": "المدفوعات",
+      "description": "مراقبة نشاط الدفع وحمولات التسوية.",
+      "eyebrow": "الإدارة",
+      "rows": "الصفوف",
+      "reload": "إعادة تحميل",
+      "requestError": "خطأ في الطلب",
+      "noPayments": "لا توجد مدفوعات",
+      "emptyDesc": "لم ترجع الواجهة الخلفية أي مدفوعات حتى الآن.",
+      "search": "بحث",
+      "searchDesc": "البحث عن طريق الفاتورة أو معرف الدفع",
+      "approve": "موافقة",
+      "fail": "فشل",
+      "rowsHint": "إجمالي المدفوعات المحملة في هذا العرض.",
+      "filters": {
+        "status": "الحالة",
+        "allStatuses": "جميع الحالات",
+        "reset": "إعادة ضبط"
+      }
+    },
+    "details": {
+      "title": "تفاصيل الدفع",
+      "description": "مراجعة خصائص جلسة الدفع، الحالة، والسياق المرتبط.",
+      "eyebrow": "الإدارة",
+      "loading": "جاري تحميل تفاصيل الدفع...",
+      "failed": "فشل تحميل تفاصيل الدفع",
+      "notFound": "جلسة الدفع غير موجودة.",
+      "back": "العودة للقائمة",
+      "sectionProperties": "خصائص الجلسة",
+      "sectionContext": "سياق المتجر",
+      "sectionPlan": "خطة الاشتراك",
+      "status": "الحالة",
+      "invoiceId": "رقم الفاتورة",
+      "amount": "المبلغ",
+      "currency": "العملة",
+      "method": "الطريقة",
+      "provider": "المزود",
+      "createdAt": "تاريخ الإنشاء",
+      "updatedAt": "تاريخ التحديث",
+      "storeName": "اسم المتجر",
+      "storeType": "نوع المتجر",
+      "noStore": "لا يوجد متجر مرتبط",
+      "planName": "اسم الخطة",
+      "legacy": "قديمة",
+      "planDesc": "الوصف",
+      "billingCycle": "دورة الفوترة",
+      "maxProducts": "الحد الأقصى للمنتجات",
+      "maxBranches": "الحد الأقصى للفروع",
+      "maxEmployees": "الحد الأقصى للموظفين",
+      "planCreated": "تاريخ إنشاء الخطة",
+      "planId": "معرف الخطة",
+      "noPlan": "لا توجد خطة مرتبطة"
+    },
+    "dialogs": {
+      "approveTitle": "موافقة يدوية على الدفع",
+      "approveDesc": "الموافقة على جلسة الدفع المعلقة يدوياً. سيتم تفعيل الاشتراك المرتبط فوراً.",
+      "method": "طريقة الدفع",
+      "methodSelect": "اختر الطريقة...",
+      "bankTransfer": "تحويل بنكي",
+      "cash": "نقدي",
+      "other": "أخرى",
+      "notes": "ملاحظات (اختياري)",
+      "notesPlaceholder": "رقم العملية، المرجع، أو تفاصيل أخرى...",
+      "cancel": "إلغاء",
+      "approving": "جاري الموافقة...",
+      "approvePayment": "موافقة على الدفع",
+      "failTitle": "فشل جلسة الدفع",
+      "failDesc": "تحديد جلسة الدفع هذه كفاشلة. يرجى توفير سبب (اختياري).",
+      "reasonPlaceholder": "السبب (اختياري)",
+      "failing": "جاري الفشل...",
+      "failPayment": "فشل الدفع"
+    }
+  },
+  "adminSubscriptions": {
+    "list": {
+      "title": "الاشتراكات",
+      "description": "إدارة حالة دورة حياة اشتراكات التجار.",
+      "eyebrow": "الفوترة",
+      "rows": "الصفوف",
+      "reload": "إعادة تحميل",
+      "requestError": "خطأ في الطلب",
+      "noSubscriptions": "لا توجد اشتراكات",
+      "emptyDesc": "لم ترجع الواجهة الخلفية أي اشتراكات حتى الآن.",
+      "search": "بحث",
+      "searchDesc": "البحث عن طريق معرف الاشتراك أو المرجع",
+      "cancel": "إلغاء",
+      "upgrade": "ترقية",
+      "view": "عرض",
+      "rowsHint": "الاشتراكات المحملة حالياً في هذا العرض.",
+      "filters": {
+        "status": "الحالة",
+        "allStatuses": "جميع الحالات",
+        "reset": "إعادة ضبط"
+      }
+    },
+    "details": {
+      "title": "تفاصيل الاشتراك",
+      "description": "عرض مفصل لحالة اشتراك محدد.",
+      "eyebrow": "الفوترة",
+      "loading": "جاري تحميل تفاصيل الاشتراك...",
+      "failed": "فشل تحميل تفاصيل الاشتراك",
+      "notFound": "الاشتراك غير موجود.",
+      "back": "العودة للقائمة",
+      "sectionGeneral": "معلومات عامة",
+      "sectionLimits": "الحدود والاستخدام",
+      "status": "الحالة",
+      "plan": "الخطة",
+      "billingCycle": "دورة الفوترة",
+      "startDate": "تاريخ البدء",
+      "endDate": "تاريخ الانتهاء",
+      "nextBilling": "الفوترة القادمة",
+      "createdAt": "تاريخ الإنشاء",
+      "updatedAt": "تاريخ التحديث",
+      "products": "المنتجات",
+      "branches": "الفروع",
+      "employees": "الموظفين"
+    },
+    "analytics": {
+      "title": "تحليلات الاشتراكات",
+      "description": "المقاييس الرئيسية وإحصائيات الاستخدام.",
+      "activeSubscriptions": "الاشتراكات النشطة",
+      "revenue": "الإيرادات",
+      "churnRate": "معدل الإلغاء",
+      "mrr": "الإيرادات الشهرية المتكررة",
+      "hints": {
+        "active": "الاشتراكات النشطة حالياً",
+        "revenue": "من جلسات الدفع المدفوعة",
+        "mrr": "الإيرادات الشهرية المتكررة",
+        "churn": "تم الإلغاء أو الإيقاف (30 يومًا)"
+      }
+    },
+    "dialogs": {
+      "cancelTitle": "إلغاء الاشتراك",
+      "cancelDesc": "هل أنت متأكد من أنك تريد إلغاء هذا الاشتراك؟ لا يمكن التراجع عن هذا الإجراء.",
+      "reasonPlaceholder": "سبب الإلغاء",
+      "canceling": "جاري الإلغاء...",
+      "cancelSubscription": "إلغاء الاشتراك",
+      "suspendTitle": "إيقاف الاشتراك",
+      "suspendDesc": "هل أنت متأكد من إيقاف هذا الاشتراك؟ يرجى تقديم سبب اختياري.",
+      "assignTitle": "تعيين خطة يدوياً",
+      "assignDesc": "تعيين خطة اشتراك يدوياً لهذا المتجر. سينشئ هذا جلسة دفع مدفوعة بقيمة  فوراً."
+    }
+  },
+  "adminSubscriptionPlans": {
+    "list": {
+      "title": "خطط الاشتراك",
+      "description": "صيانة كتالوج الخطط وتعريفات التسعير.",
+      "eyebrow": "الفوترة",
+      "rows": "الصفوف",
+      "reload": "إعادة تحميل",
+      "requestError": "خطأ في الطلب",
+      "noPlans": "لا توجد خطط",
+      "emptyDesc": "لم ترجع الواجهة الخلفية أي خطط اشتراك حتى الآن.",
+      "search": "بحث",
+      "searchDesc": "البحث باسم الخطة",
+      "create": "إنشاء خطة",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "rowsHint": "الخطط المحملة حالياً في هذا العرض.",
+      "filters": {
+        "status": "الحالة",
+        "allStatuses": "جميع الحالات",
+        "reset": "إعادة ضبط"
+      }
+    },
+    "details": {
+      "title": "تفاصيل الخطة",
+      "description": "عرض مفصل لخطة الاشتراك.",
+      "eyebrow": "الفوترة",
+      "loading": "جاري تحميل تفاصيل الخطة...",
+      "failed": "فشل تحميل تفاصيل الخطة",
+      "notFound": "الخطة غير موجودة.",
+      "back": "العودة للقائمة",
+      "sectionGeneral": "معلومات عامة",
+      "sectionFeatures": "الميزات والحدود",
+      "name": "الاسم",
+      "price": "السعر",
+      "billingCycle": "دورة الفوترة",
+      "status": "الحالة",
+      "descriptionLabel": "الوصف",
+      "createdAt": "تاريخ الإنشاء",
+      "updatedAt": "تاريخ التحديث",
+      "maxProducts": "الحد الأقصى للمنتجات",
+      "maxBranches": "الحد الأقصى للفروع",
+      "maxEmployees": "الحد الأقصى للموظفين",
+      "features": "الميزات"
+    },
+    "form": {
+      "createTitle": "إنشاء خطة اشتراك",
+      "createDesc": "تعريف خطة اشتراك جديدة بالتسعير والحدود.",
+      "editTitle": "تعديل خطة الاشتراك",
+      "editDesc": "تحديث خطة اشتراك موجودة.",
+      "nameLabel": "اسم الخطة",
+      "namePlaceholder": "مثال: خطة مميزة",
+      "descLabel": "الوصف",
+      "descPlaceholder": "وصف مختصر للخطة",
+      "priceLabel": "السعر",
+      "pricePlaceholder": "مثال: 99.99",
+      "billingCycleLabel": "دورة الفوترة",
+      "statusLabel": "الحالة",
+      "maxProductsLabel": "الحد الأقصى للمنتجات",
+      "maxBranchesLabel": "الحد الأقصى للفروع",
+      "maxEmployeesLabel": "الحد الأقصى للموظفين",
+      "cancel": "إلغاء",
+      "saving": "جاري الحفظ...",
+      "save": "حفظ الخطة"
     }
   }
 }

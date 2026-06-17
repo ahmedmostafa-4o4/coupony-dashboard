@@ -10,13 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { UserSearchMultiSelect } from "./user-search-multi-select";
 import { RoleSearchMultiSelect } from "./role-search-multi-select";
 import type { BroadcastNotificationRequest } from "../types/notification-broadcast.types";
-
-const CHANNELS = [
-  { label: "Push", value: "push" },
-  { label: "Email", value: "email" },
-  { label: "SMS", value: "sms" },
-  { label: "In-app", value: "in_app" },
-];
+import type { NotificationsDictionary } from "../utils/get-dictionary";
 
 export function NotificationBroadcastForm({
   description,
@@ -24,13 +18,22 @@ export function NotificationBroadcastForm({
   onSubmit,
   submitLabel,
   title,
+  dict,
 }: {
   description: string;
   isSubmitting?: boolean;
   onSubmit: (payload: BroadcastNotificationRequest) => Promise<unknown>;
   submitLabel: string;
   title: string;
+  dict: NotificationsDictionary;
 }) {
+  const CHANNELS = [
+    { label: dict.broadcastForm.push, value: "push" },
+    { label: dict.broadcastForm.email, value: "email" },
+    { label: dict.broadcastForm.sms, value: "sms" },
+    { label: dict.broadcastForm.inApp, value: "in_app" },
+  ];
+
   const [formTitle, setFormTitle] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [channels, setChannels] = React.useState<string[]>(["push"]);
@@ -76,18 +79,18 @@ export function NotificationBroadcastForm({
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-700">Title</label>
+          <label className="text-sm font-medium text-slate-700">{dict.broadcastForm.title}</label>
           <Input 
-            placeholder="Important platform update" 
+            placeholder={dict.broadcastForm.titlePlaceholder} 
             value={formTitle} 
             onChange={(e) => setFormTitle(e.target.value)} 
           />
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-700">Message</label>
+          <label className="text-sm font-medium text-slate-700">{dict.broadcastForm.message}</label>
           <Textarea 
-            placeholder="Write the broadcast message shown to recipients." 
+            placeholder={dict.broadcastForm.messagePlaceholder} 
             className="min-h-[100px]"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -95,7 +98,7 @@ export function NotificationBroadcastForm({
         </div>
 
         <div className="space-y-2 md:col-span-2">
-          <label className="text-sm font-medium text-slate-700">Channels</label>
+          <label className="text-sm font-medium text-slate-700">{dict.broadcastForm.channel}</label>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mt-2">
             {CHANNELS.map((channel) => {
               const isChecked = channels.includes(channel.value);
@@ -124,13 +127,13 @@ export function NotificationBroadcastForm({
         </div>
 
         <div className="space-y-2 md:col-span-2">
-          <label className="text-sm font-medium text-slate-700">Target Roles</label>
+          <label className="text-sm font-medium text-slate-700">{dict.broadcastForm.roles}</label>
           <span className="block text-xs leading-5 text-slate-500">Search and select roles to broadcast to (optional).</span>
           <RoleSearchMultiSelect value={targetRoles} onChange={setTargetRoles} />
         </div>
 
         <div className="space-y-2 md:col-span-2">
-          <label className="text-sm font-medium text-slate-700">Target Specific Users</label>
+          <label className="text-sm font-medium text-slate-700">{dict.broadcastForm.users}</label>
           <span className="block text-xs leading-5 text-slate-500">Search and select specific users to receive this broadcast (optional).</span>
           <UserSearchMultiSelect value={targetUserIds} onChange={setTargetUserIds} />
         </div>

@@ -11,20 +11,23 @@ import {
 
 
 import { useBroadcast } from "../hooks/use-broadcast";
+import type { NotificationsDictionary } from "../utils/get-dictionary";
 
 export function NotificationBroadcastDetailsPage({
   lang,
   id,
+  dict,
 }: {
   lang: string;
   id: string;
+  dict: NotificationsDictionary;
 }) {
   const { item: broadcast, isLoading, error } = useBroadcast(id);
 
   if (isLoading) {
     return (
       <div className="py-12 text-center text-sm text-slate-500">
-        Loading broadcast details...
+        {dict.broadcastDetails.loading}
       </div>
     );
   }
@@ -32,7 +35,7 @@ export function NotificationBroadcastDetailsPage({
   if (error || !broadcast) {
     return (
       <div className="py-12 text-center text-sm text-rose-600">
-        Failed to load broadcast details: {error || "Unknown error"}
+        {dict.broadcastDetails.failed}: {error || "Unknown error"}
       </div>
     );
   }
@@ -40,8 +43,8 @@ export function NotificationBroadcastDetailsPage({
   return (
     <div className="space-y-6">
       <AdminPageHeader
-        description={`Sent by ${broadcast.admin?.first_name || "Unknown"} on ${format(new Date(broadcast.created_at), "PP p")}`}
-        eyebrow="Broadcast Details"
+        description={dict.broadcastDetails.sentBy.replace("{name}", broadcast.admin?.first_name || dict.broadcastDetails.unknown).replace("{date}", format(new Date(broadcast.created_at), "PP p"))}
+        eyebrow={dict.broadcastDetails.eyebrow}
         title={
           <div className="flex items-center gap-4">
             <Link
@@ -58,19 +61,19 @@ export function NotificationBroadcastDetailsPage({
             {broadcast.status === "completed" && (
               <span className="inline-flex items-center gap-1 rounded-md bg-green-100 text-green-700 px-3 py-1 text-sm font-medium">
                 <CheckCircle2 className="h-4 w-4" />
-                Completed
+                {dict.broadcastDetails.completed}
               </span>
             )}
             {broadcast.status === "failed" && (
               <span className="inline-flex items-center gap-1 rounded-md bg-rose-100 text-rose-700 px-3 py-1 text-sm font-medium">
                 <XCircle className="h-4 w-4" />
-                Failed
+                {dict.broadcastDetails.failed}
               </span>
             )}
             {(broadcast.status === "pending" || broadcast.status === "processing") && (
               <span className="inline-flex items-center gap-1 rounded-md border border-slate-200 bg-slate-50 text-slate-500 px-3 py-1 text-sm font-medium">
                 <Clock className="h-4 w-4" />
-                {broadcast.status === "processing" ? "Processing" : "Pending"}
+                {broadcast.status === "processing" ? dict.broadcastDetails.processing : dict.broadcastDetails.pending}
               </span>
             )}
           </div>
@@ -79,14 +82,14 @@ export function NotificationBroadcastDetailsPage({
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-6">
-          <AdminSection title="Payload Details">
+          <AdminSection title={dict.broadcastDetails.payload}>
             <div className="space-y-4">
               <div>
-                <h4 className="text-sm font-medium text-slate-500 mb-1">Title</h4>
+                <h4 className="text-sm font-medium text-slate-500 mb-1">{dict.table.title}</h4>
                 <p className="text-sm font-medium">{broadcast.title}</p>
               </div>
               <div>
-                <h4 className="text-sm font-medium text-slate-500 mb-1">Message</h4>
+                <h4 className="text-sm font-medium text-slate-500 mb-1">{dict.broadcastForm.message}</h4>
                 <div className="bg-slate-50 p-4 rounded-md border border-slate-100">
                   <p className="text-sm whitespace-pre-wrap">{broadcast.message}</p>
                 </div>
@@ -94,10 +97,10 @@ export function NotificationBroadcastDetailsPage({
             </div>
           </AdminSection>
 
-          <AdminSection title="Targeting">
+          <AdminSection title={dict.broadcastDetails.targets}>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <h4 className="text-sm font-medium text-slate-500 mb-2">Channels</h4>
+                <h4 className="text-sm font-medium text-slate-500 mb-2">{dict.broadcastForm.channel}</h4>
                 <div className="flex flex-wrap gap-2">
                   {broadcast.channels.map((channel) => (
                     <span key={channel} className="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 border-transparent">
@@ -107,7 +110,7 @@ export function NotificationBroadcastDetailsPage({
                 </div>
               </div>
               <div>
-                <h4 className="text-sm font-medium text-slate-500 mb-2">Target Roles</h4>
+                <h4 className="text-sm font-medium text-slate-500 mb-2">{dict.broadcastForm.roles}</h4>
                 <div className="flex flex-wrap gap-2">
                   {broadcast.target_roles?.length ? (
                     broadcast.target_roles.map((role) => (
@@ -116,18 +119,18 @@ export function NotificationBroadcastDetailsPage({
                       </span>
                     ))
                   ) : (
-                    <span className="text-sm text-slate-500">None</span>
+                    <span className="text-sm text-slate-500">{dict.broadcastDetails.empty}</span>
                   )}
                 </div>
               </div>
               <div className="col-span-2 mt-2">
-                <h4 className="text-sm font-medium text-slate-500 mb-2">Target User IDs</h4>
+                <h4 className="text-sm font-medium text-slate-500 mb-2">{dict.broadcastForm.users}</h4>
                 {broadcast.target_user_ids?.length ? (
                   <div className="bg-slate-50 p-3 rounded border text-xs font-mono text-slate-600 max-h-40 overflow-y-auto">
                     {broadcast.target_user_ids.join(", ")}
                   </div>
                 ) : (
-                  <span className="text-sm text-slate-500">None specified (Targeting by role only)</span>
+                  <span className="text-sm text-slate-500">{dict.broadcastDetails.empty}</span>
                 )}
               </div>
             </div>
@@ -135,40 +138,38 @@ export function NotificationBroadcastDetailsPage({
         </div>
 
         <div className="space-y-6">
-          <AdminSection title="Delivery Stats">
+          <AdminSection title={dict.broadcastDetails.deliveryStats}>
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-green-50 border border-green-100 p-4 rounded-lg flex flex-col items-center justify-center text-center">
                   <CheckCircle2 className="h-6 w-6 text-green-600 mb-2" />
                   <span className="text-2xl font-bold text-green-700">{broadcast.total_sent}</span>
-                  <span className="text-xs font-medium text-green-600 uppercase tracking-wider mt-1">Sent</span>
+                  <span className="text-xs font-medium text-green-600 uppercase tracking-wider mt-1">{dict.broadcastDetails.sent}</span>
                 </div>
                 <div className="bg-rose-50 border border-rose-100 p-4 rounded-lg flex flex-col items-center justify-center text-center">
                   <XCircle className="h-6 w-6 text-rose-600 mb-2" />
                   <span className="text-2xl font-bold text-rose-700">{broadcast.total_failed}</span>
-                  <span className="text-xs font-medium text-rose-600 uppercase tracking-wider mt-1">Failed</span>
+                  <span className="text-xs font-medium text-rose-600 uppercase tracking-wider mt-1">{dict.broadcastDetails.failed}</span>
                 </div>
               </div>
 
               {broadcast.total_failed > 0 && (
                 <div className="flex items-start gap-2 p-3 bg-amber-50 text-amber-800 rounded text-sm">
                   <AlertCircle className="h-5 w-5 shrink-0 mt-0.5 text-amber-600" />
-                  <p>
-                    Some notifications failed to send. This can happen if a user's notification preferences are disabled, or if an email/push token is invalid.
-                  </p>
+                  <p>{dict.broadcastDetails.someFailed}</p>
                 </div>
               )}
 
               <div className="space-y-3 pt-4 border-t border-slate-100">
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-500">Created</span>
+                  <span className="text-slate-500">{dict.broadcastDetails.created}</span>
                   <span className="font-medium text-slate-700">
                     {format(new Date(broadcast.created_at), "MMM d, yyyy h:mm a")}
                   </span>
                 </div>
                 {broadcast.completed_at && (
                   <div className="flex justify-between items-center text-sm">
-                    <span className="text-slate-500">Completed</span>
+                    <span className="text-slate-500">{dict.broadcastDetails.completed}</span>
                     <span className="font-medium text-slate-700">
                       {format(new Date(broadcast.completed_at), "MMM d, yyyy h:mm a")}
                     </span>
@@ -176,16 +177,16 @@ export function NotificationBroadcastDetailsPage({
                 )}
                 {broadcast.completed_at && (
                   <div className="flex justify-between items-center text-sm">
-                    <span className="text-slate-500">Duration</span>
+                    <span className="text-slate-500">{dict.broadcastDetails.duration}</span>
                     <span className="font-medium text-slate-700">
-                      {Math.max(
+                      {dict.broadcastDetails.durationSeconds.replace("{seconds}", Math.max(
                         1,
                         Math.round(
                           (new Date(broadcast.completed_at).getTime() -
                             new Date(broadcast.created_at).getTime()) /
                             1000,
-                        ),
-                      )}s
+                        )
+                      ).toString())}
                     </span>
                   </div>
                 )}

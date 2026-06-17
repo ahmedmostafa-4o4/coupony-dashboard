@@ -43,49 +43,6 @@ export const adminNavigation: AdminNavigationGroup[] = [
     ],
   },
   {
-    title: "Catalog",
-    items: [
-      {
-        key: "categories",
-        label: "Categories",
-        description: "Organize customer-facing offer categories.",
-        href: (lang) => createAdminHref(lang, "categories"),
-      },
-      {
-        key: "storeCategories",
-        label: "Store Categories",
-        description: "Manage merchant store classification.",
-        href: (lang) => createAdminHref(lang, "storeCategories"),
-      },
-
-      {
-        key: "banners",
-        label: "Banners",
-        description: "Manage and approve store promotional banners.",
-        href: (lang) => createAdminHref(lang, "banners"),
-      },
-      {
-        key: "travelBanners",
-        label: "Travel Banners",
-        description: "Manage and create banners for travel products.",
-        href: (lang) => createAdminHref(lang, "travelBanners"),
-      },
-      {
-        key: "products",
-        label: "Products",
-        description: "Create, update, and inspect live catalog products.",
-        href: (lang) => createAdminHref(lang, "products"),
-      },
-      {
-        key: "productRevisions",
-        label: "Product Revisions",
-        description:
-          "Review seller-submitted product changes awaiting approval.",
-        href: (lang) => createAdminHref(lang, "productRevisions"),
-      },
-    ],
-  },
-  {
     title: "Stores",
     items: [
       {
@@ -103,7 +60,82 @@ export const adminNavigation: AdminNavigationGroup[] = [
     ],
   },
   {
-    title: "Operations",
+    title: "Catalog",
+    items: [
+      {
+        key: "categories",
+        label: "Categories",
+        description: "Organize customer-facing offer categories.",
+        href: (lang) => createAdminHref(lang, "categories"),
+      },
+      {
+        key: "storeCategories",
+        label: "Store Categories",
+        description: "Manage merchant store classification.",
+        href: (lang) => createAdminHref(lang, "storeCategories"),
+      },
+    ],
+  },
+  {
+    title: "Products",
+    items: [
+      {
+        key: "products",
+        label: "Products",
+        description: "Create, update, and inspect live catalog products.",
+        href: (lang) => createAdminHref(lang, "products"),
+      },
+      {
+        key: "productRevisions",
+        label: "Product Revisions",
+        description:
+          "Review seller-submitted product changes awaiting approval.",
+        href: (lang) => createAdminHref(lang, "productRevisions"),
+      },
+    ],
+  },
+  {
+    title: "Banners",
+    items: [
+      {
+        key: "banners",
+        label: "Banners",
+        description: "Manage and approve store promotional banners.",
+        href: (lang) => createAdminHref(lang, "banners"),
+      },
+      {
+        key: "travelBanners",
+        label: "Travel Banners",
+        description: "Manage and create banners for travel products.",
+        href: (lang) => createAdminHref(lang, "travelBanners"),
+      },
+    ],
+  },
+  {
+    title: "Finance",
+    items: [
+      {
+        key: "payments",
+        label: "Payments",
+        description: "Monitor payment activity and anomalies.",
+        href: (lang) => createAdminHref(lang, "payments"),
+      },
+      {
+        key: "subscriptions",
+        label: "Subscriptions",
+        description: "Manage merchant subscription lifecycle state.",
+        href: (lang) => createAdminHref(lang, "subscriptions"),
+      },
+      {
+        key: "subscriptionPlans",
+        label: "Subscription Plans",
+        description: "Maintain plan catalog and pricing definitions.",
+        href: (lang) => createAdminHref(lang, "subscriptionPlans"),
+      },
+    ],
+  },
+  {
+    title: "Claims",
     items: [
       {
         key: "offerClaims",
@@ -117,28 +149,22 @@ export const adminNavigation: AdminNavigationGroup[] = [
         description: "Manage and audit store banner claims.",
         href: (lang) => createAdminHref(lang, "bannerClaims"),
       },
-      {
-        key: "payments",
-        label: "Payments",
-        description: "Monitor payment activity and anomalies.",
-        href: (lang) => createAdminHref(lang, "payments"),
-      },
     ],
   },
   {
-    title: "Billing",
+    title: "Notifications",
     items: [
       {
-        key: "subscriptions",
-        label: "Subscriptions",
-        description: "Manage merchant subscription lifecycle state.",
-        href: (lang) => createAdminHref(lang, "subscriptions"),
+        key: "notificationCenter",
+        label: "Notification Center",
+        description: "View and manage admin notifications.",
+        href: (lang) => createAdminHref(lang, "notificationCenter"),
       },
       {
-        key: "subscriptionPlans",
-        label: "Subscription Plans",
-        description: "Maintain plan catalog and pricing definitions.",
-        href: (lang) => createAdminHref(lang, "subscriptionPlans"),
+        key: "notificationsBroadcast",
+        label: "Notifications / Broadcast",
+        description: "Send broadcast notifications across the platform.",
+        href: (lang) => createAdminHref(lang, "notificationsBroadcast"),
       },
     ],
   },
@@ -156,19 +182,6 @@ export const adminNavigation: AdminNavigationGroup[] = [
         label: "Contact / Seller",
         description: "Handle seller support tickets.",
         href: (lang) => createAdminHref(lang, "contactSeller"),
-      },
-
-      {
-        key: "notificationCenter",
-        label: "Notification Center",
-        description: "View and manage admin notifications.",
-        href: (lang) => createAdminHref(lang, "notificationCenter"),
-      },
-      {
-        key: "notificationsBroadcast",
-        label: "Notifications / Broadcast",
-        description: "Send broadcast notifications across the platform.",
-        href: (lang) => createAdminHref(lang, "notificationsBroadcast"),
       },
       {
         key: "chatbotSessions",

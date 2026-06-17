@@ -11,9 +11,11 @@ import { useSubscriptionPlanActions } from "../hooks/use-subscription-plan-actio
 import { useSubscriptionPlansList } from "../hooks/use-subscription-plans-list";
 import type { SubscriptionPlansListFilters } from "../types/subscription-plan.types";
 
+import type { GlobalDictionary } from "@/messages/get-dictionary";
+
 const defaultFilters: SubscriptionPlansListFilters = { search: "", status: "all" };
 
-export function SubscriptionPlansListPage({ lang }: { lang: string }) {
+export function SubscriptionPlansListPage({ lang, dict }: { lang: string; dict: GlobalDictionary }) {
   const [filters, setFilters] = useState<SubscriptionPlansListFilters>(defaultFilters);
   const [activeComposer, setActiveComposer] = useState<string | null>(null);
   
@@ -22,7 +24,7 @@ export function SubscriptionPlansListPage({ lang }: { lang: string }) {
   const actions = useSubscriptionPlanActions(async () => { await listState.reload(); });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" dir={lang === "ar" ? "rtl" : "ltr"}>
       <AdminPageHeader
         actions={
           <>
@@ -31,21 +33,21 @@ export function SubscriptionPlansListPage({ lang }: { lang: string }) {
               variant="secondary"
               onClick={() => setActiveComposer("createAction")}
             >
-              Create plan
+              {dict.adminSubscriptionPlans.list.create}
             </Button>
             <Button variant="secondary" onClick={() => void listState.reload()}>
-              Reload
+              {dict.adminSubscriptionPlans.list.reload}
             </Button>
           </>
         }
-        description="Maintain the subscription plan catalog and pricing metadata."
-        eyebrow="Admin"
-        title="Subscription Plans"
+        description={dict.adminSubscriptionPlans.list.description}
+        eyebrow={dict.adminSubscriptionPlans.list.eyebrow}
+        title={dict.adminSubscriptionPlans.list.title}
       />
       <div className="grid gap-4 md:grid-cols-3">
         <KpiCard
-          description="Subscription Plans currently loaded from the API response."
-          title="Rows"
+          description={dict.adminSubscriptionPlans.list.rowsHint || "Plans currently loaded in this view."}
+          title={dict.adminSubscriptionPlans.list.rows}
           value={listState.total}
           icon={<LayersIcon />}
         />
@@ -54,15 +56,17 @@ export function SubscriptionPlansListPage({ lang }: { lang: string }) {
         onChange={setFilters}
         onReset={() => setFilters(defaultFilters)}
         values={filters}
+        dict={dict}
       />
       {listState.error ? (
-        <AdminSection title="Request error">
+        <AdminSection title={dict.adminSubscriptionPlans.list.requestError}>
           <p className="text-sm text-rose-600">{listState.error}</p>
         </AdminSection>
       ) : null}
       {activeComposer === "createAction" ? (
         <SubscriptionPlanForm
-          description="Create a subscription plan using the typed plan DTO."
+          dict={dict}
+          description={dict.adminSubscriptionPlans.form.createDesc}
           isSubmitting={actions.createAction.isSubmitting}
           mode="create"
           onSubmit={async (payload) => {
@@ -72,11 +76,12 @@ export function SubscriptionPlansListPage({ lang }: { lang: string }) {
               setActiveComposer(null);
             }
           }}
-          submitLabel="Create plan"
-          title="Create plan"
+          submitLabel={dict.adminSubscriptionPlans.form.save}
+          title={dict.adminSubscriptionPlans.form.createTitle}
         />
       ) : null}
       <SubscriptionPlansTable
+        dict={dict}
         items={listState.items}
         renderActions={(item) => (
           <div className="flex flex-wrap justify-end gap-2">
@@ -88,19 +93,19 @@ export function SubscriptionPlansListPage({ lang }: { lang: string }) {
                 String(item.id ?? ""),
               )}
             >
-              View
+              {dict.adminSubscriptionPlans.list.edit}
             </Link>
             <AdminConfirmDialog
-              confirmLabel="Delete"
-              description="This will call the mapped admin endpoint for the selected subscription plan."
+              confirmLabel={dict.adminSubscriptionPlans.list.delete}
+              description={dict.adminSubscriptionPlans.list.description}
               isPending={actions.deleteAction.isSubmitting}
               onConfirm={async () => {
                 await actions.deleteAction.submit(
                   String(item.id ?? ""),
                 );
               }}
-              title="Delete Subscription Plan"
-              triggerLabel="Delete"
+              title={dict.adminSubscriptionPlans.list.delete}
+              triggerLabel={dict.adminSubscriptionPlans.list.delete}
               variant="danger"
             />
           </div>

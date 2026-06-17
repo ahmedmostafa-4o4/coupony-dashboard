@@ -6,30 +6,33 @@ import { CheckCircle2, Clock, XCircle } from "lucide-react";
 
 
 import type { NotificationBroadcast } from "../types/notification-broadcast.types";
+import type { NotificationsDictionary } from "../utils/get-dictionary";
 
 export function BroadcastsTable({
   items,
+  dict,
   renderActions,
 }: {
   items: NotificationBroadcast[];
+  dict: NotificationsDictionary;
   renderActions?: (item: NotificationBroadcast) => ReactNode;
 }) {
   const columns: AdminColumn<NotificationBroadcast>[] = [
     {
       id: "title",
-      header: "Title",
+      header: dict.table.title,
       accessorKey: "title",
     },
     {
       id: "status",
-      header: "Status",
+      header: dict.table.status,
       cell: (item) => {
           const status = item.status;
           if (status === "completed") {
             return (
               <span className="inline-flex items-center gap-1 rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
                 <CheckCircle2 className="h-3 w-3" />
-                Completed
+                {dict.broadcastDetails.completed}
               </span>
             );
           }
@@ -37,21 +40,21 @@ export function BroadcastsTable({
             return (
               <span className="inline-flex items-center gap-1 rounded-md bg-rose-100 px-2 py-1 text-xs font-medium text-rose-700">
                 <XCircle className="h-3 w-3" />
-                Failed
+                {dict.broadcastDetails.failed}
               </span>
             );
           }
           return (
             <span className="inline-flex items-center gap-1 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-500">
               <Clock className="h-3 w-3" />
-              {status === "processing" ? "Processing" : "Pending"}
+              {status === "processing" ? dict.broadcastDetails.processing : dict.broadcastDetails.pending}
             </span>
           );
       },
     },
     {
       id: "channels",
-      header: "Channels",
+      header: dict.broadcastForm.channel,
       cell: (item) => {
           const channels = item.channels || [];
           return (
@@ -67,7 +70,7 @@ export function BroadcastsTable({
     },
     {
       id: "sent_failed",
-      header: "Sent / Failed",
+      header: dict.table.sentFailed,
       cell: (item) => (
           <div className="flex items-center gap-2 text-sm">
             <span className="text-green-600 font-medium">{item.total_sent}</span>
@@ -78,7 +81,7 @@ export function BroadcastsTable({
     },
     {
       id: "createdAt",
-      header: "Date",
+      header: dict.table.date,
       cell: (item) => formatAdminDate(item.created_at),
     },
   ];
@@ -89,8 +92,9 @@ export function BroadcastsTable({
       data={items}
       rowKey={(item) => String(item.id)}
       renderRowActions={renderActions}
-      emptyDescription="No broadcast notifications found."
-      emptyTitle="No Broadcasts"
+      emptyDescription={dict.broadcastList.noBroadcasts}
+      emptyTitle={dict.broadcastList.history}
+      actionsTitle={dict.table.actions}
     />
   );
 }

@@ -44,7 +44,7 @@ export function Topbar({
               <path d="M4 17h16" />
             </svg>
           </button>
-          <div>
+          <div className="sm:inline-block hidden">
             <p className="text-sm font-medium text-slate-500">
               {dict.app.name}
             </p>
@@ -58,7 +58,7 @@ export function Topbar({
           <button
             type="button"
             onClick={onOpenSearch}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:bg-slate-50"
+            className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:bg-slate-50"
             aria-label="Open global search"
             title="Search (Ctrl+K)"
           >
@@ -77,13 +77,7 @@ export function Topbar({
             </svg>
           </button>
           <NotificationBell lang={lang} />
-          <Link
-            href={createAdminHref(lang, "dashboard")}
-            className="rounded-2xl bg-slate-950 px-4 py-2 text-sm font-medium text-white! transition hover:bg-slate-800"
-          >
-            {dict.nav.dashboard}
-          </Link>
-          <LogoutButton className="rounded-2xl" dict={dict.nav} />
+          <LogoutButton compact className="rounded-2xl" dict={dict.nav} />
         </div>
       </div>
     </header>

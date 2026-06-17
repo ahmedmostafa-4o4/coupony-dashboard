@@ -1,4 +1,5 @@
 import { SubscriptionDetailsPage } from "@/features/admin/billing/subscriptions";
+import { getGlobalDictionary } from "@/messages/get-dictionary";
 
 export default async function Page({
   params,
@@ -7,5 +8,7 @@ export default async function Page({
 }) {
   const { lang, subscriptionId } = await params;
 
-  return <SubscriptionDetailsPage subscriptionId={subscriptionId} lang={lang} />;
+  const dict = await getGlobalDictionary(lang);
+
+  return <SubscriptionDetailsPage subscriptionId={subscriptionId} lang={lang} dict={dict} />;
 }

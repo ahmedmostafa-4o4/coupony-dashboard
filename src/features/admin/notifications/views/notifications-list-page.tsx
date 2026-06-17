@@ -15,10 +15,11 @@ import { useAdminNotificationContext } from "../context/admin-notification-provi
 import { NotificationItem } from "../components/notification-item";
 import { resolveNotificationHref } from "../utils/resolve-notification-href";
 import type { AdminNotification } from "../types/admin-notification.types";
+import type { NotificationsDictionary } from "../utils/get-dictionary";
 
 type FilterTab = "all" | "unread";
 
-export function NotificationsListPage({ lang }: { lang: string }) {
+export function NotificationsListPage({ lang, dict }: { lang: string; dict: NotificationsDictionary }) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<FilterTab>("all");
 
@@ -50,34 +51,34 @@ export function NotificationsListPage({ lang }: { lang: string }) {
   }
 
   const tabs: { key: FilterTab; label: string }[] = [
-    { key: "all", label: "All" },
-    { key: "unread", label: `Unread (${unreadCount})` },
+    { key: "all", label: dict.list.all },
+    { key: "unread", label: dict.list.unreadTab.replace("{count}", unreadCount.toString()) },
   ];
 
   return (
     <div className="space-y-6">
       <AdminPageHeader
-        description="View and manage all admin notifications in one place."
-        eyebrow="Support"
-        title="Notification Center"
+        description={dict.list.description}
+        eyebrow={dict.list.eyebrow}
+        title={dict.list.title}
       />
 
       {/* Stat cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <KpiCard
-          title="Total Notifications"
+          title={dict.list.total}
           value={total}
           description=""
           icon={<BellIcon />}
         />
         <KpiCard
-          title="Unread"
+          title={dict.list.unread}
           value={unreadCount}
           description=""
           icon={<BellRingIcon />}
         />
         <KpiCard
-          title="Read"
+          title={dict.list.read}
           value={Math.max(0, total - unreadCount)}
           description=""
           icon={<CheckIcon />}
@@ -85,7 +86,7 @@ export function NotificationsListPage({ lang }: { lang: string }) {
       </div>
 
       {/* Filters + Actions */}
-      <AdminSection title="Notifications">
+      <AdminSection title={dict.list.sectionTitle}>
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           {/* Tabs */}
           <div className="flex gap-1 rounded-xl bg-slate-100 p-1">
@@ -124,7 +125,7 @@ export function NotificationsListPage({ lang }: { lang: string }) {
                 <path d="m9 12 2 2 4-4" />
                 <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z" />
               </svg>
-              Mark all as read
+              {dict.list.markAllRead}
             </button>
           )}
         </div>
@@ -153,13 +154,13 @@ export function NotificationsListPage({ lang }: { lang: string }) {
             </div>
             <p className="mt-4 text-sm font-medium text-slate-600">
               {activeTab === "unread"
-                ? "No unread notifications"
-                : "No notifications yet"}
+                ? dict.list.noUnread
+                : dict.list.noNotifications}
             </p>
             <p className="mt-1 text-xs text-slate-400">
               {activeTab === "unread"
-                ? "You're all caught up!"
-                : "Notifications will appear here when events occur."}
+                ? dict.list.caughtUp
+                : dict.list.willAppear}
             </p>
           </div>
         ) : (
